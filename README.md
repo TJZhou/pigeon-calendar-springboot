@@ -5,3 +5,6 @@
 # 3. Use "ng serve --open" to compile and run 
 # 4. 
 # 5.~~~
+# 6
+# 7
+# 8
