@@ -7,6 +7,8 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { DailyScheduleComponent } from './daily-schedule/daily-schedule.component';
 import { WeeklyScheduleComponent } from './weekly-schedule/weekly-schedule.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { WeeklyScheduleComponent } from './weekly-schedule/weekly-schedule.compo
     CalendarComponent,
     NavbarComponent,
     DailyScheduleComponent,
-    WeeklyScheduleComponent
+    WeeklyScheduleComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
