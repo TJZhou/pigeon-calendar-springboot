@@ -1,7 +1,13 @@
+div{
+  padding:3px;
+  border-radius: 20px;
+}
+
 .wrapper{
   position: absolute;
   margin-top:100px;
-  width:230px;
+  width:260px;
+  padding-left:20px;
 }
 
 .font-gray{
@@ -22,7 +28,52 @@
 }
 
 .calendar-days{
+  cursor: pointer;
   width:30px;
   height:30px;
   //border:1px solid black;
+}
+
+.date {
+  width:176px;
+  text-align: left;
+  padding-left:15px;
+}
+
+.inactive{
+  //background:gray;
+}
+
+.prev{
+  float:right;
+  font-size: 20px;
+
+}
+.prev:hover{
+  cursor: pointer;
+  background: lightgray;
+}
+
+.middle{
+  width:10px;
+}
+
+.next{
+  cursor: pointer;
+  float:right;
+  font-size: 20px;
+}
+.next:hover{
+  cursor: pointer;
+  background: lightgray;
+}
+
+.today{
+  background:rgb(36, 118, 225);
+  color: white;
+}
+
+.selected{
+  background:rgba(36, 118, 225, 0.5);
+  color: white;
 }

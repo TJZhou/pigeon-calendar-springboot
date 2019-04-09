@@ -9,20 +9,55 @@ import * as moment from 'moment';
 export class CalendarComponent implements OnInit {
   public date = moment();
   public dateArr;
-  constructor() {}
+  public clickedDay;
+
+  constructor() {
+  }
 
   ngOnInit() {
     this.dateArr = this.createCalendar(this.date);
   }
 
+  todayCheck(day) {
+    if (day === null) {
+      return;
+    } else {
+      return moment().format('L') === day.format('L');
+    }
+  }
+
   createCalendar(month) {
     const firstDay = moment(month).startOf('M');
-    const days = Array.apply(null, { length: month.daysInMonth() + 1 })
+    const days = Array.apply(null, { length: month.daysInMonth() })
       .map(Number.call, Number)
-      .slice(1);
+      .map(n => {
+        return moment(firstDay).add(n, 'd');
+      });
     for (let n = 0; n < firstDay.weekday(); n++) {
       days.unshift(null);
     }
     return days;
+  }
+
+  nextMonth() {
+    this.date.add(1, 'M');
+    this.dateArr = this.createCalendar(this.date);
+  }
+
+  prevMonth() {
+    this.date.subtract(1, 'M');
+    this.dateArr = this.createCalendar(this.date);
+  }
+
+  isSelected(day) {
+    if (day === null || this.clickedDay === undefined) {
+      return;
+    } else {
+      return this.clickedDay.format('L') === day.format('L');
+    }
+  }
+
+  select(day) {
+      this.clickedDay = day;
   }
 }
