@@ -1,6 +1,10 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <app-navbar></app-navbar>
 <app-calendar></app-calendar>
-<app-weekly-schedule></app-weekly-schedule>
-<app-daily-schedule [hidden] = true></app-daily-schedule>
+<div class = "wrapper">
+  <button [ngClass]="{'selected':true}">Day</button>
+  <button [ngClass]="{'selected':false}">Week</button>
+</div>
+<app-weekly-schedule [hidden] = true></app-weekly-schedule>
+<app-daily-schedule [hidden] = false></app-daily-schedule>
 <router-outlet></router-outlet>

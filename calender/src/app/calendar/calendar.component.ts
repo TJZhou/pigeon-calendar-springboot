@@ -50,7 +50,7 @@ export class CalendarComponent implements OnInit {
   }
 
   isSelected(day) {
-    if (day === null || this.clickedDay === undefined) {
+    if (day === null || this.clickedDay === undefined || this.clickedDay === null) {
       return;
     } else {
       return this.clickedDay.format('L') === day.format('L');
