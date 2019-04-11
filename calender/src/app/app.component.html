@@ -2,11 +2,32 @@
 <app-navbar></app-navbar>
 <app-calendar (changeDay)="onChangeDay($event)"></app-calendar>
 <div class = "wrapper">
-  <button [ngClass]="{'selected':false}">Today</button>
-  <div class = "today">{{curDay}}</div>
-  <button class = "rightBtn" [ngClass]="{'selected':false}">Week</button>
-  <button class = "rightBtn" [ngClass]="{'selected':true}">Day</button>
+  <button routerLink="/day"
+          (click) = "currentDay()">Today</button>
+  <div name = "previous"
+       class = "prev inline-block"
+       (click) = "previous()"> <
+  </div>
+  <div name = "today"
+       class = "today inline-block">
+       {{curDayFormat}}
+  </div>
+  <div name = "next"
+       class = "next inline-block"
+       (click) = "next()"> >
+  </div>
+  <button class = "rightBtn"
+          [ngClass]="{'selected':!isSelected}"
+          (click) = "isSelected = !isSelected"
+          routerLink="/week">
+          Week
+  </button>
+  <button class = "rightBtn"
+          [ngClass]="{'selected':isSelected}"
+          (click) = "isSelected = !isSelected"
+          routerLink="/day">
+          Day
+  </button>
 </div>
-<app-weekly-schedule [hidden] = true></app-weekly-schedule>
-<app-daily-schedule [hidden] = false></app-daily-schedule>
+
 <router-outlet></router-outlet>

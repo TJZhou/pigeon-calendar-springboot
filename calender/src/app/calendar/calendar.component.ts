@@ -18,7 +18,7 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit() {
     this.dateArr = this.createCalendar(this.date);
-    this.clickedDay = this.date.format('MM/DD');
+    this.clickedDay = this.date;
     this.changeDay.emit(this.clickedDay);
     console.log(this.clickedDay);
   }
@@ -65,7 +65,7 @@ export class CalendarComponent implements OnInit {
 
   select(day) {
       this.clickedDay = day.format('MM/DD');
-      this.changeDay.emit(this.clickedDay);
+      this.changeDay.emit(day);
       console.log(this.clickedDay);
   }
 }
