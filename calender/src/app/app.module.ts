@@ -7,6 +7,13 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { DailyScheduleComponent } from './daily-schedule/daily-schedule.component';
 import { WeeklyScheduleComponent } from './weekly-schedule/weekly-schedule.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material';
+import { MatInputModule } from '@angular/material';
+import { MatIconModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -14,11 +21,18 @@ import { WeeklyScheduleComponent } from './weekly-schedule/weekly-schedule.compo
     CalendarComponent,
     NavbarComponent,
     DailyScheduleComponent,
-    WeeklyScheduleComponent
+    WeeklyScheduleComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
