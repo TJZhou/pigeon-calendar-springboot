@@ -1,0 +1,32 @@
+.wrapper{
+  height:107%;
+  width:calc(100% - 330px);
+  border-left: solid 1px lightgray;
+  margin-top:100px;
+  margin-left: 300px;
+  padding-left: 20px;
+  position: absolute;
+  min-width: 500px;
+  button{
+    //background-color:rgba(36, 118, 225,0.5);
+    cursor: pointer;
+    display: inline-block;
+    width:70px;
+    height:30px;
+    font-size: 16px;
+    border-radius: 10px;
+    margin-right: 10px;
+  }
+  .selected, button:hover{
+    background-color:rgba(36, 118, 225,0.7);
+    color:white;
+  }
+
+  .today{
+    display:inline-block;
+    font-size: 20px;
+  }
+  .rightBtn{
+    float: right;
+  }
+}

@@ -1,8 +1,12 @@
+import { CalendarComponent } from './../calendar/calendar.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavbarComponent } from './navbar.component';
 
 describe('NavbarComponent', () => {
+
+  // @input() date: CalendarComponent;
+
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
 

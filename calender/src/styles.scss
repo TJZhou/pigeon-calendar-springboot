@@ -5,6 +5,23 @@ $black:rgb(0, 0, 0);
 body{
   font-family: 'Open Sans',serif;
   margin:0;
+  height:100%;
+  width:100%;
+  //position:absolute;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-center{
+  justify-content:center;
+  align-items: center;
+}
+
+.flex-column{
+  flex-direction: column;
 }
 
 html, body { height: 100%; }
