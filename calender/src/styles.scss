@@ -1,7 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+$black:rgb(0, 0, 0);
 
 body{
   font-family: 'Open Sans',serif;
   margin:0;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.spacer{
+  flex-grow: 1;
+}
+
+.user-form-list{
+  width:600px;
+  padding:10px;
+  margin: auto;
+}
+
+.list-wapper{
+  border: 1px solid black;
+  box-shadow: 0 2px 2px
 }
