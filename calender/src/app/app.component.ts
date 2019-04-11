@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { CalendarComponent } from './calendar/calendar.component';
+import { Component, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  @ViewChild(CalendarComponent)
+  public curDay;
+
   title = 'calender';
+  onChangeDay(clickedDay) {
+    this.curDay = clickedDay;
+  }
 }

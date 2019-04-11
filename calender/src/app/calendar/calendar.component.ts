@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import * as moment from 'moment';
 
 @Component({
@@ -7,6 +7,8 @@ import * as moment from 'moment';
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit {
+  @Output() changeDay = new EventEmitter<string>();
+
   public date = moment();
   public dateArr;
   public clickedDay;
@@ -16,8 +18,12 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit() {
     this.dateArr = this.createCalendar(this.date);
+    this.clickedDay = this.date.format('MM/DD');
+    this.changeDay.emit(this.clickedDay);
+    console.log(this.clickedDay);
   }
 
+  // if it returns true, marks the background of today as blue
   todayCheck(day) {
     if (day === null) {
       return;
@@ -39,11 +45,11 @@ export class CalendarComponent implements OnInit {
     return days;
   }
 
+  // git the next month or previous
   nextMonth() {
     this.date.add(1, 'M');
     this.dateArr = this.createCalendar(this.date);
   }
-
   prevMonth() {
     this.date.subtract(1, 'M');
     this.dateArr = this.createCalendar(this.date);
@@ -53,11 +59,13 @@ export class CalendarComponent implements OnInit {
     if (day === null || this.clickedDay === undefined || this.clickedDay === null) {
       return;
     } else {
-      return this.clickedDay.format('L') === day.format('L');
+      return this.clickedDay === day.format('MM/DD');
     }
   }
 
   select(day) {
-      this.clickedDay = day;
+      this.clickedDay = day.format('MM/DD');
+      this.changeDay.emit(this.clickedDay);
+      console.log(this.clickedDay);
   }
 }
