@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 import { MatIconModule } from '@angular/material';
+import { EventComponent } from './event/event.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { MatIconModule } from '@angular/material';
     DailyScheduleComponent,
     WeeklyScheduleComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    EventComponent
   ],
   imports: [
     BrowserModule,
