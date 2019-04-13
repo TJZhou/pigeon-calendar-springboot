@@ -1,3 +1,7 @@
+.control {
+    position: relative;
+}
+
 input:focus, textarea:focus {
     outline: none;
 }
@@ -12,6 +16,7 @@ input:focus, textarea:focus {
     padding: 30px 30px 30px 30px;
     // padding-bottom: 8px;
     box-shadow: 0 0 30px 0 rgba(0,0,0,0.8);
+    z-index: 10;
 }
 
 .input-title {
@@ -69,6 +74,7 @@ input:focus {
 }
 
 .choose-date {
+    position: relative;
     margin-top: 10px;
     width: 390px;
 }
@@ -150,19 +156,25 @@ input:focus {
     background: #2385db;
 }
 
+app-time-chooser {
+    z-index: 20;
+}
+
+
 .time-chooser {
     position: relative;
-    top: 13px;
-    left: 100px;
-    width: 150px;
+    top: -50px;
+    left: 200px;
+    width: 130px;
     max-height: 200px;
     border-radius: 5px;
     padding: 10px 10px 10px 10px;
     // padding-bottom: 8px;
-    box-shadow: 0 0 5px 0 rgba(0,0,0,0.8);
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
     background-color: white;
     font-size: 13px;
     color: #747272;
+    z-index: 20;
 }
 
 .scroll {

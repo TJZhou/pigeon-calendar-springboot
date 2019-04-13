@@ -1,51 +1,49 @@
-<div class="container">
-  <div class="close" (click)="goBack()">
-    <div class="icon"></div>
-  </div>
-  <div class="content">
-
-      <label for="title">
-        <input [(ngModel)]="title"
-          type="text" class="input-title" placeholder="Add Title">
-      </label>
-
-      <label for="location">
-        <input [(ngModel)]="location"
-          type="text" class="input-address" placeholder="Add Location">
-      </label>
-
-      <div class="choose-date">
-        <div class="timer"></div>
-        <div for="date" class="date-line">
-            <input [(ngModel)]="startDateTemp" (click)="selectStartDate()"
-                type="text" class="d-date-left" placeholder="Start Date" >
-            <input [(ngModel)]="startTimeTemp" (click)="selectStartTime()"
-                type="text" class="d-time" placeholder="Start Time" >
-            <!-- <div *ngIf="judgeSelectTime()" class="time-chooser">
-                <div class="scroll">
-                    <div *ngFor="let time of startTimeArr"  class="item" >
-                      <span>{{time}}</span>
-                    </div>
-                </div>
-            </div> -->
-            <span>—</span>
-            <input [(ngModel)]="endTimeTemp" (click)="selectEndTime()"
-                type="text" class="d-time" placeholder="End Time" >
-            <input [(ngModel)]="endDateTemp" (click)="selectEndDate()"
-                type="text" class="d-date" placeholder="End date" >
+<div class="control">
+    <div class="container">
+        <div class="close" (click)="goBack()">
+          <div class="icon"></div>
         </div>
-      </div>  
-
-      <button class="save-button" (click)="onSubmit()">Save</button>
-
-  </div>
-</div> 
-
-<!-- <div class="time-chooser">
-    <div class="scroll">
-        <div *ngFor="let time of startTimeArr"  class="item" >
-          <span>{{time}}</span>
+        <div class="content">
+      
+            <label for="title">
+              <input [(ngModel)]="title"
+                type="text" class="input-title" placeholder="Add Title">
+            </label>
+      
+            <label for="location">
+              <input [(ngModel)]="location"
+                type="text" class="input-address" placeholder="Add Location">
+            </label>
+      
+            <div class="choose-date">
+              <div class="timer"></div>
+              <div for="date" class="date-line">
+                  <input [(ngModel)]="startDateTemp" (click)="selectStartDate()"
+                      type="text" class="d-date-left" placeholder="Start Date" >
+                  <input [(ngModel)]="startTimeTemp" (click)="selectStartTime()"
+                      type="text" class="d-time" placeholder="Start Time" >
+                  <span>—</span>
+                  <input [(ngModel)]="endTimeTemp" (click)="selectEndTime()"
+                      type="text" class="d-time" placeholder="End Time" >
+                  <input [(ngModel)]="endDateTemp" (click)="selectEndDate()"
+                      type="text" class="d-date" placeholder="End date" >
+              </div>
+            </div>  
+      
+            <button class="save-button" (click)="onSubmit()">Save</button>
+      
+        </div>
+    </div> 
+      
+    <div *ngIf="judgeSelectStartTime() === true" class="time-chooser">
+        <div class="scroll">
+            <div *ngFor="let time of startTimeArr"  class="item" >
+              <span>{{time}}</span>
+            </div>
         </div>
     </div>
-</div> -->
+</div>
+
 <!-- <app-calendar></app-calendar> -->
+
+<router-outlet></router-outlet>
