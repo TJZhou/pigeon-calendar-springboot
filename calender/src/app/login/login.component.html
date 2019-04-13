@@ -1,34 +1,17 @@
-<div >
-  <div >
-    <div >Login</div>
-
-    <form [formGroup]="loginForm" (ngSubmit)="loginForm.valid && onLoginSubmit()" novalidate>
-      <div class="form-container">
-        <mat-form-field>
-            <input id="email"
-                   matInput
-                   formControlName="email"
-                   [(ngModel)]="user.email"
-                   placeholder="Enter your email" />
-        </mat-form-field>
-
-        <mat-form-field>
-            <input id="password"
-                   matInput
-                   formControlName="password"
-                   [(ngModel)]="user.password"
-                   placeholder="Enter your password"
-                   [type]="hidden ? 'password':'text'" />
-              <mat-icon matSuffix (click)="hide = !hide">
-                {{hidden ? 'visibility' : 'visibility_off'}}
-              </mat-icon>
-          </mat-form-field>
-
-          <button mat-button type="submit"
-                  class="mat-raised-button mat-primary"
-                  [disabled]="!loginForm.valid">Login</button>
-          <button mat-button routerLink="/register" class="divider">Register</button>
-      </div>
-    </form>
-  </div>
+<h1 mat-dialog-title>Login My Account</h1>
+<form>
+<div mat-dialog-content>
+  <p>Your email address</p>
+  <mat-form-field>
+      <input matInput [(ngModel)]="data.email">
+  </mat-form-field>
+  <p>Password</p>
+  <mat-form-field>
+      <input matInput [(ngModel)]="data.password">
+  </mat-form-field>
 </div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Ok</button>
+</div>
+</form>

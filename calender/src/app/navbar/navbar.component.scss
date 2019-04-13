@@ -6,7 +6,7 @@ div {
   margin-top:10px;
   //position: fixed;
   width: 100%;
-  height: 50px;
+  height: 60px;
   border-bottom: 1px solid lightgray;
   min-width: 782px;
 }
@@ -26,13 +26,21 @@ div {
   //padding-left: 35%;
 }
 
+.loginRegister {
+  font-size: 16px;
+  color: black;
+  cursor: pointer;
+  &:hover {
+    color: #2476E1;
+  }
+}
+
 .user {
   float:right;
   padding-right:10px;
   width:40px;
   height: 40px;
-  background-repeat: no-repeat;
-  background-image: url(../pic/user.svg);
+  cursor: pointer;
 }
 
 .Google-Calendar-Icon {

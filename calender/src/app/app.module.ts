@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CalendarComponent } from './calendar/calendar.component';
@@ -14,7 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 import { MatIconModule } from '@angular/material';
-import { EventComponent } from './event/event.component';
+import { MatDialogModule } from '@angular/material'
 
 @NgModule({
   declarations: [
@@ -24,8 +24,7 @@ import { EventComponent } from './event/event.component';
     DailyScheduleComponent,
     WeeklyScheduleComponent,
     LoginComponent,
-    RegisterComponent,
-    EventComponent
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +33,9 @@ import { EventComponent } from './event/event.component';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    FormsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

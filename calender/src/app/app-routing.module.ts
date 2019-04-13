@@ -9,8 +9,8 @@ const routes: Routes = [
   { path: '', component: DailyScheduleComponent },
   { path: 'day', component: DailyScheduleComponent },
   { path: 'week', component: WeeklyScheduleComponent },
-  { path: 'Register', component: RegisterComponent},
-  { path: 'Login', component: LoginComponent},
+  { path: 'register', component: RegisterComponent},
+  { path: 'login', component: LoginComponent},
 
 ];
 
