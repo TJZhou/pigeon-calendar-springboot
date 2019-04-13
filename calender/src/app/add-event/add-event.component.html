@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="close">
+    <div class="icon"></div>
+  </div>
+  <div class="content">
+
+      <label for="title">
+        <input type="text" class="input-title" placeholder="Add Title">
+      </label>
+
+      <label for="location">
+          <input type="text" class="input-address" placeholder="Add Location">
+      </label>
+
+      <div class="choose-date">
+        <div class="timer"></div>
+        <div for="date" class="date-line">
+            <input [(ngModel)]="startDate"
+                type="text" class="d-date-left" placeholder="Start Date" >
+            <input [(ngModel)]="startTime" (click)="select()"
+                type="text" class="d-time" placeholder="Start Time" >
+            <span>—</span>
+            <input [(ngModel)]="endTime"
+                type="text" class="d-time" placeholder="End Time" >
+            <input [(ngModel)]="endDate"
+                type="text" class="d-date" placeholder="End date" >
+        </div>
+      </div>  
+
+      <button class="save-button">Save</button>
+
+  </div>
+</div> 
+
+<!-- <div class="time-choose">
+    <div class="scroll">
+        <div *ngFor="let time of startTimeArr">{{time}}</div>
+    </div>
+</div> -->
+<!-- <app-calendar></app-calendar> -->
