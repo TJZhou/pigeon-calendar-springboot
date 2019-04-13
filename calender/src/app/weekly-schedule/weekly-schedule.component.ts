@@ -13,6 +13,8 @@ export class WeeklyScheduleComponent implements OnInit {
   public timingArr = new Array(24);
   public weekday;
   public weekdayArr = new Array(7);
+  public dateArr = new Array(7);
+  public formatDate = new Array(7);
 
   constructor() { }
 
@@ -20,9 +22,10 @@ export class WeeklyScheduleComponent implements OnInit {
     this.curDay = this.date.format('L');
     this.createTiming();
     this.createWeekday();
+    this.createDate();
   }
 
-  createTiming() {
+  createTiming(): void {
     for ( let i = 0; i < 10; i++) {
       this.timingArr[i] = '0' + i + ':00';
     }
@@ -31,13 +34,24 @@ export class WeeklyScheduleComponent implements OnInit {
     }
   }
 
-  createWeekday() {
-      this.weekdayArr[0] = 'SUN  ' + (moment().date() - moment().day());
-      this.weekdayArr[1] = 'MON  ' + (moment().date() - moment().day() + 1);
-      this.weekdayArr[2] = 'TUE  ' + (moment().date() - moment().day() + 2);
-      this.weekdayArr[3] = 'WED  ' + (moment().date() - moment().day() + 3);
-      this.weekdayArr[4] = 'THU  ' + (moment().date() - moment().day() + 4);
-      this.weekdayArr[5] = 'FRI  ' + (moment().date() - moment().day() + 5);
-      this.weekdayArr[6] = 'SAT  ' + (moment().date() - moment().day() + 6);
+  createWeekday(): void {
+      this.weekdayArr[0] = 'SUN';
+      this.weekdayArr[1] = 'MON';
+      this.weekdayArr[2] = 'TUE';
+      this.weekdayArr[3] = 'WED';
+      this.weekdayArr[4] = 'THU';
+      this.weekdayArr[5] = 'FRI';
+      this.weekdayArr[6] = 'SAT';
+  }
+
+  createDate(): void {
+    for ( let i = 0; i < 7; i++) {
+      this.dateArr[i] = moment().subtract(moment().day() - i, 'd');
+      this.formatDate[i] = this.dateArr[i].format('D');
+    }
+  }
+
+  isToday(date): boolean {
+    return moment().format('MM/DD') === date.format('MM/DD');
   }
 }

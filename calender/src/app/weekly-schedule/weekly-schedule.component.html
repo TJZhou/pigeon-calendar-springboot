@@ -2,32 +2,25 @@
   <div class="schedule">
     <div class="firstColumn float-left">
       <ul>
-        <li class = "noBorder">
-            &nbsp;
-        </li>
-        <li>
-          &nbsp;
-        </li>
+        <li class="noBorder">&nbsp;</li>
+        <li>&nbsp;</li>
       </ul>
       <ul *ngFor="let timing of timingArr">
-        <li>
-          {{ timing }}
-        </li>
+        <li>{{ timing }}</li>
       </ul>
     </div>
-    <div class="column float-left" *ngFor="let weekday of weekdayArr">
+
+    <div class="column float-left" *ngFor="let date of dateArr; let i = index" [attr.data-index]="i">
       <ul>
-        <li class = "noBorder">
-            &nbsp;
-        </li>
-        <li>
-          {{ weekday }}
+        <li class="noBorder color-gray"> {{weekdayArr[i]}}</li>
+      </ul>
+      <ul>
+        <li class = "date">
+          <div [ngClass] = "{'today': isToday(date)}">{{formatDate[i]}}</div>
         </li>
       </ul>
-      <ul *ngFor="let timing of timingArr">
-        <li>
-          &nbsp;
-        </li>
+      <ul *ngFor="let timing of timingArr" class="cursor-point">
+        <li>&nbsp;</li>
       </ul>
     </div>
   </div>
