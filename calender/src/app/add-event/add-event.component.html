@@ -17,14 +17,21 @@
       <div class="choose-date">
         <div class="timer"></div>
         <div for="date" class="date-line">
-            <input [(ngModel)]="startDateTemp"
+            <input [(ngModel)]="startDateTemp" (click)="selectStartDate()"
                 type="text" class="d-date-left" placeholder="Start Date" >
-            <input [(ngModel)]="startTimeTemp" (click)="select()"
+            <input [(ngModel)]="startTimeTemp" (click)="selectStartTime()"
                 type="text" class="d-time" placeholder="Start Time" >
+            <!-- <div *ngIf="judgeSelectTime()" class="time-chooser">
+                <div class="scroll">
+                    <div *ngFor="let time of startTimeArr"  class="item" >
+                      <span>{{time}}</span>
+                    </div>
+                </div>
+            </div> -->
             <span>—</span>
-            <input [(ngModel)]="endTimeTemp"
+            <input [(ngModel)]="endTimeTemp" (click)="selectEndTime()"
                 type="text" class="d-time" placeholder="End Time" >
-            <input [(ngModel)]="endDateTemp"
+            <input [(ngModel)]="endDateTemp" (click)="selectEndDate()"
                 type="text" class="d-date" placeholder="End date" >
         </div>
       </div>  
@@ -34,9 +41,11 @@
   </div>
 </div> 
 
-<!-- <div class="time-choose">
+<!-- <div class="time-chooser">
     <div class="scroll">
-        <div *ngFor="let time of startTimeArr">{{time}}</div>
+        <div *ngFor="let time of startTimeArr"  class="item" >
+          <span>{{time}}</span>
+        </div>
     </div>
 </div> -->
 <!-- <app-calendar></app-calendar> -->

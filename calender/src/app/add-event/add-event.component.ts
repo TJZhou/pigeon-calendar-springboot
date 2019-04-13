@@ -25,9 +25,53 @@ export class AddEventComponent implements OnInit {
   startTime: Date;
   endTime: Date;
 
+  startTimeArr=['00:00', '00:30', '1:00', '00:30', '1:00', '00:30', '1:00'
+  , '00:30', '1:00', '00:30', '1:00', '00:30', '1:00', '00:30', '1:00'];
+
+  selectedStartDate = null;
+  selectedStartTime = null;
+  selectedEndDate = null;
+  selectedEndTime = null;
+
   constructor(private routeLocation: Location) { }
 
   ngOnInit() {
+  }
+  
+  selectStartTime() {
+    this.selectedStartTime = this.startTimeTemp;
+    console.log(this.selectedStartTime);
+  }
+
+  selectStartDate() {
+    this.selectedStartDate = this.startDateTemp;
+    console.log(this.selectedStartDate);
+  }
+
+  selectEndTime() {
+    this.selectedEndTime = this.endTimeTemp;
+    console.log(this.selectedEndTime);
+  }
+
+  selectEndDate() {
+    this.selectedEndDate = this.endDateTemp;
+    console.log(this.selectedEndDate);
+  }
+
+  judgeSelectStartTime(): boolean {
+    if(this.selectedStartTime === null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  judgeSelectEndTime(): boolean {
+    if(this.selectedEndTime === null) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   createNewContact(): Event{
