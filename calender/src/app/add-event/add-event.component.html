@@ -1,33 +1,35 @@
 <div class="container">
-  <div class="close">
+  <div class="close" (click)="goBack()">
     <div class="icon"></div>
   </div>
   <div class="content">
 
       <label for="title">
-        <input type="text" class="input-title" placeholder="Add Title">
+        <input [(ngModel)]="title"
+          type="text" class="input-title" placeholder="Add Title">
       </label>
 
       <label for="location">
-          <input type="text" class="input-address" placeholder="Add Location">
+        <input [(ngModel)]="location"
+          type="text" class="input-address" placeholder="Add Location">
       </label>
 
       <div class="choose-date">
         <div class="timer"></div>
         <div for="date" class="date-line">
-            <input [(ngModel)]="startDate"
+            <input [(ngModel)]="startDateTemp"
                 type="text" class="d-date-left" placeholder="Start Date" >
-            <input [(ngModel)]="startTime" (click)="select()"
+            <input [(ngModel)]="startTimeTemp" (click)="select()"
                 type="text" class="d-time" placeholder="Start Time" >
             <span>—</span>
-            <input [(ngModel)]="endTime"
+            <input [(ngModel)]="endTimeTemp"
                 type="text" class="d-time" placeholder="End Time" >
-            <input [(ngModel)]="endDate"
+            <input [(ngModel)]="endDateTemp"
                 type="text" class="d-date" placeholder="End date" >
         </div>
       </div>  
 
-      <button class="save-button">Save</button>
+      <button class="save-button" (click)="onSubmit()">Save</button>
 
   </div>
 </div> 
