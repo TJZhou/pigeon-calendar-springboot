@@ -1,5 +1,34 @@
-<div class = "wrapper">
-<p>
-  weekly-schedule works!
-</p>
+<div class="wrapper">
+  <div class="schedule">
+    <div class="firstColumn float-left">
+      <ul>
+        <li class = "noBorder">
+            &nbsp;
+        </li>
+        <li>
+          &nbsp;
+        </li>
+      </ul>
+      <ul *ngFor="let timing of timingArr">
+        <li>
+          {{ timing }}
+        </li>
+      </ul>
+    </div>
+    <div class="column float-left" *ngFor="let weekday of weekdayArr">
+      <ul>
+        <li class = "noBorder">
+            &nbsp;
+        </li>
+        <li>
+          {{ weekday }}
+        </li>
+      </ul>
+      <ul *ngFor="let timing of timingArr">
+        <li>
+          &nbsp;
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

@@ -31,24 +31,32 @@
 
   .prev {
     font-size: 30px;
+    font-weight: 300;
   }
 
   .prev:hover {
+    border-radius: 5px;
     cursor: pointer;
     background: lightgray;
   }
 
   .today {
-    padding-left:15px;
-    width:70px;
+    padding: 5px 0 0 5px;
+    width:120px;
     font-size: 22px;
+    color: gray;
   }
 
+  .space{
+    width:30px;
+  }
   .next {
     font-size: 30px;
+    font-weight: 300;
   }
 
   .next:hover {
+    border-radius: 5px;
     cursor: pointer;
     background: lightgray;
   }
@@ -56,5 +64,9 @@
   .inline-block{
     display: inline-block;
     vertical-align: middle;
+  }
+
+  .hidden {
+    display: none;
   }
 }

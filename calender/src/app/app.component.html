@@ -8,10 +8,7 @@
        class = "prev inline-block"
        (click) = "previous()"> <
   </div>
-  <div name = "today"
-       class = "today inline-block">
-       {{curDayFormat}}
-  </div>
+  <div class = "space inline-block"></div>
   <div name = "next"
        class = "next inline-block"
        (click) = "next()"> >
@@ -19,15 +16,22 @@
   <button class = "rightBtn"
           [ngClass]="{'selected':!isSelected}"
           (click) = "isSelected = !isSelected"
+          (click) = "showDate = false"
           routerLink="/week">
           Week
   </button>
   <button class = "rightBtn"
           [ngClass]="{'selected':isSelected}"
           (click) = "isSelected = !isSelected"
+          (click) = "showDate = true"
           routerLink="/day">
           Day
   </button>
+  <div name = "today"
+  class = "today"
+  [ngClass] = "{'hidden': !showDate}">
+  {{weekdayFormat}} {{curDayFormat}}
+</div>
 </div>
 
 <router-outlet></router-outlet>
