@@ -7,8 +7,8 @@ import * as moment from 'moment';
 })
 export class WeeklyScheduleComponent implements OnInit {
 
-  public date = moment();
-  public curDay: string;
+  public curDay;
+  public curDayFormat: string;
   public timing;
   public timingArr = new Array(24);
   public weekday;
@@ -19,7 +19,7 @@ export class WeeklyScheduleComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.curDay = this.date.format('L');
+    this.curDay = moment().format('L');
     this.createTiming();
     this.createWeekday();
     this.createDate();
@@ -53,5 +53,33 @@ export class WeeklyScheduleComponent implements OnInit {
 
   isToday(date): boolean {
     return moment().format('MM/DD') === date.format('MM/DD');
+  }
+
+  previous() {
+    for ( let i = 0; i < 7; i++) {
+      this.dateArr[i] = this.dateArr[i].subtract(7, 'd');
+      this.formatDate[i] = this.dateArr[i].format('D');
+    }
+  }
+
+  next() {
+    for ( let i = 0; i < 7; i++) {
+      this.dateArr[i] = this.dateArr[i].add(7, 'd');
+      this.formatDate[i] = this.dateArr[i].format('D');
+    }
+  }
+
+  today() {
+    for ( let i = 0; i < 7; i++) {
+      this.dateArr[i] = moment().subtract(moment().day() - i, 'd');
+      this.formatDate[i] = this.dateArr[i].format('D');
+    }
+  }
+
+  onChangeDay(Day) {
+    for ( let i = 0; i < 7; i++) {
+      this.dateArr[i] = Day.subtract(Day.day() - i, 'd');
+      this.formatDate[i] = this.dateArr[i].format('D');
+    }
   }
 }

@@ -1,37 +1,18 @@
 <!--The content below is only a placeholder and can be replaced.-->
  <app-navbar></app-navbar>
-<app-calendar (changeDay)="onChangeDay($event)"></app-calendar>
 <div class = "wrapper">
-  <button routerLink="/day"
-          (click) = "currentDay()">Today</button>
-  <div name = "previous"
-       class = "prev inline-block"
-       (click) = "previous()"> <
-  </div>
-  <div class = "space inline-block"></div>
-  <div name = "next"
-       class = "next inline-block"
-       (click) = "next()"> >
-  </div>
   <button class = "rightBtn"
           [ngClass]="{'selected':!isSelected}"
           (click) = "isSelected = !isSelected"
-          (click) = "showDate = false"
           routerLink="/week">
           Week
   </button>
   <button class = "rightBtn"
           [ngClass]="{'selected':isSelected}"
           (click) = "isSelected = !isSelected"
-          (click) = "showDate = true"
           routerLink="/day">
           Day
   </button>
-  <div name = "today"
-  class = "today"
-  [ngClass] = "{'hidden': !showDate}">
-  {{weekdayFormat}} {{curDayFormat}}
+
 </div>
-</div>
-<!-- 好的<app-add-event></app-add-event>我知道了 -->
 <router-outlet></router-outlet>

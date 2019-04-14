@@ -1,12 +1,19 @@
-<div class = "wrapper">
+<app-calendar (changeDay)="onChangeDay($event)"></app-calendar>
 
-<div  class = "schedule">
-  <ul *ngFor= "let timing of timingArr">
-    <li>
-      {{ timing }}
-      <div></div>
-    </li>
-  </ul>
+<div class="wrapper">
+  <button class = "btn" (click) = "today()">Today</button>
+  <div name="today" class="today inline-block" >
+    {{curDayFormat}}
+  </div>
+  <div name="previous" class="prev inline-block gray" (click)="previous()">< </div>
+    <div class="space inline-block"></div>
+  <div name="next" class="next inline-block gray" (click)="next()"> ></div>
+  <div class="schedule">
+    <ul *ngFor="let timing of timingArr">
+      <li class = "gray">
+        {{ timing }}
+        <div></div>
+      </li>
+    </ul>
+  </div>
 </div>
-</div>
-

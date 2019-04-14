@@ -9,12 +9,11 @@ import * as moment from 'moment';
 })
 export class AppComponent implements OnInit {
 
-  @ViewChild(CalendarComponent)
+  // @ViewChild(CalendarComponent)
   public curDay;
   public curDayFormat;
-  public isSelected = true;
-  public showDate = true;
-  public weekdayFormat;
+  // public isSelected = true;
+  // public weekdayFormat;
 
   title = 'calender';
 
@@ -35,20 +34,20 @@ export class AppComponent implements OnInit {
   // getShowDate(): string {
   //   return localStorage.getItem('showDate');
   // }
-  onChangeDay(clickedDay) {
-    this.curDay = clickedDay;
-    this.changeFormat();
-  }
+  // onChangeDay(clickedDay) {
+  //   this.curDay = clickedDay;
+  //   this.changeFormat();
+  // }
 
-  previous() {
-    this.curDay = this.curDay.subtract(1, 'd');
-    this.changeFormat();
-  }
-  next() {
-    this.curDay = this.curDay.add(1, 'd');
-    this.changeFormat();
+  // previous() {
+  //   this.curDay = this.curDay.subtract(1, 'd');
+  //   this.changeFormat();
+  // }
+  // next() {
+  //   this.curDay = this.curDay.add(1, 'd');
+  //   this.changeFormat();
 
-  }
+  // }
   currentDay() {
     this.curDay = moment();
     this.changeFormat();
@@ -56,6 +55,6 @@ export class AppComponent implements OnInit {
 
   changeFormat() {
     this.curDayFormat = this.curDay.format('MM/DD');
-    this.weekdayFormat = this.curDay.format('ddd');
+    // this.weekdayFormat = this.curDay.format('ddd');
   }
 }

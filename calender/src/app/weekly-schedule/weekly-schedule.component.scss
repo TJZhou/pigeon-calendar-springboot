@@ -1,9 +1,62 @@
 .wrapper {
-  margin-top: 170px;
+  margin-top: 140px;
   margin-left: 330px;
   position: absolute;
   width: calc(100% - 350px);
-  min-width: 450px;
+  min-width: 600px;
+  .btn{
+    position: absolute;
+    top:-40px;
+    left:-5px;
+  }
+  .prev {
+    position: absolute;
+    left:40px;
+    top:2px;
+    font-size: 30px;
+    font-weight: 300;
+  }
+
+  .prev:hover {
+    border-radius: 5px;
+    cursor: pointer;
+    background: lightgray;
+  }
+
+  .today {
+    padding: 5px 0 0 0px;
+    width:100px;
+    font-size: 22px;
+    color: gray;
+  }
+
+  .space{
+    position: absolute;
+    left:20px;
+    width:30px;
+  }
+  .next {
+    position: absolute;
+    top:2px;
+    left:96%;
+    font-size: 30px;
+    font-weight: 300;
+  }
+
+  .next:hover {
+    border-radius: 5px;
+    cursor: pointer;
+    background: lightgray;
+  }
+
+  .inline-block{
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .hidden {
+    display: none;
+  }
 }
 
 .firstColumn {
@@ -34,7 +87,7 @@ ul {
     font-weight: 200;
     color: gray;
 
-    .today {
+    .isToday {
       background-color: rgb(36, 118, 225);
       color: white;
     }
