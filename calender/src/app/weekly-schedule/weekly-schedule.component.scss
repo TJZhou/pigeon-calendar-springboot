@@ -4,6 +4,7 @@
   position: absolute;
   width: calc(100% - 350px);
   min-width: 600px;
+
   .btn{
     position: absolute;
     top:-40px;
@@ -75,12 +76,22 @@
   cursor: pointer;
 }
 
+
+
+.hiddenLi{
+  display: inline-block;
+  height:20px;
+}
+
+.noBottom{
+  border-bottom: 1px solid white !important;
+}
+
 ul {
   //position: absolute;
   list-style-type: none;
   padding-left: 0;
   margin: 0;
-
 
   .date {
     font-size: 24px;
@@ -113,8 +124,8 @@ ul {
   }
 
   .noBorder {
+    // color white : same as the background color -> hidden the border
     border-bottom: 1px solid white;
     border-right: 1px solid white;
-
   }
 }

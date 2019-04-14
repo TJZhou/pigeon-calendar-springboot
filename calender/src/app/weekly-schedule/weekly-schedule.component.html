@@ -5,14 +5,17 @@
     <div name="previous" class="prev inline-block gray" (click)="previous()">< </div>
     <div name="next" class="next inline-block gray" (click)="next()"> ></div>
   <div class="schedule">
-    <div class="firstColumn float-left">
+    <div class="firstColumn float-left  margin-negative">
       <ul>
         <li class="noBorder">&nbsp;</li>
-        <li>&nbsp;</li>
+        <li class="noBottom hiddenLi">&nbsp;</li>
       </ul>
       <ul *ngFor="let timing of timingArr">
-        <li>{{ timing }}</li>
+        <li class = "noBottom">{{ timing }}</li>
       </ul>
+      <ul>
+          <li class="noBottom">&nbsp;</li>
+        </ul>
     </div>
 
     <div class="column float-left" *ngFor="let date of dateArr; let i = index" [attr.data-index]="i">

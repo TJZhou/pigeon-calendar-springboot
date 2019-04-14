@@ -27,7 +27,7 @@ export class AddEventComponent implements OnInit {
   startTime: Date;
   endTime: Date;
 
-  startTimeArr=['00:00', '00:30', '1:00', '00:30', '1:00', '00:30', '1:00'
+  startTimeArr = ['00:00', '00:30', '1:00', '00:30', '1:00', '00:30', '1:00'
   , '00:30', '1:00', '00:30', '1:00', '00:30', '1:00', '00:30', '1:00'];
 
   selectedStartDate = null;
@@ -42,7 +42,7 @@ export class AddEventComponent implements OnInit {
 
   ngOnInit() {
   }
-  
+
   selectStartTime() {
     this.selectedStartTime = this.startTimeTemp;
     console.log(this.selectedStartTime);
@@ -64,7 +64,7 @@ export class AddEventComponent implements OnInit {
   }
 
   judgeSelectStartTime(): boolean {
-    if(this.selectedStartTime === null) {
+    if (this.selectedStartTime === null) {
       return false;
     } else {
       return true;
@@ -72,51 +72,51 @@ export class AddEventComponent implements OnInit {
   }
 
   judgeSelectEndTime(): boolean {
-    if(this.selectedEndTime === null) {
+    if (this.selectedEndTime === null) {
       return false;
     } else {
       return true;
     }
   }
 
-  
+
 
   goBack(): void {
     this.routeLocation.back();
   }
 
 
-  createNewEvent(): EventPost{
-    let event = {
-    "username": "yujxie",
-    "title": "test",
-    "location": "testLocation",
-    "startTime": new Date(),
-    "endTime": new Date()
-    }
+  createNewEvent(): EventPost {
+    const event = {
+     username: 'yujxie',
+    title: 'test',
+    location: 'testLocation',
+    startTime: new Date(),
+    endTime: new Date(),
+    };
     return event;
   }
 
-  onSubmit(){
+  onSubmit() {
 
-    // if (this.title == "" || this.title == undefined || 
-    //     this.location == "" || this.location == undefined) {
+    // if (this.title == '' || this.title == undefined ||
+    //     this.location == '' || this.location == undefined) {
 
-    //   alert("Please fill out all the blanks.");
+    //   alert('Please fill out all the blanks.');
 
     // } else {
-      
+
 
       // let event = {
-      //   "username": "yujxie",
-      //   "title": "test",
-      //   "location": "testLocation",
-      //   "startTime": "2019-04-11T18:00:00.000Z",
-      //   "endTime": "2019-04-11T18:00:00.000Z"
+      //   'username': 'yujxie',
+      //   'title': 'test',
+      //   'location': 'testLocation',
+      //   'startTime': '2019-04-11T18:00:00.000Z',
+      //   'endTime': '2019-04-11T18:00:00.000Z'
       // }
 
       this.eventService.addEvent(this.createNewEvent())
-        .subscribe(data => console.log(" This event has been created: " + data));
+        .subscribe(data => console.log(' This event has been created: ' + data));
       alert('Add successfully.');
 
     // }
