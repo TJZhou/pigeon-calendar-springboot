@@ -129,3 +129,23 @@ ul {
     border-right: 1px solid white;
   }
 }
+
+.wrapperBtn {
+  height: 107%;
+  width: calc(100% - 350px);
+  border-left: solid 1px lightgray;
+  margin-top: 100px;
+  margin-left: 300px;
+  padding-left: 20px;
+  position: absolute;
+  min-width: 500px;
+
+  .selected{
+    background-color: rgba(36, 118, 225, 0.7);
+    color: white;
+  }
+
+  .rightBtn {
+    float: right;
+  }
+}

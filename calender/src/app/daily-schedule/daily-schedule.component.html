@@ -1,4 +1,17 @@
 <app-calendar (changeDay)="onChangeDay($event)"></app-calendar>
+<app-navbar></app-navbar>
+<!--The content below is only a placeholder and can be replaced.-->
+<div class = "wrapperBtn">
+  <button class = "rightBtn"
+          routerLink="/week">
+          Week
+  </button>
+  <button class = "rightBtn"
+          routerLink="/day">
+          Day
+  </button>
+
+</div>
 
 <div class="shadow"></div>
 <div class="wrapper">
@@ -20,10 +33,10 @@
     <div class="schedule">
       <ul *ngFor="let timing of timingArr">
         <li class="gray">
-          <div>&nbsp;</div>
+          <div (click) = "showEvent = false">&nbsp;</div>
         </li>
       </ul>
     </div>
   </div>
 </div>
-<app-add-event [hidden]="true"></app-add-event>
+<app-add-event [hidden]="showEvent"></app-add-event>

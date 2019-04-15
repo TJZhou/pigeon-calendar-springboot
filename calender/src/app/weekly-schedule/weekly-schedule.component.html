@@ -1,5 +1,17 @@
 <app-calendar (changeWeeklyDay)= "onChangeDay($event)"></app-calendar>
+<app-navbar></app-navbar>
+<!--The content below is only a placeholder and can be replaced.-->
+<div class = "wrapperBtn">
+  <button class = "rightBtn"
+          routerLink="/week">
+          Week
+  </button>
+  <button class = "rightBtn"
+          routerLink="/day">
+          Day
+  </button>
 
+</div>
 <div class="wrapper">
     <button class = "btn" (click) = "today()">Today</button>
     <div name="previous" class="prev inline-block gray" (click)="previous()">< </div>
@@ -28,8 +40,10 @@
         </li>
       </ul>
       <ul *ngFor="let timing of timingArr" class="cursor-point">
-        <li>&nbsp;</li>
+        <li (click) = "showEvent = false">&nbsp;</li>
       </ul>
     </div>
   </div>
 </div>
+
+<app-add-event [hidden] = "showEvent"></app-add-event>

@@ -15,6 +15,7 @@ export class WeeklyScheduleComponent implements OnInit {
   public weekdayArr = new Array(7);
   public dateArr = new Array(7);
   public formatDate = new Array(7);
+  public showEvent = true;
 
   constructor() {}
 

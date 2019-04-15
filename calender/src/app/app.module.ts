@@ -14,6 +14,7 @@ import { WeeklyScheduleComponent } from './weekly-schedule/weekly-schedule.compo
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AddEventComponent } from './add-event/add-event.component';
+import { ClickOutsideModule} from 'ng-click-outside';
 
 @NgModule({
   declarations: [
@@ -31,15 +32,9 @@ import { AddEventComponent } from './add-event/add-event.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
     FormsModule,
     HttpClientModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatCardModule,
-    MatCheckboxModule
+    ClickOutsideModule
   ],
   providers: [],
   bootstrap: [AppComponent]

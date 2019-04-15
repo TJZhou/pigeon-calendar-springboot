@@ -161,13 +161,29 @@ app-time-chooser {
 }
 
 
-.time-chooser {
+.start-time-chooser {
     position: relative;
     top: -50px;
     left: 200px;
     width: 130px;
     max-height: 200px;
-    border-radius: 5px;
+    border-radius: 2px;
+    padding: 10px 10px 10px 10px;
+    // padding-bottom: 8px;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
+    background-color: white;
+    font-size: 13px;
+    color: #747272;
+    z-index: 20;
+}
+
+.end-time-chooser {
+    position: relative;
+    top: -50px;
+    left: 295px;
+    width: 130px;
+    max-height: 200px;
+    border-radius: 2px;
     padding: 10px 10px 10px 10px;
     // padding-bottom: 8px;
     box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
