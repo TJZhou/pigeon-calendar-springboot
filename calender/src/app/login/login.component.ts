@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserModel } from '../models/user.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -10,8 +10,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   user: UserModel = new UserModel();
+  isShow: boolean;
   loginForm: FormGroup;
-  hidden = true;
+  
 
   constructor(private formBuilder: FormBuilder) { }
 
