@@ -12,7 +12,6 @@ export class DailyScheduleComponent implements OnInit {
   public timing;
   public timingArr = new Array(24);
   public showEvent = true;
-
   constructor() { }
 
   ngOnInit() {

@@ -70,7 +70,6 @@ export class CalendarComponent implements OnInit {
       this.clickedDay = day.format('MM/DD');
       if (this.router.url === '/week') {
       this.changeWeeklyDay.emit(day);
-      // this.createCalendar(moment());
       }
       if (this.router.url === '/day') {
         this.changeDay.emit(day);
