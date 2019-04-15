@@ -3,14 +3,10 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class = "wrapperBtn">
   <button class = "rightBtn"
-          [ngClass]="{'selected':!isSelected}"
-          (click) = "isSelected = !isSelected"
           routerLink="/week">
           Week
   </button>
   <button class = "rightBtn"
-          [ngClass]="{'selected':isSelected}"
-          (click) = "isSelected = !isSelected"
           routerLink="/day">
           Day
   </button>
@@ -37,10 +33,10 @@
     <div class="schedule">
       <ul *ngFor="let timing of timingArr">
         <li class="gray">
-          <div>&nbsp;</div>
+          <div (click) = "showEvent = false">&nbsp;</div>
         </li>
       </ul>
     </div>
   </div>
 </div>
-<app-add-event [hidden]="true"></app-add-event>
+<app-add-event [hidden]="showEvent"></app-add-event>

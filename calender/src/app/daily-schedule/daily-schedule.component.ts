@@ -11,6 +11,7 @@ export class DailyScheduleComponent implements OnInit {
   public curDayFormat: string;
   public timing;
   public timingArr = new Array(24);
+  public showEvent = true;
 
   constructor() { }
 
