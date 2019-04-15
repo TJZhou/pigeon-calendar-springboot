@@ -49,17 +49,7 @@ export class AddEventComponent implements OnInit {
         this.tempTimeArr.push(temp);
       }
     }
-  }
-
-  fillStartTimeArr(){
-    this.fillTempTimeArr();
-    this.startTimeArr = this.tempTimeArr;
-  }
-  
-  fillEndTimeArr(){
-    this.fillTempTimeArr();
-    this.endTimeArr = this.tempTimeArr;
-    this.endTimeArr.push('24:00');
+    return this.tempTimeArr;
   }
 
   selectedStartDate = null;
@@ -73,54 +63,11 @@ export class AddEventComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.fillStartTimeArr();
-    this.fillEndTimeArr();
+    this.startTimeArr = this.fillTempTimeArr();
+    this.endTimeArr = this.startTimeArr;
+    this.endTimeArr.push('24:00');
   }
   
-  selectStartTime() {
-    this.selectedStartTime = this.startTimeTemp;
-    console.log(this.selectedStartTime);
-  }
-
-  selectStartDate() {
-    this.selectedStartDate = this.startDateTemp;
-    console.log(this.selectedStartDate);
-  }
-
-  selectEndTime() {
-    this.selectedEndTime = this.endTimeTemp;
-    console.log(this.selectedEndTime);
-  }
-
-  selectEndDate() {
-    this.selectedEndDate = this.endDateTemp;
-    console.log(this.selectedEndDate);
-  }
-
-  judgeSelectStartTime(): boolean {
-    if(this.selectedStartTime === null) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  judgeSelectStartDate(): boolean {
-    if(this.selectedStartDate === null) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  judgeSelectEndTime(): boolean {
-    if(this.selectedEndTime === null) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
   chooseTime(time){
     this.startTimeTemp = time;
 
@@ -174,11 +121,15 @@ export class AddEventComponent implements OnInit {
     endDateDisplay: 0,
   };
 
-  onClickedOutside(e) {
+  onClickedOutside(id) {
+      console.log("outside id:::" + id)
+      if(id == 'endoutside'){
+        this.displayArr['endTimeDisplay'] = 0;
+      }else if(id == 'startoutside'){
+        this.displayArr['startTimeDisplay'] = 0;
+      }
       console.log('start: ' + this.displayArr['startTimeDisplay']);
       console.log('end: ' + this.displayArr['endTimeDisplay']);
-      this.displayArr['startTimeDisplay'] = 0;
-      this.displayArr['endTimeDisplay'] = 0;
   }
 
   controlDisplay(event) {
@@ -194,13 +145,9 @@ export class AddEventComponent implements OnInit {
       
     } else if (id == 'endTime'){
       this.displayArr['endTimeDisplay'] = flag;
+      console.log("!!!!!!!" + this.displayArr['endTimeDisplay']);
       console.log("【setDisplayFlag】: id >>> " + id + ", flag: " + flag);
     }
   }
 
-  getDisplayFlag(): Object{
-     console.log("From GET Display");
-     console.log('****end: ' + this.displayArr['endTimeDisplay']);
-      return this.displayArr;
-  }
 }
