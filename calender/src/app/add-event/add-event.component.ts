@@ -18,6 +18,7 @@ export class AddEventComponent implements OnInit {
   endTimeTemp = this.currentDate.add(1, 'h').format('HH:MM');
   endDateTemp = this.startDateTemp;
 
+  displayFlag = false;
   event = Event;
 
   id: number;
@@ -27,8 +28,39 @@ export class AddEventComponent implements OnInit {
   startTime: Date;
   endTime: Date;
 
-  startTimeArr = ['00:00', '00:30', '1:00', '00:30', '1:00', '00:30', '1:00'
-  , '00:30', '1:00', '00:30', '1:00', '00:30', '1:00', '00:30', '1:00'];
+  tempTimeArr=[];
+  startTimeArr=[];
+  endTimeArr=[];
+
+
+  fillTempTimeArr(){
+    for(let i = 0; i < 24; i++){
+      for(let j = 0; j < 60; j+=30){
+        let temp;
+        if(i < 10 && j == 0){
+          temp = '0' + i + ':' + j + '0';
+        } else if( i < 10 && j == 30) {
+          temp = '0' + i + ":" + j;
+        } else if ( i > 9 && j == 0) {
+          temp = i + ':' + j + '0';
+        } else {
+          temp = i + ':' + j;
+        }
+        this.tempTimeArr.push(temp);
+      }
+    }
+  }
+
+  fillStartTimeArr(){
+    this.fillTempTimeArr();
+    this.startTimeArr = this.tempTimeArr;
+  }
+  
+  fillEndTimeArr(){
+    this.fillTempTimeArr();
+    this.endTimeArr = this.tempTimeArr;
+    this.endTimeArr.push('24:00');
+  }
 
   selectedStartDate = null;
   selectedStartTime = null;
@@ -41,8 +73,10 @@ export class AddEventComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.fillStartTimeArr();
+    this.fillEndTimeArr();
   }
-
+  
   selectStartTime() {
     this.selectedStartTime = this.startTimeTemp;
     console.log(this.selectedStartTime);
@@ -64,7 +98,15 @@ export class AddEventComponent implements OnInit {
   }
 
   judgeSelectStartTime(): boolean {
-    if (this.selectedStartTime === null) {
+    if(this.selectedStartTime === null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  judgeSelectStartDate(): boolean {
+    if(this.selectedStartDate === null) {
       return false;
     } else {
       return true;
@@ -72,53 +114,93 @@ export class AddEventComponent implements OnInit {
   }
 
   judgeSelectEndTime(): boolean {
-    if (this.selectedEndTime === null) {
+    if(this.selectedEndTime === null) {
       return false;
     } else {
       return true;
     }
   }
 
+  chooseTime(time){
+    this.startTimeTemp = time;
 
+  }
 
   goBack(): void {
     this.routeLocation.back();
   }
 
 
-  createNewEvent(): EventPost {
-    const event = {
-     username: 'yujxie',
-    title: 'test',
-    location: 'testLocation',
-    startTime: new Date(),
-    endTime: new Date(),
-    };
+  createNewEvent(): EventPost{
+    let event = {
+    "username": "yujxie",
+    "title": "test",
+    "location": "testLocation",
+    "startTime": new Date(),
+    "endTime": new Date()
+    }
     return event;
   }
 
-  onSubmit() {
+  onSubmit(){
 
-    // if (this.title == '' || this.title == undefined ||
-    //     this.location == '' || this.location == undefined) {
+    // if (this.title == "" || this.title == undefined || 
+    //     this.location == "" || this.location == undefined) {
 
-    //   alert('Please fill out all the blanks.');
+    //   alert("Please fill out all the blanks.");
 
     // } else {
-
+      
 
       // let event = {
-      //   'username': 'yujxie',
-      //   'title': 'test',
-      //   'location': 'testLocation',
-      //   'startTime': '2019-04-11T18:00:00.000Z',
-      //   'endTime': '2019-04-11T18:00:00.000Z'
+      //   "username": "yujxie",
+      //   "title": "test",
+      //   "location": "testLocation",
+      //   "startTime": "2019-04-11T18:00:00.000Z",
+      //   "endTime": "2019-04-11T18:00:00.000Z"
       // }
 
       this.eventService.addEvent(this.createNewEvent())
-        .subscribe(data => console.log(' This event has been created: ' + data));
+        .subscribe(data => console.log(" This event has been created: " + data));
       alert('Add successfully.');
 
     // }
+  }
+
+  displayArr = {
+    startDateDisplay: 0,
+    startTimeDisplay: 0,
+    endTimeDisplay: 0,
+    endDateDisplay: 0,
+  };
+
+  onClickedOutside(e) {
+      console.log('start: ' + this.displayArr['startTimeDisplay']);
+      console.log('end: ' + this.displayArr['endTimeDisplay']);
+      this.displayArr['startTimeDisplay'] = 0;
+      this.displayArr['endTimeDisplay'] = 0;
+  }
+
+  controlDisplay(event) {
+    let id = event.target.id;
+    this.setDisplayFlag(id, 1);
+    console.log("【controlDisplay】: id >>> " + id);
+  }
+
+  setDisplayFlag(id: string, flag: number) {
+    if(id == 'startTime'){
+      this.displayArr['startTimeDisplay'] = flag;
+      console.log("【setDisplayFlag】: id >>> " + id + ", flag: " + flag);
+      
+    } else if (id == 'endTime'){
+      this.displayArr['endTimeDisplay'] = flag;
+      console.log("【setDisplayFlag】: id >>> " + id + ", flag: " + flag);
+    }
+  }
+
+  getDisplayFlag(): Object{
+     console.log("From GET Display");
+     console.log('****end: ' + this.displayArr['endTimeDisplay']);
+      return this.displayArr;
   }
 }

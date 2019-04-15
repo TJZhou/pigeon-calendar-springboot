@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'week', component: WeeklyScheduleComponent },
   { path: 'Register', component: RegisterComponent},
   { path: 'Login', component: LoginComponent},
-  { path: 'addEvent', component: AddEventComponent},
+  { path: 'addevent', component: AddEventComponent},
 ];
 
 @NgModule({

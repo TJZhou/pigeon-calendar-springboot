@@ -17,6 +17,7 @@ import { MatFormFieldModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 import { MatIconModule } from '@angular/material';
 import { AddEventComponent } from './add-event/add-event.component';
+import { ClickOutsideModule} from 'ng-click-outside';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { AddEventComponent } from './add-event/add-event.component';
     MatInputModule,
     MatIconModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ClickOutsideModule
   ],
   providers: [],
   bootstrap: [AppComponent]
