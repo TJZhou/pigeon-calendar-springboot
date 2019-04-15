@@ -1,4 +1,21 @@
 <app-calendar (changeDay)="onChangeDay($event)"></app-calendar>
+<app-navbar></app-navbar>
+<!--The content below is only a placeholder and can be replaced.-->
+<div class = "wrapperBtn">
+  <button class = "rightBtn"
+          [ngClass]="{'selected':!isSelected}"
+          (click) = "isSelected = !isSelected"
+          routerLink="/week">
+          Week
+  </button>
+  <button class = "rightBtn"
+          [ngClass]="{'selected':isSelected}"
+          (click) = "isSelected = !isSelected"
+          routerLink="/day">
+          Day
+  </button>
+
+</div>
 
 <div class="shadow"></div>
 <div class="wrapper">
