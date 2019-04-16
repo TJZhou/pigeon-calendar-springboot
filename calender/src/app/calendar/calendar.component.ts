@@ -64,18 +64,18 @@ export class CalendarComponent implements OnInit {
     if (day === null || this.clickedDay === undefined || this.clickedDay === null) {
       return;
     } else {
+      console.log(this.curDay.format('MM/DD'));
       return this.curDay.format('MM/DD') === day.format('MM/DD');
     }
   }
 
   select(day) {
       this.clickedDay = day.format('MM/DD');
-      this.day = day;
       if (this.router.url === '/week') {
       this.changeWeeklyDay.emit(day);
       }
       if (this.router.url === '/day') {
-         this.changeDay.emit(this.day);
+         this.changeDay.emit(day);
       }
   }
 }

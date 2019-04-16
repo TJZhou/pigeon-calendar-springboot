@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import * as moment from 'moment';
 import { TypeofExpr } from '@angular/compiler';
 @Component({
@@ -7,7 +7,7 @@ import { TypeofExpr } from '@angular/compiler';
   styleUrls: ['./weekly-schedule.component.scss']
 })
 export class WeeklyScheduleComponent implements OnInit {
-  public curDay;
+  @Output() public curDay;
   public curDayFormat: string;
   public timing;
   public timingArr = new Array(24);
@@ -20,7 +20,8 @@ export class WeeklyScheduleComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.curDay = moment().format('L');
+    this.curDay = moment();
+    this.curDayFormat = this.curDay.format('L');
     this.createTiming();
     this.createWeekday();
     this.createDate();
@@ -57,6 +58,7 @@ export class WeeklyScheduleComponent implements OnInit {
   }
 
   previous() {
+    this.curDay = this.curDay.subtract(7, 'd');
     for (let i = 0; i < 7; i++) {
       this.dateArr[i] = this.dateArr[i].subtract(7, 'd');
       this.formatDate[i] = this.dateArr[i].format('D');
@@ -64,6 +66,7 @@ export class WeeklyScheduleComponent implements OnInit {
   }
 
   next() {
+    this.curDay = this.curDay.add(7, 'd');
     for (let i = 0; i < 7; i++) {
       this.dateArr[i] = this.dateArr[i].add(7, 'd');
       this.formatDate[i] = this.dateArr[i].format('D');
@@ -71,6 +74,7 @@ export class WeeklyScheduleComponent implements OnInit {
   }
 
   today() {
+    this.curDay = moment();
     for (let i = 0; i < 7; i++) {
       this.dateArr[i] = moment().subtract(moment().day() - i, 'd');
       this.formatDate[i] = this.dateArr[i].format('D');
@@ -79,6 +83,7 @@ export class WeeklyScheduleComponent implements OnInit {
 
   onChangeDay(Day) {
     const numOfDay = moment().dayOfYear() - Day.dayOfYear();
+    this.curDay = moment().subtract(numOfDay, 'd');
     this.createDate();
     for (let i = 0; i < 7; i++) {
       if (numOfDay >= 0) {

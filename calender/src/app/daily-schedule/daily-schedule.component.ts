@@ -7,7 +7,7 @@ import * as moment from 'moment';
 })
 export class DailyScheduleComponent implements OnInit {
 
-  @Output() public curDay;
+  @Output() curDay;
   public curDayFormat: string;
   public timing;
   public timingArr = new Array(24);
