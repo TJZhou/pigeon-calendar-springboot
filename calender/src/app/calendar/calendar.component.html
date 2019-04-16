@@ -21,7 +21,7 @@
     <div class="flex-container calendar-days flex-center"
     *ngFor="let day of dateArr; let i = index"
     [attr.data-index]="i"
-    [ngClass] = "{'today':todayCheck(day)}"
+    [ngClass] = "{'today':todayCheck(day), 'isSelected':isSelected(day)}"
     (click) = "select(day)">
     {{day?.date()}}
   </div>

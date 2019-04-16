@@ -7,12 +7,12 @@ import { WeeklyScheduleComponent } from './weekly-schedule/weekly-schedule.compo
 import { AddEventComponent } from './add-event/add-event.component';
 
 const routes: Routes = [
-  { path: '', component: DailyScheduleComponent },
+  { path: '', component: LoginComponent },
   { path: 'day', component: DailyScheduleComponent },
   { path: 'week', component: WeeklyScheduleComponent },
   { path: 'Register', component: RegisterComponent},
   { path: 'Login', component: LoginComponent},
-  { path: 'addevent', component: AddEventComponent},
+  { path: 'addEvent', component: AddEventComponent},
 ];
 
 @NgModule({

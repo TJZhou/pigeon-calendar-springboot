@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import * as moment from 'moment';
 @Component({
   selector: 'app-daily-schedule',
@@ -7,11 +7,13 @@ import * as moment from 'moment';
 })
 export class DailyScheduleComponent implements OnInit {
 
-  public curDay;
+  @Output() public curDay;
   public curDayFormat: string;
   public timing;
   public timingArr = new Array(24);
   public showEvent = true;
+  public subDay;
+
   constructor() { }
 
   ngOnInit() {
@@ -46,7 +48,8 @@ export class DailyScheduleComponent implements OnInit {
   }
 
    onChangeDay(Day) {
-    this.curDay = Day;
+    this.subDay = Day.dayOfYear() - moment().dayOfYear();
+    this.curDay = moment().add(this.subDay, 'd');
     this.changeFormat();
   }
 }

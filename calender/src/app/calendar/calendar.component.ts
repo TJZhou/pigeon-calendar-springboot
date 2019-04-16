@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 
@@ -10,9 +10,11 @@ import { Router } from '@angular/router';
 export class CalendarComponent implements OnInit {
   @Output() changeDay = new EventEmitter<object>();
   @Output() changeWeeklyDay = new EventEmitter<object>();
+  @Input()  curDay;
   public date = moment();
   public dateArr;
   public clickedDay;
+  public day;
 
   constructor(private router: Router ) {
     console.log(this.router.url);
@@ -62,17 +64,18 @@ export class CalendarComponent implements OnInit {
     if (day === null || this.clickedDay === undefined || this.clickedDay === null) {
       return;
     } else {
-      return this.clickedDay === day.format('MM/DD');
+      return this.curDay.format('MM/DD') === day.format('MM/DD');
     }
   }
 
   select(day) {
       this.clickedDay = day.format('MM/DD');
+      this.day = day;
       if (this.router.url === '/week') {
       this.changeWeeklyDay.emit(day);
       }
       if (this.router.url === '/day') {
-        this.changeDay.emit(day);
+         this.changeDay.emit(this.day);
       }
   }
 }
