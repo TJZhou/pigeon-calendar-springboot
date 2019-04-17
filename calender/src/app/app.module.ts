@@ -14,7 +14,10 @@ import { WeeklyScheduleComponent } from './weekly-schedule/weekly-schedule.compo
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AddEventComponent } from './add-event/add-event.component';
-import { ClickOutsideModule} from 'ng-click-outside';
+import { ClickOutsideModule } from 'ng-click-outside';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +37,9 @@ import { ClickOutsideModule} from 'ng-click-outside';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

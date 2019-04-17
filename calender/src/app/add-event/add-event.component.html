@@ -18,11 +18,17 @@
             <div class="choose-date">
               <div class="timer"></div>
               <div for="date" class="date-line">
-                  <input [(ngModel)]="startDateTemp" (click)="selectStartDate()" id="startDate" type="text" class="d-date-left" placeholder="Start Date" >
-                  <input [(ngModel)]="startTimeTemp" (click)="controlDisplay($event)" (clickOutside)="onClickedOutside('startoutside')" id="startTime" type="text" class="d-time" placeholder="Start Time" >
-                  <span>—</span>
-                  <input [(ngModel)]="endTimeTemp" (click)="controlDisplay($event)" (clickOutside)="onClickedOutside('endoutside')" id="endTime" type="text" class="d-time" placeholder="End Time" >
-                  <input [(ngModel)]="endDateTemp" (click)="selectEndDate()" type="text" class="d-date" placeholder="End date" >
+                  
+                <!-- <input  [(ngModel)]='date' id='picker' (click)="picker.open()" (click)="double()" placeholder="Choose a date"> 
+                date: {{date}} aaa: {{a}} -->
+                
+                <input [(ngModel)]="startDateTemp" [matDatepicker]="startPicker" (click)="startPicker.open()" type="text" class="d-date-left" placeholder="Start Date">
+                <mat-datepicker #startPicker></mat-datepicker>
+                <input [(ngModel)]="startTimeTemp" (click)="controlDisplay($event)" (clickOutside)="onClickedOutside('startoutside')" id="startTime" type="text" class="d-time" placeholder="Start Time" >
+                <span>—</span>
+                <input [(ngModel)]="endTimeTemp" (click)="controlDisplay($event)" (clickOutside)="onClickedOutside('endoutside')" id="endTime" type="text" class="d-time" placeholder="End Time" >
+                <input [(ngModel)]="endDateTemp" [matDatepicker]="endPicker" (click)="endPicker.open()" type="text" class="d-date-left" placeholder="End Date" >
+                <mat-datepicker #endPicker></mat-datepicker>
               </div>
             </div>  
       
@@ -33,16 +39,16 @@
       
     <div *ngIf="displayArr.startTimeDisplay == 1" class="start-time-chooser">
         <div class="scroll">
-            <div *ngFor="let time of startTimeArr"  class="item" >
-              <span (click)=chooseTime(time)>{{time}}</span>
+            <div *ngFor="let time of startTimeArr" (click)=setStartTime($event) id="{{time}}" class="item" >
+              <span>{{time}}</span>
             </div>
         </div>
     </div>
 
     <div *ngIf="displayArr.endTimeDisplay == 1" class="end-time-chooser">
         <div class="scroll">
-            <div *ngFor="let time of endTimeArr"  class="item" >
-              <span (click)=chooseTime(time)>{{time}}</span>
+            <div *ngFor="let time of endTimeArr" (click)=setEndTime($event) id="{{time}}" class="item" >
+              <span>{{time}}</span>
             </div>
         </div>
     </div>
