@@ -3,8 +3,8 @@ import { UserModel } from '../models/user.model';
 import { FormGroup, FormBuilder, Validators, FormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA, MatInputModule} from '@angular/material';
 export interface DialogData {
-  animal: string;
-  name: string;
+  email: string;
+  password: string;
 }
 @Component({
   selector: 'app-login',

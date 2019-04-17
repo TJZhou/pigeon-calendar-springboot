@@ -28,10 +28,10 @@ div {
 
 .loginRegister {
   font-size: 16px;
-  color: black;
+  color:#2476E1 ;
   cursor: pointer;
   &:hover {
-    color: #2476E1;
+    color: black;
   }
 }
 
@@ -40,7 +40,8 @@ div {
   padding-right:10px;
   width:40px;
   height: 40px;
-  cursor: pointer;
+  background-repeat: no-repeat;
+  background-image: url(../pic/user.svg);
 }
 
 .Google-Calendar-Icon {
