@@ -21,21 +21,22 @@ div{
   //border:1px solid black;
 }
 
+.calendar-days:hover, .isSelected{
+  background:rgba(36, 118, 225, 0.5);
+  color: white;
+}
+
 .date {
   width:176px;
   text-align: left;
   padding-left:15px;
 }
 
-.inactive{
-  //background:gray;
-}
-
 .prev{
   float:right;
   font-size: 20px;
-
 }
+
 .prev:hover{
   cursor: pointer;
   background: lightgray;
@@ -60,7 +61,3 @@ div{
   color: white;
 }
 
-.selected{
-  background:rgba(36, 118, 225, 0.5);
-  color: white;
-}

@@ -1,17 +1,42 @@
-<h1 mat-dialog-title>Login My Account</h1>
-<form>
-<div mat-dialog-content>
-  <p>Your email address</p>
-  <mat-form-field>
-      <input matInput [(ngModel)]="data.email">
-  </mat-form-field>
-  <p>Password</p>
-  <mat-form-field>
-      <input matInput [(ngModel)]="data.password">
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Ok</button>
-  <button mat-button (click)="onNoClick()">Cancel</button>
-</div>
-</form>
+<div class="container">
+    <div class="header">
+      <div class="pigeon"></div>
+      <div class="title">Pigeon Calendar</div>
+    </div>
+
+    <div class="signin">Sign In</div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="loginForm.valid && onLoginSubmit()" novalidate>
+
+      <input class="input email" id="email"
+        formControlName="email"
+        [(ngModel)]="user.email"
+        placeholder=" Enter your email" />
+
+      <input class="input password" id="password"
+        formControlName="password"
+        [(ngModel)]="user.password"
+        placeholder=" Enter your password"
+        [type]="isShow ? 'text' : 'password'" />
+
+      <div class="checkbox">
+        <input class="checkmark"
+          type="checkbox"
+          [(ngModel)]="isShow"
+          [ngModelOptions]="{standalone: true}">
+        <div class="label">Show my password</div>
+      </div>
+
+
+
+      <button type="submit" class="submit button" [disabled]="!loginForm.valid">Log in</button>
+
+      <hr>
+
+      <div class="others">
+        <a routerLink="/register">Register a new account</a><p></p>
+        <a routerLink="/resetpassword">Forgot my password</a>
+      </div>
+
+    </form>
+  </div>

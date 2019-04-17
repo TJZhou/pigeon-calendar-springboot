@@ -1,6 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CalendarComponent } from './calendar/calendar.component';
@@ -9,12 +13,11 @@ import { DailyScheduleComponent } from './daily-schedule/daily-schedule.componen
 import { WeeklyScheduleComponent } from './weekly-schedule/weekly-schedule.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material';
-import { MatInputModule } from '@angular/material';
-import { MatIconModule } from '@angular/material';
-import { MatDialogModule } from '@angular/material'
+import { AddEventComponent } from './add-event/add-event.component';
+import { ClickOutsideModule } from 'ng-click-outside';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -24,18 +27,19 @@ import { MatDialogModule } from '@angular/material'
     DailyScheduleComponent,
     WeeklyScheduleComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AddEventComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
     FormsModule,
-    MatDialogModule
+    HttpClientModule,
+    ClickOutsideModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

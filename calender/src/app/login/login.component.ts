@@ -1,11 +1,7 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserModel } from '../models/user.model';
-import { FormGroup, FormBuilder, Validators, FormsModule } from '@angular/forms';
-import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA, MatInputModule} from '@angular/material';
-export interface DialogData {
-  email: string;
-  password: string;
-}
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,18 +10,27 @@ export interface DialogData {
 export class LoginComponent implements OnInit {
 
   user: UserModel = new UserModel();
+  isShow: boolean;
   loginForm: FormGroup;
-  hidden = true;
+
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      email: [this.user.email, [
+        Validators.required,
+        Validators.email
+      ]],
+      password: [this.user.password, [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(30)
+      ]]
+    });
   }
 
-  constructor(
-    public dialogRef: MatDialogRef<LoginComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
+  onLoginSubmit() {
+    alert(this.user.email + ' ' + this.user.password);
   }
 
 }

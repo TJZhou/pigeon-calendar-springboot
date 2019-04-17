@@ -1,5 +1,51 @@
-<div class = "wrapper">
-<p>
-  weekly-schedule works!
-</p>
+<app-calendar
+[curDay]= 'curDay'
+(changeWeeklyDay)= "onChangeDay($event)"></app-calendar>
+<app-navbar></app-navbar>
+<!--The content below is only a placeholder and can be replaced.-->
+<div class = "wrapperBtn">
+  <button class = "rightBtn"
+          routerLink="/week">
+          Week
+  </button>
+  <button class = "rightBtn"
+          routerLink="/day">
+          Day
+  </button>
+
 </div>
+<div class="wrapper">
+    <button class = "btn" (click) = "today()">Today</button>
+    <div name="previous" class="prev inline-block gray" (click)="previous()">< </div>
+    <div name="next" class="next inline-block gray" (click)="next()"> ></div>
+  <div class="schedule">
+    <div class="firstColumn float-left  margin-negative">
+      <ul>
+        <li class="noBorder">&nbsp;</li>
+        <li class="noBottom hiddenLi">&nbsp;</li>
+      </ul>
+      <ul *ngFor="let timing of timingArr">
+        <li class = "noBottom">{{ timing }}</li>
+      </ul>
+      <ul>
+          <li class="noBottom">&nbsp;</li>
+        </ul>
+    </div>
+
+    <div class="column float-left" *ngFor="let date of dateArr; let i = index" [attr.data-index]="i">
+      <ul>
+        <li class="noBorder color-gray"> {{weekdayArr[i]}}</li>
+      </ul>
+      <ul>
+        <li class = "date">
+          <div [ngClass] = "{'isToday': isToday(date)}">{{formatDate[i]}}</div>
+        </li>
+      </ul>
+      <ul *ngFor="let timing of timingArr" class="cursor-point">
+        <li (click) = "showEvent = false">&nbsp;</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<app-add-event [hidden] = "showEvent"></app-add-event>
