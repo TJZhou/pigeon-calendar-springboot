@@ -56,13 +56,22 @@ export class DailyScheduleComponent implements OnInit {
     this.changeFormat();
   }
 
+  showAddEvent() {
+    this.addEvent = false;
+    document.body.style.overflow = 'hidden';
+  }
   showEventDetail() {
     this.eventDetail = false;
     document.body.style.overflow = 'hidden';
   }
+
   onCloseEventDetail(e) {
-    console.log(11111);
-    this.eventDetail = e;
+    this.eventDetail = true;
+    document.body.style.overflow = 'auto';
+  }
+
+  onCloseAddEvent(e) {
+    this.addEvent = true;
     document.body.style.overflow = 'auto';
   }
 }

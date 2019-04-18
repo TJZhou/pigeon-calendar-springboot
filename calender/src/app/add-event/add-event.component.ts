@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,EventEmitter, Output } from '@angular/core';
 import { Location } from '@angular/common';
 import { Event } from '../models/event.model';
 import { EventService } from '../services/event.service';
 import * as moment from 'moment';
 import { EventPost } from '../models/eventPost.model';
+import {  } from 'protractor';
 
 
 @Component({
@@ -12,10 +13,11 @@ import { EventPost } from '../models/eventPost.model';
   styleUrls: ['./add-event.component.scss']
 })
 export class AddEventComponent implements OnInit {
-  
+
   matDatepicker;
   currentDate = moment();
-  
+  @Output() close = new EventEmitter<boolean>();
+
   startDateTemp = this.currentDate.format('MM/DD/YY');
   startTimeTemp = this.currentDate.format('HH:MM');
   endTimeTemp = this.currentDate.add(1, 'h').format('HH:MM');
@@ -54,7 +56,7 @@ export class AddEventComponent implements OnInit {
   var month = dateToday.getMonth();
   var day = dateToday.getDate();
   if (dateParts.length >= 1) {
-      var dataPart = dateParts[0].split("-");//yyyy-mm-dd  格式时间             
+      var dataPart = dateParts[0].split("-");//yyyy-mm-dd  格式时间
       if (dataPart.length == 1) {
           dataPart = dateParts[0].split("/");//yyyy/mm/dd格式时间
       }
@@ -142,13 +144,13 @@ export class AddEventComponent implements OnInit {
     console.log(this.endTimeTemp);
     console.log(this.endDateTemp);
 
-    // if (this.title == "" || this.title == undefined || 
+    // if (this.title == "" || this.title == undefined ||
     //     this.location == "" || this.location == undefined) {
 
     //   alert("Please fill out all the blanks.");
 
     // } else {
-      
+
 
       // let event = {
       //   "username": "yujxie",
@@ -195,13 +197,13 @@ export class AddEventComponent implements OnInit {
     let time = event.target.id;
     this.startTimeTemp = time;
   }
-  
+
   setEndTime(event) {
     let time = event.target.id;
     this.endTimeTemp = time;
   }
 
-  
-
-
+  closeAddEvent() {
+    this.close.emit(true);
+  }
 }

@@ -1,20 +1,21 @@
+<div class = "wrapper">
 <div class="control">
     <div class="container">
-        <div class="close" (click)="goBack()">
+        <div class="close" (click)="closeAddEvent()">
           <div class="icon"></div>
         </div>
         <div class="content">
-      
+
             <label for="title">
               <input [(ngModel)]="title"
                 type="text" class="input-title" placeholder="Add Title">
             </label>
-      
+
             <label for="location">
               <input [(ngModel)]="location"
                 type="text" class="input-address" placeholder="Add Location">
             </label>
-      
+
             <div class="choose-date">
               <div class="timer"></div>
               <div for="date" class="date-line">
@@ -26,13 +27,13 @@
                 <input [(ngModel)]="endDateTemp" [matDatepicker]="endPicker" (click)="endPicker.open()" type="text" class="d-date-left" placeholder="End Date" >
                 <mat-datepicker #endPicker></mat-datepicker>
               </div>
-            </div>  
-      
+            </div>
+
             <button class="save-button" (click)="onSubmit()">Save</button>
-      
+
         </div>
-    </div> 
-      
+    </div>
+
     <div *ngIf="displayArr.startTimeDisplay == 1" class="start-time-chooser">
         <div class="scroll">
             <div *ngFor="let time of startTimeArr" (click)=setStartTime($event) id="{{time}}" class="item" >
@@ -51,5 +52,6 @@
 
     <!-- <app-calendar *ngIf="judgeSelectStartDate() === true"></app-calendar> -->
 </div>
+</div>
+<div class = "shadow"></div>
 
-<router-outlet></router-outlet>

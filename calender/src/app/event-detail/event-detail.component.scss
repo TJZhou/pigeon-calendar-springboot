@@ -14,18 +14,18 @@
   height:300px;
   background-color: white;
   .img{
-    display:inline-block;
+    //display:inline-block;
     position:relative;
-    float:left;
+    float:right;
     margin: 15px 0 0 10px;
     width: 30px;
     height: 30px;
   }
   .close{
-    float:left;
-    display:inline-block;
+    float:right;
+   // display:inline-block;
     position:relative;
-    margin:15px 0 0 10px;
+    margin:13px 0 0 10px;
   }
   .delete{
     background: url(../pic/delete.svg);
