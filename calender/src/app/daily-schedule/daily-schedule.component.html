@@ -12,7 +12,6 @@
           routerLink="/day">
           Day
   </button>
-
 </div>
 
 <div class="shadow"></div>
@@ -33,12 +32,24 @@
     </div>
 
     <div class="schedule">
-      <ul *ngFor="let timing of timingArr">
-        <li class="gray">
-          <div (click) = "showEvent = false">&nbsp;</div>
+      <ul *ngFor="let timing of timingArr; let i = index" [attr.data-index]="i">
+        <li *ngIf= "i !== 10" class="gray">
+          <div id = "{{timing}}-1" (click) = "addEvent = false">&nbsp;</div>
+          <div id = "{{timing}}-2" class = "detailEvent">&nbsp;</div>
+        </li>
+        <!-- used to test detailed event-->
+        <li *ngIf= "i === 10" class="gray">
+          <div id = "{{timing}}-1" (click) = "showEvent = false" style = "display: none">&nbsp;</div>
+          <div id = "{{timing}}-2"
+          class = "detailEvent"
+          style="display:inline-block"
+          (click)="showEventDetail()">Used to be test</div>
         </li>
       </ul>
     </div>
   </div>
 </div>
-<app-add-event [hidden]="showEvent"></app-add-event>
+<app-add-event [hidden]="addEvent"></app-add-event>
+<app-event-detail
+[hidden]="eventDetail"
+(close) = "onCloseEventDetail($event)"></app-event-detail>

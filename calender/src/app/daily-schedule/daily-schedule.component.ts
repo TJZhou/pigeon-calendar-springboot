@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild } from '@angular/core';
 import * as moment from 'moment';
+import { EventDetailComponent } from '../event-detail/event-detail.component';
 @Component({
   selector: 'app-daily-schedule',
   templateUrl: './daily-schedule.component.html',
@@ -7,11 +8,13 @@ import * as moment from 'moment';
 })
 export class DailyScheduleComponent implements OnInit {
 
+  @ViewChild(EventDetailComponent)
   @Output() curDay;
   public curDayFormat: string;
   public timing;
   public timingArr = new Array(24);
-  public showEvent = true;
+  public addEvent = true;
+  public eventDetail = true;
   public subDay;
 
   constructor() { }
@@ -51,5 +54,15 @@ export class DailyScheduleComponent implements OnInit {
     this.subDay = Day.dayOfYear() - moment().dayOfYear();
     this.curDay = moment().add(this.subDay, 'd');
     this.changeFormat();
+  }
+
+  showEventDetail() {
+    this.eventDetail = false;
+    document.body.style.overflow = 'hidden';
+  }
+  onCloseEventDetail(e) {
+    console.log(11111);
+    this.eventDetail = e;
+    document.body.style.overflow = 'auto';
   }
 }
