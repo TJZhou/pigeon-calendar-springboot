@@ -5,6 +5,7 @@ import { EventService } from '../services/event.service';
 import * as moment from 'moment';
 import { EventPost } from '../models/eventPost.model';
 
+
 @Component({
   selector: 'app-add-event',
   templateUrl: './add-event.component.html',
@@ -12,7 +13,9 @@ import { EventPost } from '../models/eventPost.model';
 })
 export class AddEventComponent implements OnInit {
   
+  matDatepicker;
   currentDate = moment();
+  
   startDateTemp = this.currentDate.format('MM/DD/YY');
   startTimeTemp = this.currentDate.format('HH:MM');
   endTimeTemp = this.currentDate.add(1, 'h').format('HH:MM');
@@ -32,6 +35,48 @@ export class AddEventComponent implements OnInit {
   startTimeArr=[];
   endTimeArr=[];
 
+  // Convert date string to Date object
+
+ convertStrToDate(datetimeStr) {
+  var mydateint = Date.parse(datetimeStr);//数值格式的时间
+  if (!isNaN(mydateint)) {
+      var mydate = new Date(mydateint);
+      return mydate;
+  }
+  var mydate = new Date(datetimeStr);//字符串格式时间
+  var monthstr = mydate.getMonth() + 1;
+  if (!isNaN(monthstr)) {//转化成功
+      return mydate;
+  }//字符串格式时间转化失败
+  var dateParts = datetimeStr.split(" ");
+  var dateToday = new Date();
+  var year = dateToday.getFullYear();
+  var month = dateToday.getMonth();
+  var day = dateToday.getDate();
+  if (dateParts.length >= 1) {
+      var dataPart = dateParts[0].split("-");//yyyy-mm-dd  格式时间             
+      if (dataPart.length == 1) {
+          dataPart = dateParts[0].split("/");//yyyy/mm/dd格式时间
+      }
+      if (dataPart.length == 3) {
+          month = Math.floor(dataPart[0]);
+          day = Math.floor(dataPart[1]);
+          year = Math.floor(dataPart[2]);
+      }
+  }
+  if (dateParts.length == 2) {//hh:mm:ss格式时间
+      var timePart = dateParts[1].split(":");//hh:mm:ss格式时间
+      if (timePart.length == 3) {
+          var hour = Math.floor(timePart[0]);
+          var minute = Math.floor(timePart[1]);
+          var second = Math.floor(timePart[2]);
+          return new Date(year, month, day, hour, minute, second);
+      }
+  }
+  else {
+      return new Date(year, month, day);
+  }
+}
 
   fillTempTimeArr(){
     for(let i = 0; i < 24; i++){
@@ -86,11 +131,17 @@ export class AddEventComponent implements OnInit {
 
   onSubmit(){
 
-    // let startdate = this.startDateTemp.match();
+    let startDateElement = <HTMLInputElement>document.getElementById('startDate');
+    let startDateValue = startDateElement.value;
+    this.startDateTemp = startDateValue;
+    console.log(this.matDatepicker);
     console.log(this.startDateTemp);
-    console.log(this.startTimeTemp);
+    let convertStart = startDateValue + " " + this.startTimeTemp;
+    this.startTime = this.convertStrToDate(convertStart);
+    console.log(":::::"+ this.startTime);
     console.log(this.endTimeTemp);
     console.log(this.endDateTemp);
+
     // if (this.title == "" || this.title == undefined || 
     //     this.location == "" || this.location == undefined) {
 
@@ -150,6 +201,7 @@ export class AddEventComponent implements OnInit {
     this.endTimeTemp = time;
   }
 
+  
 
 
 }

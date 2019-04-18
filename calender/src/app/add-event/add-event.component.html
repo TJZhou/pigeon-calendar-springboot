@@ -18,11 +18,7 @@
             <div class="choose-date">
               <div class="timer"></div>
               <div for="date" class="date-line">
-                  
-                <!-- <input  [(ngModel)]='date' id='picker' (click)="picker.open()" (click)="double()" placeholder="Choose a date"> 
-                date: {{date}} aaa: {{a}} -->
-                
-                <input [(ngModel)]="startDateTemp" [matDatepicker]="startPicker" (click)="startPicker.open()" type="text" class="d-date-left" placeholder="Start Date">
+                <input [(ngModel)]="startDateTemp" [matDatepicker]="startPicker" id="startDate" (click)="startPicker.open()" type="text" class="d-date-left" placeholder="Start Date">
                 <mat-datepicker #startPicker></mat-datepicker>
                 <input [(ngModel)]="startTimeTemp" (click)="controlDisplay($event)" (clickOutside)="onClickedOutside('startoutside')" id="startTime" type="text" class="d-time" placeholder="Start Time" >
                 <span>—</span>
