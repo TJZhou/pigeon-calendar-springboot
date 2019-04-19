@@ -64,7 +64,6 @@ export class CalendarComponent implements OnInit {
     if (day === null || this.clickedDay === undefined || this.clickedDay === null) {
       return;
     } else {
-      console.log(this.curDay.format('MM/DD'));
       return this.curDay.format('MM/DD') === day.format('MM/DD');
     }
   }

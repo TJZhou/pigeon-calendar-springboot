@@ -1,7 +1,18 @@
 
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+.wrapper{
+  position: absolute;
+  margin-top:300px;
+  width:100%;
+  padding-left:400px;
+  z-index: 100;
+  min-width: 600px;
+}
+
 .control {
     position: relative;
+    background-color: white;
+    width:480px;
 }
 
 input:focus, textarea:focus {
@@ -10,8 +21,8 @@ input:focus, textarea:focus {
 
 .container {
     position: relative;
-    top: 30px;
-    left: 30px;
+    //top: 30px;
+    //left: 30px;
     width: 420px;
     height: 210px;
     border-radius: 10px;
@@ -81,7 +92,7 @@ input:focus {
     width: 390px;
 }
 
-.timer { 
+.timer {
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -124,7 +135,7 @@ input:focus {
     }
 }
 
-.d-date-left {    
+.d-date-left {
     margin-left: 20px;
     width: 70px;
 }
@@ -199,7 +210,7 @@ app-time-chooser {
     max-height: 200px;
     overflow-y: scroll;
 }
-  
+
 .item {
     height: 40px;
     line-height: 40px;
@@ -211,4 +222,12 @@ app-time-chooser {
 
 .item:hover {
     background-color: #eeeeee;
+}
+
+.shadow{
+  position: absolute;
+  width:100%;
+  height:100%;
+  z-index: 10;
+  background-color: rgba(99, 95, 95, 0.1);
 }

@@ -1,0 +1,60 @@
+.wrapper{
+  position: absolute;
+  margin-top:200px;
+  width:100%;
+  padding-left:30%;
+  z-index: 100;
+  min-width: 600px;
+}
+
+.eventDetail{
+  border:1px solid gray;
+  border-radius: 10px;
+  width:40%;
+  height:300px;
+  background-color: white;
+  .img{
+    //display:inline-block;
+    position:relative;
+    float:right;
+    margin: 15px 0 0 10px;
+    width: 30px;
+    height: 30px;
+  }
+  .close{
+    float:right;
+   // display:inline-block;
+    position:relative;
+    margin:13px 0 0 10px;
+  }
+  .delete{
+    background: url(../pic/delete.svg);
+  }
+  .edit{
+    background: url(../pic/edit.svg);
+  }
+  .email{
+    background: url(../pic/email.svg);
+  }
+  button{
+    width:25px;
+    height:25px;
+  }
+  ul{
+    margin-top:70px;
+    list-style-type: none;
+    li{
+      height:50px;
+      font-size: 24px;
+      font-weight: 300;
+    }
+  }
+}
+
+.shadow{
+  position: absolute;
+  width:100%;
+  height:100%;
+  z-index: 10;
+  background-color: rgba(99, 95, 95, 0.1);
+}
