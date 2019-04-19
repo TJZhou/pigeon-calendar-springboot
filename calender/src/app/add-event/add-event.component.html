@@ -24,7 +24,7 @@
                 <input [(ngModel)]="startTimeTemp" (click)="controlDisplay($event)" (clickOutside)="onClickedOutside('startoutside')" id="startTime" type="text" class="d-time" placeholder="Start Time" >
                 <span>—</span>
                 <input [(ngModel)]="endTimeTemp" (click)="controlDisplay($event)" (clickOutside)="onClickedOutside('endoutside')" id="endTime" type="text" class="d-time" placeholder="End Time" >
-                <input [(ngModel)]="endDateTemp" [matDatepicker]="endPicker" (click)="endPicker.open()" type="text" class="d-date-left" placeholder="End Date" >
+                <input [(ngModel)]="endDateTemp" [matDatepicker]="endPicker" id="endDate" (click)="endPicker.open()" type="text" class="d-date-left" placeholder="End Date" >
                 <mat-datepicker #endPicker></mat-datepicker>
               </div>
             </div>

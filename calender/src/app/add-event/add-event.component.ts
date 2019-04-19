@@ -1,5 +1,5 @@
 import { Component, OnInit,EventEmitter, Output } from '@angular/core';
-import { Location } from '@angular/common';
+// import { Location } from '@angular/common';
 import { Event } from '../models/event.model';
 import { EventService } from '../services/event.service';
 import * as moment from 'moment';
@@ -40,25 +40,25 @@ export class AddEventComponent implements OnInit {
   // Convert date string to Date object
 
  convertStrToDate(datetimeStr) {
-  var mydateint = Date.parse(datetimeStr);//数值格式的时间
+  var mydateint = Date.parse(datetimeStr);
   if (!isNaN(mydateint)) {
       var mydate = new Date(mydateint);
       return mydate;
   }
-  var mydate = new Date(datetimeStr);//字符串格式时间
+  var mydate = new Date(datetimeStr);
   var monthstr = mydate.getMonth() + 1;
-  if (!isNaN(monthstr)) {//转化成功
+  if (!isNaN(monthstr)) {
       return mydate;
-  }//字符串格式时间转化失败
+  }
   var dateParts = datetimeStr.split(" ");
   var dateToday = new Date();
   var year = dateToday.getFullYear();
   var month = dateToday.getMonth();
   var day = dateToday.getDate();
   if (dateParts.length >= 1) {
-      var dataPart = dateParts[0].split("-");//yyyy-mm-dd  格式时间
+      var dataPart = dateParts[0].split("-");
       if (dataPart.length == 1) {
-          dataPart = dateParts[0].split("/");//yyyy/mm/dd格式时间
+          dataPart = dateParts[0].split("/");
       }
       if (dataPart.length == 3) {
           month = Math.floor(dataPart[0]);
@@ -66,8 +66,8 @@ export class AddEventComponent implements OnInit {
           year = Math.floor(dataPart[2]);
       }
   }
-  if (dateParts.length == 2) {//hh:mm:ss格式时间
-      var timePart = dateParts[1].split(":");//hh:mm:ss格式时间
+  if (dateParts.length == 2) {
+      var timePart = dateParts[1].split(":");
       if (timePart.length == 3) {
           var hour = Math.floor(timePart[0]);
           var minute = Math.floor(timePart[1]);
@@ -105,7 +105,7 @@ export class AddEventComponent implements OnInit {
   selectedEndTime = null;
 
   constructor(
-    private routeLocation: Location,
+    // private routeLocation: Location,
     private eventService: EventService
     ) { }
 
@@ -115,56 +115,63 @@ export class AddEventComponent implements OnInit {
     this.endTimeArr.push('24:00');
   }
 
-  goBack(): void {
-    this.routeLocation.back();
-  }
-
+  // goBack(): void {
+  //   this.routeLocation.back();
+  // }
 
   createNewEvent(): EventPost{
     let event = {
-    "username": "yujxie",
-    "title": "test",
-    "location": "testLocation",
-    "startTime": new Date(),
-    "endTime": new Date()
+    "username": "test",
+    "title": this.title,
+    "location": this.location,
+    "startTime": this.startTime,
+    "endTime": this.endTime
     }
     return event;
   }
 
   onSubmit(){
 
+    // Get the start and end date
     let startDateElement = <HTMLInputElement>document.getElementById('startDate');
     let startDateValue = startDateElement.value;
     this.startDateTemp = startDateValue;
-    console.log(this.matDatepicker);
-    console.log(this.startDateTemp);
+
+    let endDateElement = <HTMLInputElement>document.getElementById('endDate');
+    let endDateValue = endDateElement.value;
+    this.endDateTemp = endDateValue;
+
+    // Put date the time together and get their timestamp for comparing
+
     let convertStart = startDateValue + " " + this.startTimeTemp;
-    this.startTime = this.convertStrToDate(convertStart);
-    console.log(":::::"+ this.startTime);
-    console.log(this.endTimeTemp);
-    console.log(this.endDateTemp);
+    let startStamp = Date.parse(convertStart);
 
-    // if (this.title == "" || this.title == undefined ||
-    //     this.location == "" || this.location == undefined) {
+    let convertEnd = endDateValue + " " + this.endTimeTemp;
+    let endStamp = Date.parse(convertEnd);
 
-    //   alert("Please fill out all the blanks.");
+    if (this.title == "" || this.title == undefined || 
+        this.location == "" || this.location == undefined) {
 
-    // } else {
+      alert("Invalid input - Please fill out all the blanks.");
 
+    } else if (endStamp <= startStamp ) {
 
-      // let event = {
-      //   "username": "yujxie",
-      //   "title": "test",
-      //   "location": "testLocation",
-      //   "startTime": "2019-04-11T18:00:00.000Z",
-      //   "endTime": "2019-04-11T18:00:00.000Z"
-      // }
+      alert("Please choose valid end time.");
 
-      // this.eventService.addEvent(this.createNewEvent())
-      //   .subscribe(data => console.log(" This event has been created: " + data));
-      // alert('Add successfully.');
+    } else {
 
-    // }
+      // Convert date string to date object
+      this.startTime = this.convertStrToDate(convertStart);
+      this.endTime = this.convertStrToDate(convertEnd);
+
+      console.log(this.startTime);
+      console.log(this.endTime);
+      // Use eventService to create new event
+      this.eventService.addEvent(this.createNewEvent())
+        .subscribe(data => console.log(" This event has been created: " + data));
+      alert('Add successfully.');
+
+    }
   }
 
   displayArr = {
@@ -197,7 +204,7 @@ export class AddEventComponent implements OnInit {
     let time = event.target.id;
     this.startTimeTemp = time;
   }
-
+  
   setEndTime(event) {
     let time = event.target.id;
     this.endTimeTemp = time;
