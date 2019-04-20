@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-
+import { UserService } from './../services/user.service';
+import { Component, Input, OnInit, Inject } from '@angular/core';
+import { DataService } from './../services/user.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 @Component({
   selector: 'app-check-profile-details',
   templateUrl: './check-profile-details.component.html',
@@ -7,7 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CheckProfileDetailsComponent implements OnInit {
 
-  constructor() { }
+  @Input() id: string ;
+  constructor(
+    public dialogRef: MatDialogRef<CheckProfileDetailsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
   ngOnInit() {
   }

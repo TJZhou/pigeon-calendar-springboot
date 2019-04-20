@@ -1,3 +1,12 @@
-<p>
-  check-profile-details works!
-</p>
+<ul *ngIf="data" >
+  <li>
+    <p>{{ data.username}}</p>
+  </li>
+  <li>
+    <p>{{ data.email}}</p>
+  </li>
+  <li>
+    <p>{{ data.phone}}</p>
+  </li>
+
+</ul>
