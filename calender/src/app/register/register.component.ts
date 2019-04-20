@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserModel } from '../models/user.model';
 @Component({
@@ -13,7 +14,6 @@ export class RegisterComponent implements OnInit {
   user: UserModel = new UserModel();
   registerForm: FormGroup;
   hidden = true;
-
 
   constructor(private formBuilder: FormBuilder) { }
 

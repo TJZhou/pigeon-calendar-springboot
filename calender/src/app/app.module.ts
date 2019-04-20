@@ -18,7 +18,14 @@ import { ClickOutsideModule } from 'ng-click-outside';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { EventDetailComponent } from './event-detail/event-detail.component';
-
+import { CheckProfileDetailsComponent } from './check-profile-details/check-profile-details.component';
+import {
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatRippleModule,
+  MatIconModule
+} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -30,7 +37,8 @@ import { EventDetailComponent } from './event-detail/event-detail.component';
     LoginComponent,
     RegisterComponent,
     AddEventComponent,
-    EventDetailComponent
+    EventDetailComponent,
+    CheckProfileDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +49,12 @@ import { EventDetailComponent } from './event-detail/event-detail.component';
     HttpClientModule,
     ClickOutsideModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
