@@ -35,5 +35,4 @@ export class EventService {
   deleteEvent(eventId: number): Observable<Event> {
     return this.http.delete<Event>(this.eventUrl + eventId);
   }
-  
 }

@@ -1,3 +1,4 @@
+import { EventService } from './../services/event.service';
 import { Component, OnInit, Input, Output, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import { EventDetailComponent } from '../event-detail/event-detail.component';
@@ -16,8 +17,9 @@ export class DailyScheduleComponent implements OnInit {
   public addEvent = true;
   public eventDetail = true;
   public subDay;
+  public events;
 
-  constructor() { }
+  constructor(private eventService: EventService) { }
 
   ngOnInit() {
     this.curDay = moment();
@@ -63,6 +65,10 @@ export class DailyScheduleComponent implements OnInit {
   showEventDetail() {
     this.eventDetail = false;
     document.body.style.overflow = 'hidden';
+    this.eventService.getEvents().subscribe( data => {
+      this.events = data;
+      console.log(this.events[0]._id);
+    });
   }
 
   onCloseEventDetail(e) {
