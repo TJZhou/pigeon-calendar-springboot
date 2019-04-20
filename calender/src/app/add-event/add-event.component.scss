@@ -13,6 +13,7 @@
     position: relative;
     background-color: white;
     width:480px;
+    height: 270px;
 }
 
 input:focus, textarea:focus {
@@ -176,8 +177,8 @@ app-time-chooser {
 
 .start-time-chooser {
     position: relative;
-    top: -50px;
-    left: 200px;
+    top: -80px;
+    left: 175px;
     width: 130px;
     max-height: 200px;
     border-radius: 2px;
@@ -192,8 +193,8 @@ app-time-chooser {
 
 .end-time-chooser {
     position: relative;
-    top: -50px;
-    left: 295px;
+    top: -80px;
+    left: 265px;
     width: 130px;
     max-height: 200px;
     border-radius: 2px;
