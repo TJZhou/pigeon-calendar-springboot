@@ -8,10 +8,10 @@
 
   <form [formGroup]="loginForm" (ngSubmit)="loginForm.valid && onLoginSubmit()" novalidate>
     
-    <input class="input email" id="email"
-      formControlName="email"
-      [(ngModel)]="user.email"
-      placeholder=" Enter your email" />
+    <input class="input email" id="username"
+      formControlName="username"
+      [(ngModel)]="user.username"
+      placeholder=" Enter your username" />
     
     <input class="input password" id="password"
       formControlName="password"
