@@ -33,7 +33,17 @@ export class EventService {
     return this.http.post<Event>(this.eventUrl, event, httpOptions);
   }
 
-  deleteEvent(eventId: number): Observable<Event> {
+  updateEvent(eventId: string, event: Event): Observable<Event> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'my-auth-token'
+      })
+    };
+    return this.http.patch<Event>(this.eventUrl + eventId, event, httpOptions);
+  }
+
+  deleteEvent(eventId: string): Observable<Event> {
     return this.http.delete<Event>(this.eventUrl + eventId);
   }
 }
