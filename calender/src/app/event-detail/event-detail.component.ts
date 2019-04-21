@@ -8,8 +8,17 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class EventDetailComponent implements OnInit {
 
   @Output() public close = new EventEmitter<boolean>();
+  public eventTitle: string;
+  public eventStartTime: string;
+  public eventEndTime: string;
+  public eventLocation: string;
 
-  constructor() { }
+  constructor() {
+    this.eventTitle = ' ';
+    this.eventStartTime = ' ';
+    this.eventEndTime = ' ';
+    this.eventLocation = ' ';
+  }
 
   ngOnInit() {
   }

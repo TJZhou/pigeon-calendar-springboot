@@ -33,17 +33,15 @@
 
     <div class="schedule">
       <ul *ngFor="let timing of timingArr; let i = index" [attr.data-index]="i">
-        <li *ngIf= "i !== 10" class="gray">
-          <div id = "{{timing}}-1" (click) = "showAddEvent()">&nbsp;</div>
-          <div id = "{{timing}}-2" class = "detailEvent">&nbsp;</div>
-        </li>
-        <!-- used to test detailed event-->
-        <li *ngIf= "i === 10" class="gray">
-          <div id = "{{timing}}-1" style = "display: none">&nbsp;</div>
+        <li class="gray">
+          <div id = "{{timing}}-1"
+          class = "addEvent"
+          (click) = "showAddEvent()"
+          [ngClass] = "{'haveEvent': isHaveEvent(i)}">&nbsp;</div>
           <div id = "{{timing}}-2"
           class = "detailEvent"
-          style="display:inline-block"
-          (click)="showEventDetail()">Used to be test</div>
+          (click) = "showEventDetail($event.target.id)"
+          [ngClass] = "{'haveEvent':!isHaveEvent(i)}">&nbsp;</div>
         </li>
       </ul>
     </div>
@@ -51,7 +49,8 @@
 </div>
 <app-add-event
 [hidden]="addEvent"
-(close) = "onCloseAddEvent($event)"></app-add-event>
+(close) = "onCloseAddEvent($event)"
+(save) = "onSaveAddEvent()"></app-add-event>
 <app-event-detail
 [hidden]="eventDetail"
 (close) = "onCloseEventDetail($event)"></app-event-detail>

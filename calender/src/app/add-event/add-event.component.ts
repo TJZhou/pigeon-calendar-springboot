@@ -17,7 +17,7 @@ export class AddEventComponent implements OnInit {
   matDatepicker;
   currentDate = moment();
   @Output() close = new EventEmitter<boolean>();
-
+  @Output() save = new EventEmitter<object>();
   startDateTemp = this.currentDate.format('MM/DD/YY');
   startTimeTemp = this.currentDate.format('HH:MM');
   endTimeTemp = this.currentDate.add(1, 'h').format('HH:MM');
@@ -149,7 +149,7 @@ export class AddEventComponent implements OnInit {
     let convertEnd = endDateValue + " " + this.endTimeTemp;
     let endStamp = Date.parse(convertEnd);
 
-    if (this.title == "" || this.title == undefined || 
+    if (this.title == "" || this.title == undefined ||
         this.location == "" || this.location == undefined) {
 
       alert("Invalid input - Please fill out all the blanks.");
@@ -170,7 +170,8 @@ export class AddEventComponent implements OnInit {
       this.eventService.addEvent(this.createNewEvent())
         .subscribe(data => console.log(" This event has been created: " + data));
       alert('Add successfully.');
-
+      this.save.emit();
+      this.close.emit();
     }
   }
 
@@ -204,7 +205,7 @@ export class AddEventComponent implements OnInit {
     let time = event.target.id;
     this.startTimeTemp = time;
   }
-  
+
   setEndTime(event) {
     let time = event.target.id;
     this.endTimeTemp = time;

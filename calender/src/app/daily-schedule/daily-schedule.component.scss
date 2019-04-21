@@ -84,16 +84,18 @@
         cursor: pointer;
         line-height: 39px;
         width: 100%;
-        div {
+        .addEvent {
           display: inline-block;
           width: 100%;
           border-top: 1px solid lightgray;
         }
         .detailEvent{
-          display: none;
           width:100%;
           border-radius: 5px;
           background-color: rgb(36, 118, 225);
+        }
+        .haveEvent{
+          display: none;
         }
       }
     }
