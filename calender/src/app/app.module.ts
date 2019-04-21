@@ -18,6 +18,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { EventDetailComponent } from './event-detail/event-detail.component';
+import { EditEventComponent } from './edit-event/edit-event.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { EventDetailComponent } from './event-detail/event-detail.component';
     LoginComponent,
     RegisterComponent,
     AddEventComponent,
-    EventDetailComponent
+    EventDetailComponent,
+    EditEventComponent
   ],
   imports: [
     BrowserModule,
