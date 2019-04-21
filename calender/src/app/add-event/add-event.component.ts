@@ -30,8 +30,8 @@ export class AddEventComponent implements OnInit {
   username: string;
   title: string;
   location: string;
-  startTime: Date;
-  endTime: Date;
+  startTime: string;
+  endTime: string;
 
   tempTimeArr=[];
   startTimeArr=[];
@@ -143,26 +143,33 @@ export class AddEventComponent implements OnInit {
 
     // Put date the time together and get their timestamp for comparing
 
-    let convertStart = startDateValue + " " + this.startTimeTemp;
+    let startwords = this.startDateTemp.split('/');
+    let endwords = this.endDateTemp.split('/');
+    
+
+    if( parseInt(startwords[0]) < 10 ) {
+      this.startDateTemp = '0' + this.startDateTemp;
+    }
+    if( parseInt(endwords[0]) < 10 ) {
+      this.endDateTemp = '0' + this.endDateTemp;
+    }
+
+    let convertStart = this.startDateTemp + " " + this.startTimeTemp;
     let startStamp = Date.parse(convertStart);
 
-    let convertEnd = endDateValue + " " + this.endTimeTemp;
+    let convertEnd = this.endDateTemp + " " + this.endTimeTemp;
     let endStamp = Date.parse(convertEnd);
 
-    if (this.title == "" || this.title == undefined ||
+    if (this.title == "" || this.title == undefined || 
         this.location == "" || this.location == undefined) {
-
       alert("Invalid input - Please fill out all the blanks.");
-
     } else if (endStamp <= startStamp ) {
-
       alert("Please choose valid end time.");
-
     } else {
 
       // Convert date string to date object
-      this.startTime = this.convertStrToDate(convertStart);
-      this.endTime = this.convertStrToDate(convertEnd);
+      this.startTime = convertStart;
+      this.endTime = convertEnd;
 
       console.log(this.startTime);
       console.log(this.endTime);
