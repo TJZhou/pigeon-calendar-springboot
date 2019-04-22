@@ -22,7 +22,7 @@ export class EventService {
   }
 
   /**
-   * 
+   *
    * @param username Get events under one user by username.
    */
   getEventsFromOneUser(username: string): Observable<Event[]>{
@@ -30,16 +30,16 @@ export class EventService {
   }
 
   /**
-   * 
+   *
    * @param eventId Get specific event by eventId.
    */
   getEvent(eventId: string): Observable<Event> {
     console.log(this.eventUrl + eventId);
-    return this.http.get<Event>(this.eventUrl + eventId);
+    return this.http.get<Event>(this.eventUrl  + eventId);
   }
 
   /**
-   * 
+   *
    * @param event Use post method to create a new Event.
    */
   addEvent(event: EventPost): Observable<Event> {
@@ -53,7 +53,7 @@ export class EventService {
   }
 
   /**
-   * 
+   *
    * @param eventId Specify the event need to be updated.
    * @param event Updated event.
    */
@@ -68,7 +68,7 @@ export class EventService {
   }
 
   /**
-   * 
+   *
    * @param eventId Delete the event by eventId.
    */
   deleteEvent(eventId: string): Observable<Event> {

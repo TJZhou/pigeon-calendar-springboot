@@ -18,6 +18,14 @@ import { ClickOutsideModule } from 'ng-click-outside';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { EventDetailComponent } from './event-detail/event-detail.component';
+import { CheckProfileDetailsComponent } from './check-profile-details/check-profile-details.component';
+import {
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatRippleModule,
+  MatIconModule
+} from '@angular/material';
 import { EditEventComponent } from './edit-event/edit-event.component';
 
 
@@ -32,6 +40,7 @@ import { EditEventComponent } from './edit-event/edit-event.component';
     RegisterComponent,
     AddEventComponent,
     EventDetailComponent,
+    CheckProfileDetailsComponent,
     EditEventComponent
   ],
   imports: [
@@ -43,7 +52,12 @@ import { EditEventComponent } from './edit-event/edit-event.component';
     HttpClientModule,
     ClickOutsideModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

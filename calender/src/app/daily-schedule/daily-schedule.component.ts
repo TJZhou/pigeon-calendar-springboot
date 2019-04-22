@@ -1,3 +1,4 @@
+import { CalendarComponent } from './../calendar/calendar.component';
 import { AddEventComponent } from './../add-event/add-event.component';
 import { Event } from './../models/event.model';
 import { EventService } from './../services/event.service';
@@ -13,6 +14,7 @@ export class DailyScheduleComponent implements OnInit {
 
   @ViewChild(EventDetailComponent)   public eventDetailComponent: EventDetailComponent;
   @ViewChild(AddEventComponent)   public addEventComponent: AddEventComponent;
+  @ViewChild(CalendarComponent)   public calendarComponent: CalendarComponent;
   @Output() curDay;
   public curDayFormat: string;
   public timing;
@@ -23,15 +25,19 @@ export class DailyScheduleComponent implements OnInit {
   public event: Event;
   public events;
   public haveEvent = new Array(24);
+  public username;
 
   constructor(private eventService: EventService) { }
 
   ngOnInit() {
     // initialize current day, timing array and add all exsited events
+    console.log(localStorage.getItem('username'));
+    this.username = localStorage.getItem('username');
+
     this.curDay = moment();
     this.curDayFormat = this.curDay.format('MM/DD');
     this.createTiming();
-    this.events = this.eventService.getEvents().subscribe( data => {
+    this.events = this.eventService.getEventsFromOneUser(this.username).subscribe( data => {
       this.events = data;
       // tslint:disable-next-line:prefer-for-of
       this.listEvent(this.curDay, this.events);
@@ -41,6 +47,7 @@ export class DailyScheduleComponent implements OnInit {
     }
   }
 
+  // list all events related to current user
   listEvent(d, e) {
     // const curMonth = parseInt(d.format('MM'), 0);
     const curDayOfYear = d.dayOfYear();
@@ -48,13 +55,25 @@ export class DailyScheduleComponent implements OnInit {
     for (let i = 0; i < e.length; i++) {
       const eventStartDayOfYear = moment(e[i].startTime.substr(0, 10), 'MM/DD/YYYY').dayOfYear();
       const eventEndDayOfYear = moment(e[i].startTime.substr(0, 10), 'MM/DD/YYYY').dayOfYear();
-
       if (curDayOfYear >= eventStartDayOfYear && curDayOfYear <= eventEndDayOfYear) {
         const start = parseInt(e[i].startTime.substr(11, 2), 0);
         const end = parseInt(e[i].endTime.substr(11, 2), 0);
         for (let j = start; j < end; j++) {
           this.haveEvent[j] = true;
-          document.getElementById('0' + j + ':00-2').setAttribute('id', e[i]._id);
+          if ( j < 10 ) {
+            if (document.getElementById('0' + j + ':00-2') !== null) {
+              document.getElementById('0' + j + ':00-2').setAttribute('name', e[i]._id);
+            }
+          } else {
+            if (document.getElementById(j + ':00-2') !== null) {
+              document.getElementById(j + ':00-2').setAttribute('name', e[i]._id);
+            }
+          }
+        }
+        if (start < 10) {
+          document.getElementById('0' + start + ':00-2').innerHTML = e[i].title;
+        } else {
+          document.getElementById(start + ':00-2').innerHTML = e[i].title;
         }
       }
     }
@@ -70,11 +89,29 @@ export class DailyScheduleComponent implements OnInit {
     }
   }
 
+  // when click today button
   today() {
     this.curDay = moment();
     this.changeFormat();
+    for (let i = 0; i < 24; i++) {
+      this.haveEvent[i] = false;
+    }
     this.listEvent(this.curDay, this.events);
+    const month = this.calendarComponent.date.month();
+    console.log(this.calendarComponent.date.month());
+    if (moment().month() > month) {
+      for (let i = 0; i < moment().month() - month; i++) {
+        this.calendarComponent.nextMonth();
+      }
+    }
+    if (moment().month() < month) {
+      for (let i = 0; i < month - moment().month(); i++) {
+        this.calendarComponent.prevMonth();
+      }
+    }
   }
+
+  // previous day and next day
   previous() {
     for (let i = 0; i < 24; i++) {
       this.haveEvent[i] = false;
@@ -109,24 +146,31 @@ export class DailyScheduleComponent implements OnInit {
   }
 
   // show addEvent panel
-  showAddEvent() {
+  showAddEvent(timing) {
     this.addEvent = false;
     document.body.style.overflow = 'hidden';
+    this.addEventComponent.startTimeTemp = timing;
+    const time = parseInt(timing.substr(0, 2), 0);
+    if (time < 9) {
+      this.addEventComponent.endTimeTemp = '0' + (time + 1).toString() + ':00';
+    } else {
+      this.addEventComponent.endTimeTemp = (time + 1).toString() + ':00';
+    }
+    console.log(this.addEventComponent.startTimeTemp);
   }
 
   // show event detail panel
   showEventDetail(id) {
     this.eventDetail = false;
     document.body.style.overflow = 'hidden';
-
+    console.log(id);
     this.eventService.getEvent(id).subscribe( data => {
-      console.log(id);
-      console.log(data);
-      // this.event = data;
-      // this.eventDetailComponent.eventTitle = this.event.title;
-      // this.eventDetailComponent.eventLocation = this.event.location;
-      // this.eventDetailComponent.eventStartTime = this.event.startTime;
-      // this.eventDetailComponent.eventEndTime = this.event.endTime;
+      this.event = data[0];
+      console.log(this.event);
+      this.eventDetailComponent.eventTitle = this.event.title;
+      this.eventDetailComponent.eventLocation = this.event.location;
+      this.eventDetailComponent.eventStartTime = this.event.startTime;
+      this.eventDetailComponent.eventEndTime = this.event.endTime;
     });
   }
 

@@ -121,7 +121,7 @@ export class AddEventComponent implements OnInit {
 
   createNewEvent(): EventPost{
     let event = {
-    "username": "test",
+    "username": localStorage.getItem('username'),
     "title": this.title,
     "location": this.location,
     "startTime": this.startTime,
@@ -145,7 +145,7 @@ export class AddEventComponent implements OnInit {
 
     let startwords = this.startDateTemp.split('/');
     let endwords = this.endDateTemp.split('/');
-    
+
 
     if( parseInt(startwords[0]) < 10 ) {
       this.startDateTemp = '0' + this.startDateTemp;
@@ -160,7 +160,7 @@ export class AddEventComponent implements OnInit {
     let convertEnd = this.endDateTemp + " " + this.endTimeTemp;
     let endStamp = Date.parse(convertEnd);
 
-    if (this.title == "" || this.title == undefined || 
+    if (this.title == "" || this.title == undefined ||
         this.location == "" || this.location == undefined) {
       alert("Invalid input - Please fill out all the blanks.");
     } else if (endStamp <= startStamp ) {

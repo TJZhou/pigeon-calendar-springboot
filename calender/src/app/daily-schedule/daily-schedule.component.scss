@@ -91,8 +91,9 @@
         }
         .detailEvent{
           width:100%;
-          border-radius: 5px;
-          background-color: rgb(36, 118, 225);
+          color:white;
+          //border-radius: 5px;
+          background-color: rgba(36, 118, 225, 0.6);
         }
         .haveEvent{
           display: none;
