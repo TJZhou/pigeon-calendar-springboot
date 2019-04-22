@@ -1,5 +1,5 @@
+import { EventService } from './../services/event.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-
 @Component({
   selector: 'app-event-detail',
   templateUrl: './event-detail.component.html',
@@ -12,8 +12,10 @@ export class EventDetailComponent implements OnInit {
   public eventStartTime: string;
   public eventEndTime: string;
   public eventLocation: string;
+  public tempId;
 
-  constructor() {
+  constructor(private eventService: EventService) {
+    // initialize all variables
     this.eventTitle = ' ';
     this.eventStartTime = ' ';
     this.eventEndTime = ' ';
@@ -23,7 +25,15 @@ export class EventDetailComponent implements OnInit {
   ngOnInit() {
   }
 
+  // when emit false just close, when emit true. it means the element is deleted
   closeEventDetail() {
+    this.close.emit(false);
+  }
+  deleteEvent() {
+    console.log(this.tempId);
     this.close.emit(true);
+    this.eventService.deleteEvent(this.tempId).subscribe(data => {
+      console.log(data);
+    });
   }
 }

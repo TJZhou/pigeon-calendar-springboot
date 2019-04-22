@@ -54,7 +54,7 @@ export class DailyScheduleComponent implements OnInit {
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < e.length; i++) {
       const eventStartDayOfYear = moment(e[i].startTime.substr(0, 10), 'MM/DD/YYYY').dayOfYear();
-      const eventEndDayOfYear = moment(e[i].startTime.substr(0, 10), 'MM/DD/YYYY').dayOfYear();
+      const eventEndDayOfYear = moment(e[i].endTime.substr(0, 10), 'MM/DD/YYYY').dayOfYear();
       if (curDayOfYear >= eventStartDayOfYear && curDayOfYear <= eventEndDayOfYear) {
         const start = parseInt(e[i].startTime.substr(11, 2), 0);
         const end = parseInt(e[i].endTime.substr(11, 2), 0);
@@ -172,6 +172,7 @@ export class DailyScheduleComponent implements OnInit {
       this.eventDetailComponent.eventStartTime = this.event.startTime;
       this.eventDetailComponent.eventEndTime = this.event.endTime;
     });
+    this.eventDetailComponent.tempId = id;
   }
 
   // if current div has an event or not
@@ -183,6 +184,17 @@ export class DailyScheduleComponent implements OnInit {
   onCloseEventDetail(e) {
     this.eventDetail = true;
     document.body.style.overflow = 'auto';
+    if (e === true) {
+    let event;
+    this.eventService.getEvent(this.eventDetailComponent.tempId).subscribe( data => {
+      event = data;
+      this.events = this.events.filter(h => h.id !== this.eventDetailComponent.tempId);
+      for (let i = parseInt(event[0].startTime.substr(11, 2), 0); i < parseInt(event[0].endTime.substr(11, 2), 0); i++) {
+        console.log(i);
+        this.haveEvent[i] = false;
+      }
+    });
+    }
   }
 
   // close add event panel
@@ -193,10 +205,15 @@ export class DailyScheduleComponent implements OnInit {
 
   // save the new event
   onSaveAddEvent() {
-    const start = parseInt(this.addEventComponent.startTimeTemp.substr(0, 2), 0);
-    const end = parseInt(this.addEventComponent.endTimeTemp.substr(0, 2), 0);
+    const start = parseInt(this.addEventComponent.startTime.substr(11, 2), 0);
+    const end = parseInt(this.addEventComponent.endTime.substr(11, 2), 0);
     for (let i = start; i < end; i++) {
       this.haveEvent[i] = true;
+    }
+    if (start < 10) {
+      document.getElementById('0' + start + ':00-2').innerHTML = this.addEventComponent.title;
+    } else {
+      document.getElementById(start + ':00-2').innerHTML = this.addEventComponent.title;
     }
   }
 }
