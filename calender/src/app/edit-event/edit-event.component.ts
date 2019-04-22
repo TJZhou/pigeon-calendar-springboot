@@ -26,7 +26,8 @@ export class EditEventComponent implements OnInit {
   displayFlag = false;
   event: Event;
 
-  id = "5cbbae1fe1a79320edbb5a2d";
+  // ID 是这个哦
+  id = "5cbceaada5689e8459f63338";
   username: string;
   title: string;
   location: string;

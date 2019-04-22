@@ -37,7 +37,7 @@ export class DailyScheduleComponent implements OnInit {
     this.curDay = moment();
     this.curDayFormat = this.curDay.format('MM/DD');
     this.createTiming();
-    this.events = this.eventService.getEventsByUser(this.username).subscribe( data => {
+    this.events = this.eventService.getEventsFromOneUser(this.username).subscribe( data => {
       this.events = data;
       // tslint:disable-next-line:prefer-for-of
       this.listEvent(this.curDay, this.events);
