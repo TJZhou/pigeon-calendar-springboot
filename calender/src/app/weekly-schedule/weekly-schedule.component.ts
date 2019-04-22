@@ -1,6 +1,12 @@
 import { Component, OnInit, Output } from '@angular/core';
 import * as moment from 'moment';
 import { TypeofExpr } from '@angular/compiler';
+import { AddEventComponent } from './../add-event/add-event.component';
+import { Event } from './../models/event.model';
+import { EventService } from './../services/event.service';
+import { EventDetailComponent } from '../event-detail/event-detail.component';
+import { CalendarComponent } from './../calendar/calendar.component';
+
 @Component({
   selector: 'app-weekly-schedule',
   templateUrl: './weekly-schedule.component.html',
@@ -15,17 +21,37 @@ export class WeeklyScheduleComponent implements OnInit {
   public weekdayArr = new Array(7);
   public dateArr = new Array(7);
   public formatDate = new Array(7);
-  public showEvent = true;
+  public eventDetail = true;
   public addEvent = true;
+  public username;
+  public event: Event;
+  public events;
+  public haveEvent = new Array(7);
 
-  constructor() {}
+  constructor(private eventService: EventService) {}
 
   ngOnInit() {
+    // initialize current day and schedule array
+    this.username = localStorage.getItem('username');
     this.curDay = moment();
     this.curDayFormat = this.curDay.format('L');
     this.createTiming();
     this.createWeekday();
     this.createDate();
+    for (let i = 0; i < 7; i++) {
+        this.haveEvent[i] = new Array(24);
+    }
+    for (let i = 0; i < 7; i++) {
+      for (let j = 0; j < 24; j++) {
+        this.haveEvent[i][j] = false;
+      }
+    }
+    this.events = this.eventService.getEventsFromOneUser(this.username).subscribe( data => {
+      this.events = data;
+      console.log(this.events);
+      // tslint:disable-next-line:prefer-for-of
+      this.listEvent(this.curDay, this.events);
+    });
   }
 
   createTiming(): void {
@@ -51,6 +77,40 @@ export class WeeklyScheduleComponent implements OnInit {
     for (let i = 0; i < 7; i++) {
       this.dateArr[i] = moment().subtract(moment().day() - i, 'd');
       this.formatDate[i] = this.dateArr[i].format('D');
+    }
+  }
+
+  // list all events related to current user
+  listEvent(d, e) {
+    // const curMonth = parseInt(d.format('MM'), 0);
+    const curDayOfYear = d.dayOfYear();
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < e.length; i++) {
+      for (let j = 0; j < 7; j++) {
+      const eventStartDayOfYear = moment(e[i].startTime.substr(0, 10), 'MM/DD/YYYY').dayOfYear();
+      const eventEndDayOfYear = moment(e[i].endTime.substr(0, 10), 'MM/DD/YYYY').dayOfYear();
+      if (curDayOfYear >= eventStartDayOfYear && curDayOfYear <= eventEndDayOfYear) {
+        const start = parseInt(e[i].startTime.substr(11, 2), 0);
+        const end = parseInt(e[i].endTime.substr(11, 2), 0);
+        for (let k = start; k < end; k++) {
+          this.haveEvent[j][k] = true;
+          // if ( j < 10 ) {
+          //   if (document.getElementById('0' + j + ':00-2') !== null) {
+          //     document.getElementById('0' + j + ':00-2').setAttribute('name', e[i]._id);
+          //   }
+          // } else {
+          //   if (document.getElementById(j + ':00-2') !== null) {
+          //     document.getElementById(j + ':00-2').setAttribute('name', e[i]._id);
+          //   }
+          // }
+        }
+        // if (start < 10) {
+        //   document.getElementById('0' + start + ':00-2').innerHTML = e[i].title;
+        // } else {
+        //   document.getElementById(start + ':00-2').innerHTML = e[i].title;
+        // }
+      }
+    }
     }
   }
 
@@ -97,8 +157,32 @@ export class WeeklyScheduleComponent implements OnInit {
     console.log(this.dateArr);
   }
 
-  onCloseAddEvent(e){
+  showAddEvent() {
+    this.addEvent = false;
+    document.body.style.overflow = 'hidden';
+  }
+
+  onCloseAddEvent(e) {
     this.addEvent = true;
     document.body.style.overflow = 'auto';
+  }
+
+  onSaveAddEvent() {
+    this.addEvent = true;
+    document.body.style.overflow = 'auto';
+  }
+
+  showEventDetail() {
+    this.eventDetail = false;
+    document.body.style.overflow = 'hidden';
+  }
+
+  onCloseEventDetail() {
+    this.eventDetail = true;
+    document.body.style.overflow = 'auto';
+  }
+  // if current div has an event or not
+  isHaveEvent(i, j) {
+    return this.haveEvent[i][j];
   }
 }
