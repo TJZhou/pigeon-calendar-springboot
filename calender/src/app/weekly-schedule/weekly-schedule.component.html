@@ -41,8 +41,12 @@
           <div [ngClass] = "{'isToday': isToday(date)}">{{formatDate[i]}}</div>
         </li>
       </ul>
-      <ul *ngFor="let timing of timingArr" class="cursor-point">
-        <li (click) = "addEvent = false">&nbsp;</li>
+      <ul *ngFor="let timing of timingArr; let j = index" [attr.data-index]="j" class="cursor-point">
+        <li (click) = "showAddEvent()"
+        [ngClass]="{'haveEvent':isHaveEvent(i, j)}">&nbsp;</li>
+        <li (click) = "eventDetail = false"
+        class = "detailEvent"
+        [ngClass]="{'haveEvent':!isHaveEvent(i, j)}">&nbsp;</li>
       </ul>
     </div>
   </div>
@@ -50,4 +54,9 @@
 
 <app-add-event
 [hidden] = "addEvent"
-(close) = "onCloseAddEvent($event)"></app-add-event>
+(close) = "onCloseAddEvent($event)"
+(save) = "onSaveAddEvent()"></app-add-event>
+<app-event-detail
+[hidden]="eventDetail"
+(close) = "onCloseEventDetail($event)"></app-event-detail>
+
