@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
     let currentUser = new UserModel();
     this.service.getUser(this.user.username)
       .subscribe(user => {
+        console.log(user[0])
         localStorage.setItem("username", user[0].username);
         localStorage.setItem("password", user[0].password);
         localStorage.setItem("email", user[0].email);

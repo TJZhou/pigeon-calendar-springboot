@@ -97,7 +97,7 @@ export class EditEventComponent implements OnInit {
 
   createNewEvent(): Event{
     let event = {
-    "id": this.id,
+    "_id": this.id,
     "username": this.username,
     "title": this.title,
     "location": this.location,
