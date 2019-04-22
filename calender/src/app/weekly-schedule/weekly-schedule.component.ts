@@ -16,6 +16,7 @@ export class WeeklyScheduleComponent implements OnInit {
   public dateArr = new Array(7);
   public formatDate = new Array(7);
   public showEvent = true;
+  public addEvent = true;
 
   constructor() {}
 
@@ -87,12 +88,17 @@ export class WeeklyScheduleComponent implements OnInit {
     this.createDate();
     for (let i = 0; i < 7; i++) {
       if (numOfDay >= 0) {
-        this.dateArr[i] = this.dateArr[i].subtract(7 * Math.floor(numOfDay / 7) + 7, 'd');
+        this.dateArr[i] = this.dateArr[i].subtract(7 * Math.floor(numOfDay / 7), 'd');
       } else {
-        this.dateArr[i] = this.dateArr[i].add(7 * Math.floor(-numOfDay / 7), 'd');
+        this.dateArr[i] = this.dateArr[i].add(7 * Math.floor((-numOfDay - 1) / 7) + 7, 'd');
       }
       this.formatDate[i] = this.dateArr[i].format('D');
     }
     console.log(this.dateArr);
+  }
+
+  onCloseAddEvent(e){
+    this.addEvent = true;
+    document.body.style.overflow = 'auto';
   }
 }

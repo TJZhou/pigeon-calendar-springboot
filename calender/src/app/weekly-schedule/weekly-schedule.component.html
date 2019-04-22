@@ -42,10 +42,12 @@
         </li>
       </ul>
       <ul *ngFor="let timing of timingArr" class="cursor-point">
-        <li (click) = "showEvent = false">&nbsp;</li>
+        <li (click) = "addEvent = false">&nbsp;</li>
       </ul>
     </div>
   </div>
 </div>
 
-<app-add-event [hidden] = "showEvent"></app-add-event>
+<app-add-event
+[hidden] = "addEvent"
+(close) = "onCloseAddEvent($event)"></app-add-event>

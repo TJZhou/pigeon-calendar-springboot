@@ -84,16 +84,19 @@
         cursor: pointer;
         line-height: 39px;
         width: 100%;
-        div {
+        .addEvent {
           display: inline-block;
           width: 100%;
           border-top: 1px solid lightgray;
         }
         .detailEvent{
-          display: none;
           width:100%;
-          border-radius: 5px;
-          background-color: rgb(36, 118, 225);
+          color:white;
+          //border-radius: 5px;
+          background-color: rgba(36, 118, 225, 0.6);
+        }
+        .haveEvent{
+          display: none;
         }
       }
     }

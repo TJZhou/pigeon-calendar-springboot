@@ -17,15 +17,12 @@ export class CalendarComponent implements OnInit {
   public day;
 
   constructor(private router: Router ) {
-    console.log(this.router.url);
-
   }
 
   ngOnInit() {
     this.dateArr = this.createCalendar(this.date);
     this.clickedDay = this.date;
     this.changeDay.emit(this.clickedDay);
-    console.log(this.clickedDay);
   }
 
   // if it returns true, marks the background of today as blue
@@ -38,6 +35,7 @@ export class CalendarComponent implements OnInit {
   }
 
   createCalendar(month) {
+    console.log(month);
     const firstDay = moment(month).startOf('M');
     const days = Array.apply(null, { length: month.daysInMonth() })
       .map(Number.call, Number)
@@ -60,6 +58,7 @@ export class CalendarComponent implements OnInit {
     this.dateArr = this.createCalendar(this.date);
   }
 
+  // which day is selected
   isSelected(day) {
     if (day === null || this.clickedDay === undefined || this.clickedDay === null) {
       return;
@@ -68,6 +67,7 @@ export class CalendarComponent implements OnInit {
     }
   }
 
+  // emit events when select different days
   select(day) {
       this.clickedDay = day.format('MM/DD');
       if (this.router.url === '/week') {

@@ -26,6 +26,8 @@ import {
   MatRippleModule,
   MatIconModule
 } from '@angular/material';
+import { EditEventComponent } from './edit-event/edit-event.component';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import {
     RegisterComponent,
     AddEventComponent,
     EventDetailComponent,
-    CheckProfileDetailsComponent
+    CheckProfileDetailsComponent,
+    EditEventComponent
   ],
   imports: [
     BrowserModule,

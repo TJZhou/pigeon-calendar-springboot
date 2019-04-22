@@ -3,30 +3,31 @@ import { Component, OnInit,EventEmitter, Output } from '@angular/core';
 import { Event } from '../models/event.model';
 import { EventService } from '../services/event.service';
 import * as moment from 'moment';
-import { EventPost } from '../models/eventPost.model';
-import {  } from 'protractor';
 
 
 @Component({
-  selector: 'app-add-event',
-  templateUrl: './add-event.component.html',
-  styleUrls: ['./add-event.component.scss']
+  selector: 'app-edit-event',
+  templateUrl: './edit-event.component.html',
+  styleUrls: ['./edit-event.component.scss']
 })
-export class AddEventComponent implements OnInit {
+export class EditEventComponent implements OnInit {
 
   matDatepicker;
   currentDate = moment();
   @Output() close = new EventEmitter<boolean>();
   @Output() save = new EventEmitter<object>();
+
+  
   startDateTemp = this.currentDate.format('MM/DD/YY');
   startTimeTemp = this.currentDate.format('HH:MM');
   endTimeTemp = this.currentDate.add(1, 'h').format('HH:MM');
   endDateTemp = this.startDateTemp;
 
   displayFlag = false;
-  event = Event;
+  event: Event;
 
-  id: number;
+  // ID 是这个哦
+  id = "5cbceaada5689e8459f63338";
   username: string;
   title: string;
   location: string;
@@ -36,49 +37,6 @@ export class AddEventComponent implements OnInit {
   tempTimeArr=[];
   startTimeArr=[];
   endTimeArr=[];
-
-  // Convert date string to Date object
-
- convertStrToDate(datetimeStr) {
-  var mydateint = Date.parse(datetimeStr);
-  if (!isNaN(mydateint)) {
-      var mydate = new Date(mydateint);
-      return mydate;
-  }
-  var mydate = new Date(datetimeStr);
-  var monthstr = mydate.getMonth() + 1;
-  if (!isNaN(monthstr)) {
-      return mydate;
-  }
-  var dateParts = datetimeStr.split(" ");
-  var dateToday = new Date();
-  var year = dateToday.getFullYear();
-  var month = dateToday.getMonth();
-  var day = dateToday.getDate();
-  if (dateParts.length >= 1) {
-      var dataPart = dateParts[0].split("-");
-      if (dataPart.length == 1) {
-          dataPart = dateParts[0].split("/");
-      }
-      if (dataPart.length == 3) {
-          month = Math.floor(dataPart[0]);
-          day = Math.floor(dataPart[1]);
-          year = Math.floor(dataPart[2]);
-      }
-  }
-  if (dateParts.length == 2) {
-      var timePart = dateParts[1].split(":");
-      if (timePart.length == 3) {
-          var hour = Math.floor(timePart[0]);
-          var minute = Math.floor(timePart[1]);
-          var second = Math.floor(timePart[2]);
-          return new Date(year, month, day, hour, minute, second);
-      }
-  }
-  else {
-      return new Date(year, month, day);
-  }
-}
 
   fillTempTimeArr(){
     for(let i = 0; i < 24; i++){
@@ -104,24 +62,36 @@ export class AddEventComponent implements OnInit {
   selectedEndDate = null;
   selectedEndTime = null;
 
-  constructor(
-    // private routeLocation: Location,
-    private eventService: EventService
-    ) { }
+  constructor( private eventService: EventService ) { }
 
   ngOnInit() {
     this.startTimeArr = this.fillTempTimeArr();
     this.endTimeArr = this.startTimeArr;
     this.endTimeArr.push('24:00');
+
+    this.eventService.getEvent(this.id).subscribe(data => {
+      console.log(data[0]);
+      this.title = data[0].title;
+      this.location = data[0].location;
+      this.username = data[0].username;
+      this.startDateTemp = this.seperateDateAndTime(data[0].startTime).date;
+      this.startTimeTemp = this.seperateDateAndTime(data[0].startTime).time;
+      this.endDateTemp = this.seperateDateAndTime(data[0].endTime).date;
+      this.endTimeTemp = this.seperateDateAndTime(data[0].endTime).time;
+    })
   }
 
-  // goBack(): void {
-  //   this.routeLocation.back();
-  // }
+  seperateDateAndTime(completeTime: string) {
+    let words = completeTime.split(' ');
+    let date = words[0];
+    let time = words[1];
+    return {date, time};
+  }
 
-  createNewEvent(): EventPost{
+  createNewEvent(): Event{
     let event = {
-    "username": localStorage.getItem('username'),
+    "id": this.id,
+    "username": this.username,
     "title": this.title,
     "location": this.location,
     "startTime": this.startTime,
@@ -130,7 +100,7 @@ export class AddEventComponent implements OnInit {
     return event;
   }
 
-  onSubmit(){
+  onUpdate(){
 
     // Get the start and end date
     let startDateElement = <HTMLInputElement>document.getElementById('startDate');
@@ -145,7 +115,7 @@ export class AddEventComponent implements OnInit {
 
     let startwords = this.startDateTemp.split('/');
     let endwords = this.endDateTemp.split('/');
-
+    
 
     if( parseInt(startwords[0]) < 10 ) {
       this.startDateTemp = '0' + this.startDateTemp;
@@ -160,7 +130,7 @@ export class AddEventComponent implements OnInit {
     let convertEnd = this.endDateTemp + " " + this.endTimeTemp;
     let endStamp = Date.parse(convertEnd);
 
-    if (this.title == "" || this.title == undefined ||
+    if (this.title == "" || this.title == undefined || 
         this.location == "" || this.location == undefined) {
       alert("Invalid input - Please fill out all the blanks.");
     } else if (endStamp <= startStamp ) {
@@ -173,12 +143,12 @@ export class AddEventComponent implements OnInit {
 
       console.log(this.startTime);
       console.log(this.endTime);
-      // Use eventService to create new event
-      this.eventService.addEvent(this.createNewEvent())
-        .subscribe(data => console.log(" This event has been created: " + data));
-      alert('Add successfully.');
-      this.save.emit();
-      this.close.emit();
+      // Use eventService to update event
+      this.eventService.updateEvent(this.id, this.createNewEvent()).
+      subscribe(data => console.log(" This event has been updated: " + data));
+      alert('Update successfully.');
+      // this.save.emit();
+      // this.close.emit();
     }
   }
 

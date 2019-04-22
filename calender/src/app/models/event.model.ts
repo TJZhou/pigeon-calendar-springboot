@@ -1,8 +1,8 @@
 export class Event {
-    id: number;
+    id: string;
     username: string;
     title: string;
-    // content: string;
-    startTime: Date;
-    endTime: Date;
+    startTime: string;
+    endTime: string;
+    location: string;
 }

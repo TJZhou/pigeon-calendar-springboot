@@ -1,6 +1,5 @@
 import { UserService } from './../services/user.service';
 import { Component, Input, OnInit, Inject } from '@angular/core';
-import { DataService } from './../services/user.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 @Component({

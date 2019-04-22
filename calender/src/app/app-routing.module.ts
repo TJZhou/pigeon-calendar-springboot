@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { DailyScheduleComponent } from './daily-schedule/daily-schedule.component';
 import { WeeklyScheduleComponent } from './weekly-schedule/weekly-schedule.component';
 import { AddEventComponent } from './add-event/add-event.component';
+import { EditEventComponent } from './edit-event/edit-event.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'week', component: WeeklyScheduleComponent },
   { path: 'Register', component: RegisterComponent},
   { path: 'Login', component: LoginComponent},
-  { path: 'addevent', component: AddEventComponent}
+  { path: 'addevent', component: AddEventComponent},
+  { path: 'editevent', component: EditEventComponent}
 ];
 
 @NgModule({
