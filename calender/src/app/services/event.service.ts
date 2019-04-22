@@ -15,12 +15,16 @@ export class EventService {
   constructor(private http: HttpClient) { }
 
   getEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>(this.eventUrl);
+    return this.http.get<Event[]>(this.eventUrl + 'list');
+  }
+
+  getEventsByUser(username: string): Observable<Event[]> {
+    return this.http.get<Event[]>(this.eventUrl + 'list/' + username);
   }
 
   getEvent(eventId): Observable<Event> {
     console.log(this.eventUrl + eventId);
-    return this.http.get<Event>(this.eventUrl + eventId);
+    return this.http.get<Event>(this.eventUrl  + eventId);
   }
 
   addEvent(event: EventPost): Observable<Event> {

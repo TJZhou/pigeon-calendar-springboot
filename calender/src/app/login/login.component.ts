@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   user: UserModel = new UserModel();
   isShow: boolean;
   loginForm: FormGroup;
-  
+
 
   constructor(private formBuilder: FormBuilder, private service: UserService, private router: Router) { }
 
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginSubmit() {
-    
+
     let currentUser = new UserModel();
     this.service.getUser(this.user.username)
       .subscribe(user => {
@@ -44,5 +44,4 @@ export class LoginComponent implements OnInit {
       this.router.navigateByUrl("day");
     }
   }
-
 }

@@ -36,11 +36,12 @@
         <li class="gray">
           <div id = "{{timing}}-1"
           class = "addEvent"
-          (click) = "showAddEvent()"
+          (click) = "showAddEvent(timing)"
           [ngClass] = "{'haveEvent': isHaveEvent(i)}">&nbsp;</div>
           <div id = "{{timing}}-2"
           class = "detailEvent"
-          (click) = "showEventDetail($event.target.id)"
+          name = ""
+          (click) = "showEventDetail($event.target.attributes.name.value)"
           [ngClass] = "{'haveEvent':!isHaveEvent(i)}">&nbsp;</div>
         </li>
       </ul>

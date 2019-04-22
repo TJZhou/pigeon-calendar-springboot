@@ -7,12 +7,12 @@
   <div class="signin">Sign In</div>
 
   <form [formGroup]="loginForm" (ngSubmit)="loginForm.valid && onLoginSubmit()" novalidate>
-    
+
     <input class="input email" id="username"
       formControlName="username"
       [(ngModel)]="user.username"
       placeholder=" Enter your username" />
-    
+
     <input class="input password" id="password"
       formControlName="password"
       [(ngModel)]="user.password"
@@ -20,16 +20,19 @@
       [type]="isShow ? 'text' : 'password'" />
 
     <div class="checkbox">
-      <input class="checkmark" 
-        type="checkbox" 
-        [(ngModel)]="isShow" 
+      <input class="checkmark"
+        type="checkbox"
+        [(ngModel)]="isShow"
         [ngModelOptions]="{standalone: true}">
       <div class="label">Show my password</div>
     </div>
 
-    
-      
-    <button type="submit" class="submit button" [disabled]="!loginForm.valid">Log in</button>
+
+
+    <button
+    class="submit button"
+    [disabled]="!loginForm.valid"
+    (click)="onLoginSubmit()">Log in</button>
 
     <hr>
 
