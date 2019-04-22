@@ -4,6 +4,7 @@ import { Event } from '../models/event.model';
 import { EventService } from '../services/event.service';
 import * as moment from 'moment';
 
+// PATCH method will cause CORS error in the Chrome browser but works fine on Firefox 
 
 @Component({
   selector: 'app-edit-event',
@@ -25,7 +26,6 @@ export class EditEventComponent implements OnInit {
   displayFlag = false;
   event: Event;
 
-  // ID 是这个哦
   id = "5cbceaada5689e8459f63338";
   username: string;
   title: string;
@@ -125,24 +125,6 @@ export class EditEventComponent implements OnInit {
 
     console.log(this.startDateTemp);
     console.log(this.endDateTemp);
-    // Put date the time together and get their timestamp for comparing
-
-    // let startwords = this.startDateTemp.split('/');
-    // let endwords = this.endDateTemp.split('/');
-    
-
-    // if( parseInt(startwords[0]) < 10 ) {
-    //   this.startDateTemp = '0' + this.startDateTemp;
-    // }
-    // if( parseInt(endwords[0]) < 10 ) {
-    //   this.endDateTemp = '0' + this.endDateTemp;
-    // }
-
-    // let convertStart = this.startDateTemp + " " + this.startTimeTemp;
-    // let startStamp = Date.parse(convertStart);
-
-    // let convertEnd = this.endDateTemp + " " + this.endTimeTemp;
-    // let endStamp = Date.parse(convertEnd);
 
     if (this.title == "" || this.title == undefined || 
         this.location == "" || this.location == undefined) {
