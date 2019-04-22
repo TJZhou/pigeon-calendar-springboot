@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit {
   isShow: boolean;
   registerForm: FormGroup;
   passwordComfirm: string;
+  isExist: boolean = false;
 
 
   constructor(private formBuilder: FormBuilder, private service: UserService, private router: Router) { }
@@ -47,21 +48,20 @@ export class RegisterComponent implements OnInit {
   }
 
   onRegisterSubmit() {
-    // var isExist: string
-    // this.service.getUser(this.user.username)
-    //   .subscribe( user => {
-
-    //   })
-
-    // if(userExisted.length == 0){
-
-    // }
-    // else 
-      if(this.user.password.valueOf() == this.passwordComfirm.valueOf()){ 
-      alert("Created new user successfully!")
-      this.service.addUser(this.user);
-      this.router.navigateByUrl("login");
-    }else alert("Passwords must match!")
+    this.service.getUser(this.user.username)
+      .subscribe( user => { 
+        if(user[0] != null && user[0].username === this.user.username)
+          alert("This username is registered!")
+        else{
+          if(this.user.password.valueOf() == this.passwordComfirm.valueOf()){ 
+            alert("Created new user successfully!")
+            this.service.addUser(this.user)
+              .subscribe();
+            this.router.navigateByUrl("login");
+          }else alert("Passwords must match!")
+        }
+      })
+    
   }
 
 }
