@@ -5,6 +5,7 @@ import { Event } from './../models/event.model';
 import { EventService } from './../services/event.service';
 import { EventDetailComponent } from '../event-detail/event-detail.component';
 import { CalendarComponent } from './../calendar/calendar.component';
+import { EditEventComponent } from '../edit-event/edit-event.component';
 
 @Component({
   selector: 'app-weekly-schedule',
@@ -14,8 +15,9 @@ import { CalendarComponent } from './../calendar/calendar.component';
 export class WeeklyScheduleComponent implements OnInit {
   @ViewChild(EventDetailComponent) public eventDetailComponent: EventDetailComponent;
   @ViewChild(AddEventComponent) public addEventComponent: AddEventComponent;
+  @ViewChild(EditEventComponent) public editEventComponent: EditEventComponent;
+  @ViewChild(CalendarComponent) public calendarComponent: CalendarComponent;
   public curDay;
-
   public curDayFormat: string;
   public timing;
   public timingArr = new Array(24);
@@ -261,17 +263,22 @@ export class WeeklyScheduleComponent implements OnInit {
     const start = parseInt(this.addEventComponent.startTime.substr(11, 2), 0);
     const end = parseInt(this.addEventComponent.endTime.substr(11, 2), 0);
     const dayOfWeek = this.addEventComponent.dayOfWeek.day();
-    for (let i = start; i < end; i++) {
-      this.haveEvent[dayOfWeek][i] = true;
-    }
-    if (start < 10) {
-      document.getElementById(
-        dayOfWeek + '-0' + start + ':00-2'
-      ).innerHTML = this.addEventComponent.title;
-    } else {
-      document.getElementById(
-        dayOfWeek + '-' + start + ':00-2'
-      ).innerHTML = this.addEventComponent.title;
+    const endDayOfWeek = parseInt(this.addEventComponent.endDateTemp.substr(3, 2), 0) -
+    parseInt(this.addEventComponent.startDateTemp.substr(3, 2), 0) + dayOfWeek;
+
+    for (let j = dayOfWeek; j < endDayOfWeek; j++) {
+      for (let i = start; i < end; i++) {
+        this.haveEvent[j][i] = true;
+      }
+      if (start < 10) {
+        document.getElementById(
+          j + '-0' + start + ':00-2'
+        ).innerHTML = this.addEventComponent.title;
+      } else {
+        document.getElementById(
+          j + '-' + start + ':00-2'
+        ).innerHTML = this.addEventComponent.title;
+      }
     }
   }
 
@@ -300,20 +307,20 @@ export class WeeklyScheduleComponent implements OnInit {
   // delete the current event
   onDeleteEvent() {
     this.onCloseEventDetail();
-    let event;
     this.eventService
       .getEvent(this.eventDetailComponent.tempId)
       .subscribe(data => {
-        event = data;
+        const event = data[0];
+        console.log(this.eventDetailComponent.tempId);
         this.events = this.events.filter(
           h => h.id !== this.eventDetailComponent.tempId
         );
-        for (
-          let i = parseInt(event[0].startTime.substr(11, 2), 0);
-          i < parseInt(event[0].endTime.substr(11, 2), 0);
-          i++
-        ) {
-          this.haveEvent[this.eventDetailComponent.dayOfWeek][i] = false;
+        const startDay = moment(event.startTime, 'MM/DD/YYYY');
+        const endDay = moment(event.endTime, 'MM/DD/YYYY');
+        for (let j = startDay.day(); j < endDay.day(); j++) {
+          for (let i = parseInt(event.startTime.substr(11, 2), 0); i < parseInt(event.endTime.substr(11, 2), 0); i++) {
+            this.haveEvent[j][i] = false;
+          }
         }
       });
   }
@@ -321,8 +328,17 @@ export class WeeklyScheduleComponent implements OnInit {
    // edit the current event
   onEditEvent() {
     this.onCloseEventDetail();
+    this.editEventComponent.id = this.event._id;
+    this.editEventComponent.title = this.event.title;
+    this.editEventComponent.location = this.event.location;
+    this.editEventComponent.startTimeTemp = this.event.startTime.substr(11, 5);
+    this.editEventComponent.endTimeTemp = this.event.endTime.substr(11, 5);
+    const dayOfWeek = this.curDay.day();
+    this.editEventComponent.startDateTemp = this.curDay.subtract(dayOfWeek, 'd').toDate();
+    this.editEventComponent.endDateTemp = this.curDay.add(6, 'd').toDate();
     this.editEvent = false;
     document.body.style.overflow = 'hidden';
+    console.log(this.curDay);
   }
   onCloseEditEvent() {
       this.editEvent = true;
@@ -332,5 +348,14 @@ export class WeeklyScheduleComponent implements OnInit {
   onUpdateEvent() {
       this.editEvent = true;
       document.body.style.overflow = 'auto';
+      for (let i = 0; i < 7; i++) {
+        for (let j = 0; j < 24; j++) {
+          this.haveEvent[i][j] = false;
+        }
+      }
+      this.eventService.getEventsFromOneUser(this.username).subscribe( data => {
+        this.events = data;
+        this.listEvent(this.curDay, this.events);
+      });
   }
 }

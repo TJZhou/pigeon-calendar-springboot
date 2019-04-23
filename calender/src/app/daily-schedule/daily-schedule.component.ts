@@ -234,6 +234,8 @@ export class DailyScheduleComponent implements OnInit {
       this.editEventComponent.location = this.event.location;
       this.editEventComponent.startTimeTemp = this.event.startTime.substr(11, 5);
       this.editEventComponent.endTimeTemp = this.event.endTime.substr(11, 5);
+      this.editEventComponent.startDateTemp = this.curDay.toDate();
+      this.editEventComponent.endDateTemp = this.curDay.toDate();
       this.editEvent = false;
       document.body.style.overflow = 'hidden';
     }
