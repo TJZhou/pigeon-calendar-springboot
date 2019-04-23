@@ -14,3 +14,37 @@
   padding: 8px 20px;
   font-weight: bold;
 }
+.email{
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	margin-bottom: 30px;
+}
+
+.password{
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	margin-bottom: 10px;
+}
+
+.checkbox{
+	position: relative;
+	left: 53%;
+
+	margin-bottom: 30px;
+}
+
+.label{
+	font-size: 13px;
+	color: gray;
+
+	padding-top: 4px;
+}
+
+.submit{
+	position: relative;
+	left: 60%;
+
+	margin-bottom: 30px;
+}
