@@ -1,3 +1,4 @@
+import { EditEventComponent } from './../edit-event/edit-event.component';
 import { CalendarComponent } from './../calendar/calendar.component';
 import { AddEventComponent } from './../add-event/add-event.component';
 import { Event } from './../models/event.model';
@@ -15,6 +16,7 @@ export class DailyScheduleComponent implements OnInit {
   @ViewChild(EventDetailComponent)   public eventDetailComponent: EventDetailComponent;
   @ViewChild(AddEventComponent)   public addEventComponent: AddEventComponent;
   @ViewChild(CalendarComponent)   public calendarComponent: CalendarComponent;
+  @ViewChild(EditEventComponent)   public editEventComponent: EditEventComponent;
   @Output() curDay;
   public curDayFormat: string;  // change curDay to string format
   public timing;
@@ -31,6 +33,9 @@ export class DailyScheduleComponent implements OnInit {
   constructor(private eventService: EventService) { }
 
   ngOnInit() {
+    for (let i = 0; i < 24; i++) {
+      this.haveEvent[i] = false;
+    }
     // initialize current day, timing array and add all exsited events
     console.log(localStorage.getItem('username'));
     this.username = localStorage.getItem('username');
@@ -38,19 +43,19 @@ export class DailyScheduleComponent implements OnInit {
     this.curDay = moment();
     this.curDayFormat = this.curDay.format('MM/DD');
     this.createTiming();
-    this.events = this.eventService.getEventsFromOneUser(this.username).subscribe( data => {
+    this.eventService.getEventsFromOneUser(this.username).subscribe( data => {
       this.events = data;
       // tslint:disable-next-line:prefer-for-of
       this.listEvent(this.curDay, this.events);
     });
-    for (let i = 0; i < 24; i++) {
-      this.haveEvent[i] = false;
-    }
+
   }
 
   // list all events related to current user
   listEvent(d, e) {
-    // const curMonth = parseInt(d.format('MM'), 0);
+    if (e === undefined) {
+      return;
+    }
     const curDayOfYear = d.dayOfYear();
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < e.length; i++) {
@@ -73,7 +78,8 @@ export class DailyScheduleComponent implements OnInit {
         }
         if (start < 10) {
           document.getElementById('0' + start + ':00-2').innerHTML = e[i].title;
-        } else {
+        } else if (start >= 10) {
+          console.log(document.getElementById(start + ':00-2'));
           document.getElementById(start + ':00-2').innerHTML = e[i].title;
         }
       }
@@ -166,7 +172,6 @@ export class DailyScheduleComponent implements OnInit {
     document.body.style.overflow = 'hidden';
     this.eventService.getEvent(id).subscribe( data => {
       this.event = data[0];
-      console.log(this.event);
       this.eventDetailComponent.eventTitle = this.event.title;
       this.eventDetailComponent.eventLocation = this.event.location;
       this.eventDetailComponent.eventStartTime = this.event.startTime;
@@ -224,6 +229,11 @@ export class DailyScheduleComponent implements OnInit {
     // edit the current event
     onEditEvent() {
       this.onCloseEventDetail();
+      this.editEventComponent.id = this.event._id;
+      this.editEventComponent.title = this.event.title;
+      this.editEventComponent.location = this.event.location;
+      this.editEventComponent.startTimeTemp = this.event.startTime.substr(11, 5);
+      this.editEventComponent.endTimeTemp = this.event.endTime.substr(11, 5);
       this.editEvent = false;
       document.body.style.overflow = 'hidden';
     }
@@ -238,5 +248,12 @@ export class DailyScheduleComponent implements OnInit {
     onUpdateEvent() {
       this.editEvent = true;
       document.body.style.overflow = 'auto';
+      for (let i = 0; i < 24; i++) {
+        this.haveEvent[i] = false;
+      }
+      this.eventService.getEventsFromOneUser(this.username).subscribe( data => {
+        this.events = data;
+        this.listEvent(this.curDay, this.events);
+      });
     }
 }

@@ -24,7 +24,7 @@ export class EditEventComponent implements OnInit {
   displayFlag = false;
   event: Event;
 
-  id = "5cbceaada5689e8459f63338";
+  id: string;
   username: string;
   title: string;
   location: string;
@@ -65,18 +65,7 @@ export class EditEventComponent implements OnInit {
     this.startTimeArr = this.fillTempTimeArr();
     this.endTimeArr = this.startTimeArr;
     this.endTimeArr.push('24:00');
-
-    this.eventService.getEvent(this.id).subscribe(data => {
-      console.log(data[0]);
-
-      this.title = data[0].title;
-      this.location = data[0].location;
-      this.username = data[0].username;
-      this.startDateTemp = new Date(this.seperateDateAndTime(data[0].startTime).date);
-      this.startTimeTemp = this.seperateDateAndTime(data[0].startTime).time;
-      this.endDateTemp = new Date(this.seperateDateAndTime(data[0].endTime).date);
-      this.endTimeTemp = this.seperateDateAndTime(data[0].endTime).time;
-    })
+    this.username = localStorage.getItem('username');
   }
 
   seperateDateAndTime(completeDate: string) {
@@ -121,9 +110,6 @@ export class EditEventComponent implements OnInit {
     this.startDateTemp.setMinutes(startMinute);
     this.endDateTemp.setMinutes(endMinute);
 
-    console.log(this.startDateTemp);
-    console.log(this.endDateTemp);
-
     if (this.title == "" || this.title == undefined ||
         this.location == "" || this.location == undefined) {
       alert("Invalid input - Please fill out all the blanks.");
@@ -140,17 +126,20 @@ export class EditEventComponent implements OnInit {
       let endDate = this.endDateTemp.getDate();
       let endYear = this.endDateTemp.getFullYear();
 
-      this.startTime = startMonth + '/' + startDate + '/' + startYear + ' ' + this.startTimeTemp;
-      this.endTime = endMonth + '/' + endDate + '/' + endYear + ' ' + this.endTimeTemp;
+      if (startMonth < 10) {
+        this.startTime = '0' + startMonth + '/' + startDate + '/' + startYear + ' ' + this.startTimeTemp;
+        this.endTime = '0' + endMonth + '/' + endDate + '/' + endYear + ' ' + this.endTimeTemp;
+      } else {
+        this.startTime = startMonth + '/' + startDate + '/' + startYear + ' ' + this.startTimeTemp;
+        this.endTime = endMonth + '/' + endDate + '/' + endYear + ' ' + this.endTimeTemp;
+      }
 
-      console.log(this.startTime);
-      console.log(this.endTime);
       // Use eventService to update event
       this.eventService.updateEvent(this.id, this.createNewEvent()).
-      subscribe(data => console.log(" This event has been updated: " + data));
-      alert('Update successfully.');
-      // this.save.emit();
-      // this.close.emit();
+      subscribe(data => {
+        console.log(" This event has been updated: " + data);
+        this.save.emit();
+      });
     }
   }
 
@@ -191,6 +180,7 @@ export class EditEventComponent implements OnInit {
   }
 
   closeEditEvent() {
+    console.log(this.id);
     this.close.emit(true);
   }
 }
