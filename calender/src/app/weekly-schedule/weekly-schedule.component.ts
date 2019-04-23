@@ -14,7 +14,7 @@ import { CalendarComponent } from './../calendar/calendar.component';
 export class WeeklyScheduleComponent implements OnInit {
   @ViewChild(EventDetailComponent) public eventDetailComponent: EventDetailComponent;
   @ViewChild(AddEventComponent) public addEventComponent: AddEventComponent;
-  @Output() public curDay;
+  public curDay;
 
   public curDayFormat: string;
   public timing;
@@ -82,31 +82,24 @@ export class WeeklyScheduleComponent implements OnInit {
     for (let i = 0; i < 7; i++) {
       this.dateArr[i] = moment().subtract(moment().day() - i, 'd');
       this.formatDate[i] = this.dateArr[i].format('D');
+      console.log(this.dateArr[i]);
+      console.log(this.formatDate[i]);
     }
   }
 
   // list all events related to current user
   listEvent(d, e) {
-    // const curMonth = parseInt(d.format('MM'), 0);
-    console.log(d.subtract(d.day() + 1, 'd'));
     // tslint:disable-next-line:prefer-for-of
+    console.log(d);
+    d = d.subtract(d.day() + 1, 'd');
     for (let j = 0; j < 7; j++) {
       d.add(1, 'd');
       const curDayOfYear = d.dayOfYear();
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < e.length; i++) {
-        const eventStartDayOfYear = moment(
-          e[i].startTime.substr(0, 10),
-          'MM/DD/YYYY'
-        ).dayOfYear();
-        const eventEndDayOfYear = moment(
-          e[i].endTime.substr(0, 10),
-          'MM/DD/YYYY'
-        ).dayOfYear();
-        if (
-          curDayOfYear >= eventStartDayOfYear &&
-          curDayOfYear <= eventEndDayOfYear
-        ) {
+        const eventStartDayOfYear = moment(e[i].startTime.substr(0, 10), 'MM/DD/YYYY').dayOfYear();
+        const eventEndDayOfYear = moment(e[i].endTime.substr(0, 10), 'MM/DD/YYYY').dayOfYear();
+        if ( curDayOfYear >= eventStartDayOfYear && curDayOfYear <= eventEndDayOfYear ) {
           const start = parseInt(e[i].startTime.substr(11, 2), 0);
           const end = parseInt(e[i].endTime.substr(11, 2), 0);
           for (let k = start; k < end; k++) {
@@ -136,8 +129,8 @@ export class WeeklyScheduleComponent implements OnInit {
         }
       }
     }
-    console.log(document.getElementById(0 + '-0' + 0 + ':00-2'));
-    this.curDay = moment();
+    this.curDay = this.curDay.subtract(4, 'd');
+    console.log(this.curDay);
   }
 
   isToday(date): boolean {
@@ -156,7 +149,7 @@ export class WeeklyScheduleComponent implements OnInit {
       this.dateArr[i] = this.dateArr[i].subtract(7, 'd');
       this.formatDate[i] = this.dateArr[i].format('D');
     }
-    //this.listEvent(this.curDay, this.events);
+    this.listEvent(this.curDay, this.events);
   }
 
   next() {
@@ -170,7 +163,9 @@ export class WeeklyScheduleComponent implements OnInit {
       this.dateArr[i] = this.dateArr[i].add(7, 'd');
       this.formatDate[i] = this.dateArr[i].format('D');
     }
-    //this.listEvent(this.curDay, this.events);
+    console.log(this.curDay);
+    console.log(this.dateArr);
+    this.listEvent(this.curDay, this.events);
   }
 
   // current week
@@ -183,31 +178,33 @@ export class WeeklyScheduleComponent implements OnInit {
     this.curDay = moment();
     for (let i = 0; i < 7; i++) {
       this.dateArr[i] = moment().subtract(moment().day() - i, 'd');
-      this.formatDate[i] = this.dateArr[i].format('D');
+      this.formatDate[i] = this.dateArr[i].format('DD');
     }
-    this.listEvent(this.curDay, this.events);
+   // this.listEvent(this.curDay, this.events);
   }
 
   // change when click the calendar
   onChangeDay(Day) {
+    console.log(Day);
     const numOfDay = moment().dayOfYear() - Day.dayOfYear();
     this.curDay = moment().subtract(numOfDay, 'd');
+    console.log(this.curDay);
     this.createDate();
-    for (let i = 0; i < 7; i++) {
-      if (numOfDay >= 0) {
-        this.dateArr[i] = this.dateArr[i].subtract(
-          7 * Math.floor(numOfDay / 7),
-          'd'
-        );
-      } else {
-        this.dateArr[i] = this.dateArr[i].add(
-          7 * Math.floor((-numOfDay - 1) / 7) + 7,
-          'd'
-        );
-      }
-      this.formatDate[i] = this.dateArr[i].format('D');
-    }
-    console.log(this.dateArr);
+    // for (let i = 0; i < 7; i++) {
+    //   if (numOfDay >= 0) {
+    //     this.dateArr[i] = this.dateArr[i].subtract(
+    //       7 * Math.floor(numOfDay / 7),
+    //       'd'
+    //     );
+    //   } else {
+    //     this.dateArr[i] = this.dateArr[i].add(
+    //       7 * Math.floor((-numOfDay - 1) / 7) + 7,
+    //       'd'
+    //     );
+    //   }
+    //   this.formatDate[i] = this.dateArr[i].format('D');
+    // }
+   // this.listEvent(this.curDay, this.events);
   }
 
   // show add event panel
@@ -221,7 +218,8 @@ export class WeeklyScheduleComponent implements OnInit {
     } else {
       this.addEventComponent.endTimeTemp = (time + 1).toString() + ':00';
     }
-    const day = moment().subtract(
+    console.log(this.curDay);
+    const day = this.curDay.subtract(
       this.curDay.day() - parseInt(id.substr(0, 1), 0),
       'd'
     );
