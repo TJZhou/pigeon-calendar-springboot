@@ -99,7 +99,6 @@ export class DailyScheduleComponent implements OnInit {
     }
     this.listEvent(this.curDay, this.events);
     const month = this.calendarComponent.date.month();
-    console.log(this.calendarComponent.date.month());
     if (moment().month() > month) {
       for (let i = 0; i < moment().month() - month; i++) {
         this.calendarComponent.nextMonth();
