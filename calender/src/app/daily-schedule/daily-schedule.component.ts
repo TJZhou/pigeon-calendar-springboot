@@ -16,14 +16,15 @@ export class DailyScheduleComponent implements OnInit {
   @ViewChild(AddEventComponent)   public addEventComponent: AddEventComponent;
   @ViewChild(CalendarComponent)   public calendarComponent: CalendarComponent;
   @Output() curDay;
-  public curDayFormat: string;
+  public curDayFormat: string;  // change curDay to string format
   public timing;
   public timingArr = new Array(24);
-  public addEvent = true;
+  public addEvent = true;   // at the begin, all flags are true which means the child components are hidden
   public eventDetail = true;
+  public editEvent = true;
   public subDay;
   public event: Event;
-  public events;
+  public events;  // array of Event
   public haveEvent = new Array(24);
   public username;
 
@@ -219,5 +220,24 @@ export class DailyScheduleComponent implements OnInit {
           this.haveEvent[i] = false;
         }
       });
+    }
+
+    // edit the current event
+    onEditEvent() {
+      this.onCloseEventDetail();
+      this.editEvent = false;
+      document.body.style.overflow = 'hidden';
+    }
+
+    // close edit event panel
+    onCloseEditEvent() {
+      this.editEvent = true;
+      document.body.style.overflow = 'auto';
+    }
+
+    // update event
+    onUpdateEvent() {
+      this.editEvent = true;
+      document.body.style.overflow = 'auto';
     }
 }

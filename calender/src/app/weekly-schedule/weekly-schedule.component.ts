@@ -12,8 +12,7 @@ import { CalendarComponent } from './../calendar/calendar.component';
   styleUrls: ['./weekly-schedule.component.scss']
 })
 export class WeeklyScheduleComponent implements OnInit {
-  @ViewChild(EventDetailComponent)
-  public eventDetailComponent: EventDetailComponent;
+  @ViewChild(EventDetailComponent) public eventDetailComponent: EventDetailComponent;
   @ViewChild(AddEventComponent) public addEventComponent: AddEventComponent;
   @Output() public curDay;
 
@@ -24,8 +23,9 @@ export class WeeklyScheduleComponent implements OnInit {
   public weekdayArr = new Array(7);
   public dateArr = new Array(7);
   public formatDate = new Array(7);
-  public eventDetail = true;
+  public eventDetail = true;  // initialize all flag to true which means all child components will be hidden at first
   public addEvent = true;
+  public editEvent = true;
   public username;
   public event: Event;
   public events;
@@ -126,6 +126,7 @@ export class WeeklyScheduleComponent implements OnInit {
             }
           }
           if (start < 10) {
+            console.log(j + '-0' + start + ':00-2');
             document.getElementById(j + '-0' + start + ':00-2').innerHTML =
               e[i].title.substr(0, 6) + '...';
           } else {
@@ -135,6 +136,7 @@ export class WeeklyScheduleComponent implements OnInit {
         }
       }
     }
+    console.log(document.getElementById(0 + '-0' + 0 + ':00-2'));
     this.curDay = moment();
   }
 
@@ -142,28 +144,48 @@ export class WeeklyScheduleComponent implements OnInit {
     return moment().format('MM/DD') === date.format('MM/DD');
   }
 
+  // previous week and next week
   previous() {
+    for (let i = 0; i < 7; i++) {
+      for (let j = 0; j < 24; j++) {
+        this.haveEvent[i][j] = false;
+      }
+    }
     this.curDay = this.curDay.subtract(7, 'd');
     for (let i = 0; i < 7; i++) {
       this.dateArr[i] = this.dateArr[i].subtract(7, 'd');
       this.formatDate[i] = this.dateArr[i].format('D');
     }
+    //this.listEvent(this.curDay, this.events);
   }
 
   next() {
+    for (let i = 0; i < 7; i++) {
+      for (let j = 0; j < 24; j++) {
+        this.haveEvent[i][j] = false;
+      }
+    }
     this.curDay = this.curDay.add(7, 'd');
     for (let i = 0; i < 7; i++) {
       this.dateArr[i] = this.dateArr[i].add(7, 'd');
       this.formatDate[i] = this.dateArr[i].format('D');
     }
+    //this.listEvent(this.curDay, this.events);
   }
 
+  // current week
   today() {
+    for (let i = 0; i < 7; i++) {
+      for (let j = 0; j < 24; j++) {
+        this.haveEvent[i][j] = false;
+      }
+    }
     this.curDay = moment();
     for (let i = 0; i < 7; i++) {
       this.dateArr[i] = moment().subtract(moment().day() - i, 'd');
       this.formatDate[i] = this.dateArr[i].format('D');
     }
+    this.listEvent(this.curDay, this.events);
   }
 
   // change when click the calendar
@@ -227,15 +249,15 @@ export class WeeklyScheduleComponent implements OnInit {
     const dayOfWeek = this.addEventComponent.dayOfWeek.day();
     for (let i = start; i < end; i++) {
       this.haveEvent[dayOfWeek][i] = true;
-      if (i < 10) {
-        document.getElementById(
-          dayOfWeek + '-0' + start + ':00-2'
-        ).innerHTML = this.addEventComponent.title;
-      } else {
-        document.getElementById(
-          dayOfWeek + start + ':00-2'
-        ).innerHTML = this.addEventComponent.title;
-      }
+    }
+    if (start < 10) {
+      document.getElementById(
+        dayOfWeek + '-0' + start + ':00-2'
+      ).innerHTML = this.addEventComponent.title;
+    } else {
+      document.getElementById(
+        dayOfWeek + '-' + start + ':00-2'
+      ).innerHTML = this.addEventComponent.title;
     }
   }
 
@@ -280,5 +302,21 @@ export class WeeklyScheduleComponent implements OnInit {
           this.haveEvent[this.eventDetailComponent.dayOfWeek][i] = false;
         }
       });
+  }
+
+   // edit the current event
+  onEditEvent() {
+    this.onCloseEventDetail();
+    this.editEvent = false;
+    document.body.style.overflow = 'hidden';
+  }
+  onCloseEditEvent() {
+      this.editEvent = true;
+      document.body.style.overflow = 'auto';
+  }
+  // update event
+  onUpdateEvent() {
+      this.editEvent = true;
+      document.body.style.overflow = 'auto';
   }
 }

@@ -9,6 +9,7 @@ export class EventDetailComponent implements OnInit {
 
   @Output() public close = new EventEmitter<boolean>();
   @Output() public delete = new EventEmitter<boolean>();
+  @Output() public edit = new EventEmitter<boolean>();
   public eventTitle: string;
   public eventStartTime: string;
   public eventEndTime: string;
@@ -38,5 +39,9 @@ export class EventDetailComponent implements OnInit {
     this.eventService.deleteEvent(this.tempId).subscribe(data => {
       console.log(data);
     });
+  }
+
+  editEvent() {
+    this.edit.emit();
   }
 }

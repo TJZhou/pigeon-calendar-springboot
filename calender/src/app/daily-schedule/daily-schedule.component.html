@@ -55,4 +55,9 @@
 <app-event-detail
 [hidden]="eventDetail"
 (close) = "onCloseEventDetail($event)"
-(delete) = "onDeleteEvent()"></app-event-detail>
+(delete) = "onDeleteEvent()"
+(edit) = "onEditEvent()"></app-event-detail>
+<app-edit-event
+[hidden] = "editEvent"
+(close) = "onCloseEditEvent()"
+(save) = onUpdateEvent()></app-edit-event>
