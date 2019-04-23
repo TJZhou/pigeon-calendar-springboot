@@ -1,12 +1,12 @@
 import { EventService } from './../services/event.service';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import { EditEventComponent } from '../edit-event/edit-event.component';
 @Component({
   selector: 'app-event-detail',
   templateUrl: './event-detail.component.html',
   styleUrls: ['./event-detail.component.scss']
 })
 export class EventDetailComponent implements OnInit {
-
   @Output() public close = new EventEmitter<boolean>();
   @Output() public delete = new EventEmitter<boolean>();
   @Output() public edit = new EventEmitter<boolean>();
@@ -42,6 +42,7 @@ export class EventDetailComponent implements OnInit {
   }
 
   editEvent() {
+    console.log(this.tempId);
     this.edit.emit();
   }
 }

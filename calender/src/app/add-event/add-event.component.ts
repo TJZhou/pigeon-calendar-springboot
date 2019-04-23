@@ -3,6 +3,7 @@ import { Event } from '../models/event.model';
 import { EventService } from '../services/event.service';
 import * as moment from 'moment';
 import { EventPost } from '../models/eventPost.model';
+import { ObjectUnsubscribedError } from 'rxjs';
 
 
 @Component({
@@ -14,6 +15,7 @@ export class AddEventComponent implements OnInit {
 
   matDatepicker;
   currentDate = moment();
+  eventResponse: Event;
   @Output() close = new EventEmitter<boolean>();
   @Output() save = new EventEmitter<object>();
   startDateTemp = this.currentDate.format('MM/DD/YY');
@@ -167,10 +169,14 @@ export class AddEventComponent implements OnInit {
 
       console.log(this.startTime);
       console.log(this.endTime);
+      
       // Use eventService to create new event
       this.eventService.addEvent(this.createNewEvent())
         .subscribe(data => {
+          this.eventResponse = data;
           console.log(" This event has been created: " + data[0]);
+          console.log("objid:::::" + data["_id"]);
+          console.log("The id of this event id:  "+this.eventResponse._id);
           this.save.emit();
           // this.close.emit();
         });
