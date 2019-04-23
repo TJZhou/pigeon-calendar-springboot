@@ -2,7 +2,6 @@ import { Component, OnInit,EventEmitter, Output } from '@angular/core';
 // import { Location } from '@angular/common';
 import { Event } from '../models/event.model';
 import { EventService } from '../services/event.service';
-import * as moment from 'moment';
 
 // PATCH method will cause CORS error in the Chrome browser but works fine on Firefox 
 
@@ -14,7 +13,6 @@ import * as moment from 'moment';
 export class EditEventComponent implements OnInit {
 
   matDatepicker;
-  currentDate = moment();
   @Output() close = new EventEmitter<boolean>();
   @Output() save = new EventEmitter<object>();
 

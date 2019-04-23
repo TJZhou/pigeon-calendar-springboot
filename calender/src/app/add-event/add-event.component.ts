@@ -1,10 +1,8 @@
 import { Component, OnInit,EventEmitter, Output } from '@angular/core';
-// import { Location } from '@angular/common';
 import { Event } from '../models/event.model';
 import { EventService } from '../services/event.service';
 import * as moment from 'moment';
 import { EventPost } from '../models/eventPost.model';
-import {  } from 'protractor';
 
 
 @Component({
@@ -39,46 +37,46 @@ export class AddEventComponent implements OnInit {
 
   // Convert date string to Date object
 
- convertStrToDate(datetimeStr) {
-  var mydateint = Date.parse(datetimeStr);
-  if (!isNaN(mydateint)) {
-      var mydate = new Date(mydateint);
-      return mydate;
+  convertStrToDate(datetimeStr) {
+    var mydateint = Date.parse(datetimeStr);
+    if (!isNaN(mydateint)) {
+        var mydate = new Date(mydateint);
+        return mydate;
+    }
+    var mydate = new Date(datetimeStr);
+    var monthstr = mydate.getMonth() + 1;
+    if (!isNaN(monthstr)) {
+        return mydate;
+    }
+    var dateParts = datetimeStr.split(" ");
+    var dateToday = new Date();
+    var year = dateToday.getFullYear();
+    var month = dateToday.getMonth();
+    var day = dateToday.getDate();
+    if (dateParts.length >= 1) {
+        var dataPart = dateParts[0].split("-");
+        if (dataPart.length == 1) {
+            dataPart = dateParts[0].split("/");
+        }
+        if (dataPart.length == 3) {
+            month = Math.floor(dataPart[0]);
+            day = Math.floor(dataPart[1]);
+            year = Math.floor(dataPart[2]);
+        }
+    }
+    if (dateParts.length == 2) {
+        var timePart = dateParts[1].split(":");
+        if (timePart.length == 3) {
+            var hour = Math.floor(timePart[0]);
+            var minute = Math.floor(timePart[1]);
+            var second = Math.floor(timePart[2]);
+            return new Date(year, month, day, hour, minute, second);
+        }
+    }
+    else {
+        return new Date(year, month, day);
+    }
   }
-  var mydate = new Date(datetimeStr);
-  var monthstr = mydate.getMonth() + 1;
-  if (!isNaN(monthstr)) {
-      return mydate;
-  }
-  var dateParts = datetimeStr.split(" ");
-  var dateToday = new Date();
-  var year = dateToday.getFullYear();
-  var month = dateToday.getMonth();
-  var day = dateToday.getDate();
-  if (dateParts.length >= 1) {
-      var dataPart = dateParts[0].split("-");
-      if (dataPart.length == 1) {
-          dataPart = dateParts[0].split("/");
-      }
-      if (dataPart.length == 3) {
-          month = Math.floor(dataPart[0]);
-          day = Math.floor(dataPart[1]);
-          year = Math.floor(dataPart[2]);
-      }
-  }
-  if (dateParts.length == 2) {
-      var timePart = dateParts[1].split(":");
-      if (timePart.length == 3) {
-          var hour = Math.floor(timePart[0]);
-          var minute = Math.floor(timePart[1]);
-          var second = Math.floor(timePart[2]);
-          return new Date(year, month, day, hour, minute, second);
-      }
-  }
-  else {
-      return new Date(year, month, day);
-  }
-}
 
   fillTempTimeArr(){
     for(let i = 0; i < 24; i++){
@@ -104,10 +102,7 @@ export class AddEventComponent implements OnInit {
   selectedEndDate = null;
   selectedEndTime = null;
 
-  constructor(
-    // private routeLocation: Location,
-    private eventService: EventService
-    ) { }
+  constructor( private eventService: EventService) { }
 
   ngOnInit() {
     this.startTimeArr = this.fillTempTimeArr();
@@ -115,10 +110,7 @@ export class AddEventComponent implements OnInit {
     this.endTimeArr.push('24:00');
   }
 
-  // goBack(): void {
-  //   this.routeLocation.back();
-  // }
-
+  // Create a new event for posting
   createNewEvent(): EventPost{
     let event = {
     "username": localStorage.getItem('username'),
@@ -130,6 +122,7 @@ export class AddEventComponent implements OnInit {
     return event;
   }
 
+  // Add a new event to backend
   onSubmit(){
 
     // Get the start and end date
@@ -184,11 +177,13 @@ export class AddEventComponent implements OnInit {
     }
   }
 
+  // Control the display of time chooser
   displayArr = {
     startTimeDisplay: 0,
     endTimeDisplay: 0,
   };
 
+  // Control the close of time chooser
   onClickedOutside(id) {
       if(id == 'endoutside'){
         this.displayArr['endTimeDisplay'] = 0;
