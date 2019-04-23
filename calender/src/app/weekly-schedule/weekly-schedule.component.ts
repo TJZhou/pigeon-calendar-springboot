@@ -266,7 +266,7 @@ export class WeeklyScheduleComponent implements OnInit {
     const endDayOfWeek = parseInt(this.addEventComponent.endDateTemp.substr(3, 2), 0) -
     parseInt(this.addEventComponent.startDateTemp.substr(3, 2), 0) + dayOfWeek;
 
-    for (let j = dayOfWeek; j < endDayOfWeek; j++) {
+    for (let j = dayOfWeek; j <= endDayOfWeek; j++) {
       for (let i = start; i < end; i++) {
         this.haveEvent[j][i] = true;
       }
@@ -317,7 +317,7 @@ export class WeeklyScheduleComponent implements OnInit {
         );
         const startDay = moment(event.startTime, 'MM/DD/YYYY');
         const endDay = moment(event.endTime, 'MM/DD/YYYY');
-        for (let j = startDay.day(); j < endDay.day(); j++) {
+        for (let j = startDay.day(); j <= endDay.day(); j++) {
           for (let i = parseInt(event.startTime.substr(11, 2), 0); i < parseInt(event.endTime.substr(11, 2), 0); i++) {
             this.haveEvent[j][i] = false;
           }
