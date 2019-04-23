@@ -7,8 +7,17 @@
     <div class = "img email"></div>
     <ul>
         <li><label class = "circle">&nbsp;</label><label class = "eventTitle">{{eventTitle}}</label></li>
-        <li><label class = "eventStartTime">{{eventStartTime}} - </label><label class = "eventEndTime">{{eventEndTime}}</label></li>
-        <li><label></label><label class = "eventLocation">Location: {{eventLocation}}</label></li>
+        <li>
+          <label class="timer"></label>
+          <label class="timeline">
+              <label class = "eventStartTime">{{eventStartTime}} — </label>
+              <label class = "eventEndTime">{{eventEndTime}}</label>
+          </label>          
+        </li>
+        <li>
+          <label class="location"></label>
+          <label class = "underborder eventLocation">{{eventLocation}}</label>
+        </li>
     </ul>
   </div>
 </div>
