@@ -1,33 +1,29 @@
-<div class="container">
-  <div class="header">
-    <div class="title">Register</div>
-    <form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && onRegisterSubmit()" novalidate>
-      <div class="form-container">
-        <mat-form-field>
-          <input id="username" matInput formControlName="username" [(ngModel)]="user.username"
-            placeholder="Enter your name" />
-        </mat-form-field>
+<section class="container">
+  <div class="login">
+    <h1>Welcome to Register Pigeon Calendar</h1>
 
-        <mat-form-field>
-          <input id="email" matInput formControlName="email" [(ngModel)]="user.email" placeholder="Enter your email" />
-        </mat-form-field>
+    <p><input type="text" name="login" placeholder="Username:Your Email Address" [(ngModel)]="userName"></p>
+    <p *ngIf="checkUserName()" class="username_error">Please input the correct format</p>
 
-        <mat-form-field>
-          <input id="password" matInput formControlName="password" [(ngModel)]="user.password"
-            placeholder="Enter your password" [type]="hidden ? 'password':'text'" />
-          <mat-icon matSuffix (click)="hide = !hide">
-            {{hidden ? 'visibility' : 'visibility_off'}}
-          </mat-icon>
-        </mat-form-field>
+    <p><input type="password" name="password" placeholder="Password: At least 5 characters" [(ngModel)]="password"></p>
+    <p><input type="password" name="password" placeholder="Confirm password" [(ngModel)]="checkPassword"></p>
 
-        <mat-form-field>
-          <input id="phone" matInput formControlName="phone" [(ngModel)]="user.phone"
-            placeholder="Enter your phone number" />
-        </mat-form-field>
-        <button mat-button type="submit" class="mat-raised-button mat-primary"
-          [disabled]="!registerForm.valid">Register</button>
-        <button mat-button routerLink="/login" class="divider">Login</button>
-      </div>
-    </form>
+    <p *ngIf="checkPasswordIsEqual()" class="password_error">Please input the same password!</p>
+    <p class="remember_me">
+      <label>
+        <input type="checkbox" name="remember_me" id="remember_me">
+        Remember me
+      </label>
+    </p>
+    <p class="submit">
+      <button nz-button nzType="primary" [disabled]="checkPasswordIsEqual() || checkUserName()"
+              (click)="registerUser()">Register
+      </button>
+    </p>
+
   </div>
-</div>
+
+  <div class="login-help">
+    <p>Help <a href="javascript:void(0);">Click here to reset it</a>.</p>
+  </div>
+</section>
