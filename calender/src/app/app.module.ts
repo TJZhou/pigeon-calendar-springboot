@@ -27,6 +27,8 @@ import {
   MatIconModule
 } from '@angular/material';
 import { EditEventComponent } from './edit-event/edit-event.component';
+import { EditPasswordComponent } from './edit-password/edit-password.component';
+import { EditEmailComponent } from './edit-email/edit-email.component';
 
 
 @NgModule({
@@ -41,7 +43,9 @@ import { EditEventComponent } from './edit-event/edit-event.component';
     AddEventComponent,
     EventDetailComponent,
     CheckProfileDetailsComponent,
-    EditEventComponent
+    EditEventComponent,
+    EditPasswordComponent,
+    EditEmailComponent
   ],
   imports: [
     BrowserModule,

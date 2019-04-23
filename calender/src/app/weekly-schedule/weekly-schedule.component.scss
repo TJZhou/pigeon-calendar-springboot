@@ -119,6 +119,17 @@ ul {
     border-right: 1px solid lightgray;
   }
 
+  .detailEvent{
+    width:100%;
+    text-align: center;
+    color:white;
+    border-bottom:1px solid rgba(36, 118, 225,0);
+    //border-radius: 5px;
+    background-color: rgba(36, 118, 225, 0.6);
+  }
+  .haveEvent{
+    display: none;
+  }
   .color-gray {
     color: gray;
   }

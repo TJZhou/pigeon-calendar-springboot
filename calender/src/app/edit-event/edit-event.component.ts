@@ -2,8 +2,8 @@ import { Component, OnInit,EventEmitter, Output } from '@angular/core';
 // import { Location } from '@angular/common';
 import { Event } from '../models/event.model';
 import { EventService } from '../services/event.service';
-import * as moment from 'moment';
 
+// PATCH method will cause CORS error in the Chrome browser but works fine on Firefox
 
 @Component({
   selector: 'app-edit-event',
@@ -13,20 +13,17 @@ import * as moment from 'moment';
 export class EditEventComponent implements OnInit {
 
   matDatepicker;
-  currentDate = moment();
   @Output() close = new EventEmitter<boolean>();
   @Output() save = new EventEmitter<object>();
 
-  
-  startDateTemp = this.currentDate.format('MM/DD/YY');
-  startTimeTemp = this.currentDate.format('HH:MM');
-  endTimeTemp = this.currentDate.add(1, 'h').format('HH:MM');
-  endDateTemp = this.startDateTemp;
+  startDateTemp: Date
+  startTimeTemp: string
+  endTimeTemp: string
+  endDateTemp: Date
 
   displayFlag = false;
   event: Event;
 
-  // ID 是这个哦
   id = "5cbceaada5689e8459f63338";
   username: string;
   title: string;
@@ -71,26 +68,34 @@ export class EditEventComponent implements OnInit {
 
     this.eventService.getEvent(this.id).subscribe(data => {
       console.log(data[0]);
+
       this.title = data[0].title;
       this.location = data[0].location;
       this.username = data[0].username;
-      this.startDateTemp = this.seperateDateAndTime(data[0].startTime).date;
+      this.startDateTemp = new Date(this.seperateDateAndTime(data[0].startTime).date);
       this.startTimeTemp = this.seperateDateAndTime(data[0].startTime).time;
-      this.endDateTemp = this.seperateDateAndTime(data[0].endTime).date;
+      this.endDateTemp = new Date(this.seperateDateAndTime(data[0].endTime).date);
       this.endTimeTemp = this.seperateDateAndTime(data[0].endTime).time;
     })
   }
 
-  seperateDateAndTime(completeTime: string) {
-    let words = completeTime.split(' ');
+  seperateDateAndTime(completeDate: string) {
+    let words = completeDate.split(' ');
     let date = words[0];
     let time = words[1];
     return {date, time};
   }
 
+  seperateHourAndMinute(completeTime: string) {
+    let words = completeTime.split(':');
+    let hour = words[0];
+    let minute = words[1];
+    return {hour, minute}
+  }
+
   createNewEvent(): Event{
     let event = {
-    "id": this.id,
+    "_id": this.id,
     "username": this.username,
     "title": this.title,
     "location": this.location,
@@ -102,44 +107,41 @@ export class EditEventComponent implements OnInit {
 
   onUpdate(){
 
-    // Get the start and end date
-    let startDateElement = <HTMLInputElement>document.getElementById('startDate');
-    let startDateValue = startDateElement.value;
-    this.startDateTemp = startDateValue;
+    let startTime = this.seperateHourAndMinute(this.startTimeTemp);
+    let startHour = parseInt(startTime.hour);
+    let startMinute = parseInt(startTime.minute);
 
-    let endDateElement = <HTMLInputElement>document.getElementById('endDate');
-    let endDateValue = endDateElement.value;
-    this.endDateTemp = endDateValue;
+    let endTime = this.seperateHourAndMinute(this.endTimeTemp);
+    let endHour = parseInt(endTime.hour);
+    let endMinute = parseInt(endTime.minute);
 
-    // Put date the time together and get their timestamp for comparing
+    this.startDateTemp.setHours(startHour);
+    this.endDateTemp.setHours(endHour);
 
-    let startwords = this.startDateTemp.split('/');
-    let endwords = this.endDateTemp.split('/');
-    
+    this.startDateTemp.setMinutes(startMinute);
+    this.endDateTemp.setMinutes(endMinute);
 
-    if( parseInt(startwords[0]) < 10 ) {
-      this.startDateTemp = '0' + this.startDateTemp;
-    }
-    if( parseInt(endwords[0]) < 10 ) {
-      this.endDateTemp = '0' + this.endDateTemp;
-    }
+    console.log(this.startDateTemp);
+    console.log(this.endDateTemp);
 
-    let convertStart = this.startDateTemp + " " + this.startTimeTemp;
-    let startStamp = Date.parse(convertStart);
-
-    let convertEnd = this.endDateTemp + " " + this.endTimeTemp;
-    let endStamp = Date.parse(convertEnd);
-
-    if (this.title == "" || this.title == undefined || 
+    if (this.title == "" || this.title == undefined ||
         this.location == "" || this.location == undefined) {
       alert("Invalid input - Please fill out all the blanks.");
-    } else if (endStamp <= startStamp ) {
+    } else if (this.endDateTemp <= this.startDateTemp ) {
       alert("Please choose valid end time.");
     } else {
 
       // Convert date string to date object
-      this.startTime = convertStart;
-      this.endTime = convertEnd;
+      let startMonth = this.startDateTemp.getMonth() + 1;
+      let startDate = this.startDateTemp.getDate();
+      let startYear = this.startDateTemp.getFullYear();
+
+      let endMonth = this.endDateTemp.getMonth() + 1;
+      let endDate = this.endDateTemp.getDate();
+      let endYear = this.endDateTemp.getFullYear();
+
+      this.startTime = startMonth + '/' + startDate + '/' + startYear + ' ' + this.startTimeTemp;
+      this.endTime = endMonth + '/' + endDate + '/' + endYear + ' ' + this.endTimeTemp;
 
       console.log(this.startTime);
       console.log(this.endTime);
@@ -188,7 +190,7 @@ export class EditEventComponent implements OnInit {
     this.endTimeTemp = time;
   }
 
-  closeAddEvent() {
+  closeEditEvent() {
     this.close.emit(true);
   }
 }

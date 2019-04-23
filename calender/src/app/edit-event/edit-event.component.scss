@@ -1,10 +1,10 @@
 
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 .wrapper{
-//   position: absolute;
-//   margin-top:300px;
+  position: fixed;
+  margin-top:200px;
   width:100%;
-//   padding-left:400px;
+  padding-left:500px;
   z-index: 100;
   min-width: 600px;
 }

@@ -1,0 +1,15 @@
+<div class="container">
+	<label class="title">Update {{username|uppercase}}'s E-mail</label>
+    <div class="close" (click)="closeEditEmail()"></div>
+	<form [formGroup]="emailEditForm" (ngSubmit)="emailEditForm.valid && onSubmit()" novalidate>
+	<input class="input email" id="email"
+        formControlName="email"
+        [(ngModel)]="email"
+        placeholder=" Enter your new E-mail" />
+    <input class="input comfirmEmail" id="comfirmEmail"
+        formControlName="comfirmEmail"
+        [(ngModel)]="comfirmEmail"
+        placeholder=" Re-enter your new E-mail" />
+    <button type="submit" class="submit button" [disabled]="!editPasswordForm.valid">update</button>
+    </form>
+</div>

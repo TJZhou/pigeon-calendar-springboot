@@ -9,6 +9,7 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class CheckProfileDetailsComponent implements OnInit {
 
+<<<<<<< HEAD
   @Input() id: string ;
   constructor(
     public dialogRef: MatDialogRef<CheckProfileDetailsComponent>,
@@ -19,6 +20,12 @@ export class CheckProfileDetailsComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
+=======
+  username = localStorage.getItem("username")
+  email = localStorage.getItem("email")
+  
+  constructor() {}
+>>>>>>> f0725d8ebcd90eb340244a5898ce30fb91fc48f5
 
   ngOnInit() {
   }

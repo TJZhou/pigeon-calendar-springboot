@@ -3,6 +3,14 @@
   <div class = "calendar">Pigeon</div>
 
     <div class = "date">April 2019</div>
-    <div class= "loginRegister" (click)="openLogin()">Login & SignUp</div>
-    <div class = "user"></div>
+    
+    <div class = "user" [hidden] = "!isMenuHidden" (click)="showMenu()"></div>
+    <div class = "cross" [hidden] = "isMenuHidden" (click)="showMenu()" ></div>
+</div>
+
+<div class="menu" [hidden]=isMenuHidden>
+	<div class="username">{{username|uppercase}}</div>
+	<div class="cell" (click)="changePassword()">Change Password</div>
+	<div class="cell" (click)="changeEmail()">Change E-mail</div>
+	<div class="cell" (click)="logOut()">Log Out</div>
 </div>

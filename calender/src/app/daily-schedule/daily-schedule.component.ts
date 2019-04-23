@@ -16,14 +16,15 @@ export class DailyScheduleComponent implements OnInit {
   @ViewChild(AddEventComponent)   public addEventComponent: AddEventComponent;
   @ViewChild(CalendarComponent)   public calendarComponent: CalendarComponent;
   @Output() curDay;
-  public curDayFormat: string;
+  public curDayFormat: string;  // change curDay to string format
   public timing;
   public timingArr = new Array(24);
-  public addEvent = true;
+  public addEvent = true;   // at the begin, all flags are true which means the child components are hidden
   public eventDetail = true;
+  public editEvent = true;
   public subDay;
   public event: Event;
-  public events;
+  public events;  // array of Event
   public haveEvent = new Array(24);
   public username;
 
@@ -54,7 +55,7 @@ export class DailyScheduleComponent implements OnInit {
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < e.length; i++) {
       const eventStartDayOfYear = moment(e[i].startTime.substr(0, 10), 'MM/DD/YYYY').dayOfYear();
-      const eventEndDayOfYear = moment(e[i].startTime.substr(0, 10), 'MM/DD/YYYY').dayOfYear();
+      const eventEndDayOfYear = moment(e[i].endTime.substr(0, 10), 'MM/DD/YYYY').dayOfYear();
       if (curDayOfYear >= eventStartDayOfYear && curDayOfYear <= eventEndDayOfYear) {
         const start = parseInt(e[i].startTime.substr(11, 2), 0);
         const end = parseInt(e[i].endTime.substr(11, 2), 0);
@@ -98,7 +99,6 @@ export class DailyScheduleComponent implements OnInit {
     }
     this.listEvent(this.curDay, this.events);
     const month = this.calendarComponent.date.month();
-    console.log(this.calendarComponent.date.month());
     if (moment().month() > month) {
       for (let i = 0; i < moment().month() - month; i++) {
         this.calendarComponent.nextMonth();
@@ -156,14 +156,14 @@ export class DailyScheduleComponent implements OnInit {
     } else {
       this.addEventComponent.endTimeTemp = (time + 1).toString() + ':00';
     }
-    console.log(this.addEventComponent.startTimeTemp);
+    this.addEventComponent.startDateTemp = this.curDay.toDate();
+    this.addEventComponent.endDateTemp = this.curDay.toDate();
   }
 
   // show event detail panel
   showEventDetail(id) {
     this.eventDetail = false;
     document.body.style.overflow = 'hidden';
-    console.log(id);
     this.eventService.getEvent(id).subscribe( data => {
       this.event = data[0];
       console.log(this.event);
@@ -172,6 +172,7 @@ export class DailyScheduleComponent implements OnInit {
       this.eventDetailComponent.eventStartTime = this.event.startTime;
       this.eventDetailComponent.eventEndTime = this.event.endTime;
     });
+    this.eventDetailComponent.tempId = id;
   }
 
   // if current div has an event or not
@@ -180,23 +181,62 @@ export class DailyScheduleComponent implements OnInit {
   }
 
   // close event detail panel
-  onCloseEventDetail(e) {
+  onCloseEventDetail() {
     this.eventDetail = true;
     document.body.style.overflow = 'auto';
   }
 
   // close add event panel
-  onCloseAddEvent(e) {
+  onCloseAddEvent() {
     this.addEvent = true;
     document.body.style.overflow = 'auto';
   }
 
   // save the new event
   onSaveAddEvent() {
-    const start = parseInt(this.addEventComponent.startTimeTemp.substr(0, 2), 0);
-    const end = parseInt(this.addEventComponent.endTimeTemp.substr(0, 2), 0);
+    this.onCloseAddEvent();
+    const start = parseInt(this.addEventComponent.startTime.substr(11, 2), 0);
+    const end = parseInt(this.addEventComponent.endTime.substr(11, 2), 0);
     for (let i = start; i < end; i++) {
       this.haveEvent[i] = true;
     }
+    if (start < 10) {
+      document.getElementById('0' + start + ':00-2').innerHTML = this.addEventComponent.title;
+    } else {
+      document.getElementById(start + ':00-2').innerHTML = this.addEventComponent.title;
+    }
   }
+
+  // delete the current event
+  onDeleteEvent() {
+      this.onCloseEventDetail();
+      let event;
+      this.eventService.getEvent(this.eventDetailComponent.tempId).subscribe( data => {
+        event = data;
+        this.events = this.events.filter(h => h.id !== this.eventDetailComponent.tempId);
+        for (let i = parseInt(event[0].startTime.substr(11, 2), 0); i < parseInt(event[0].endTime.substr(11, 2), 0); i++) {
+          console.log(i);
+          this.haveEvent[i] = false;
+        }
+      });
+    }
+
+    // edit the current event
+    onEditEvent() {
+      this.onCloseEventDetail();
+      this.editEvent = false;
+      document.body.style.overflow = 'hidden';
+    }
+
+    // close edit event panel
+    onCloseEditEvent() {
+      this.editEvent = true;
+      document.body.style.overflow = 'auto';
+    }
+
+    // update event
+    onUpdateEvent() {
+      this.editEvent = true;
+      document.body.style.overflow = 'auto';
+    }
 }

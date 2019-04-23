@@ -37,11 +37,33 @@ div {
 
 .user {
   float:right;
-  padding-right:10px;
+  margin-right:10px;
   width:40px;
   height: 40px;
   background-repeat: no-repeat;
   background-image: url(../pic/user.svg);
+}
+
+.cross{
+  float:right;
+  margin-right:10px;
+  width:40px;
+  height: 40px;
+  background-repeat: no-repeat;
+  background-image: url(../pic/cross.png);
+  background-size: cover;
+  cursor: pointer;
+}
+
+.user:hover {
+  float:right;
+  margin-right:10px;
+  width:40px;
+  height: 40px;
+  background-repeat: no-repeat;
+  background-image: url(../pic/user.svg);
+  background-color: black;
+  cursor: pointer;
 }
 
 .Google-Calendar-Icon {
@@ -50,4 +72,46 @@ div {
   height: 40px;
   background-repeat: no-repeat;
   background: url(../pic/pigeon.svg);
+}
+
+.menu{
+  position: absolute;
+  top: 45px;
+  right: 15px;
+  width: 150px;
+
+  z-index: 10;
+}
+.username{
+  position: relative;
+  text-align: center;
+  padding-top: 20px;
+  height: 40px;
+  width: 150px;
+  color: white;
+  background-color: #999999;
+  border: solid black 1px;
+}
+
+.cell{
+  position: relative;
+  text-align: center;
+  padding-top: 20px;
+  height: 40px;
+  width: 150px;
+  color: white;
+  background-color: #999999;
+  border: solid black 1px;
+}
+
+.cell:hover{
+  position: relative;
+  text-align: center;
+  padding-top: 20px;
+  height: 40px;
+  width: 150px;
+  color: white;
+  background-color: #0099FF;
+  border: solid black 1px;
+  cursor: pointer;
 }

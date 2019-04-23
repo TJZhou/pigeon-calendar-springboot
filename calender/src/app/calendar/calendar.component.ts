@@ -35,7 +35,6 @@ export class CalendarComponent implements OnInit {
   }
 
   createCalendar(month) {
-    console.log(month);
     const firstDay = moment(month).startOf('M');
     const days = Array.apply(null, { length: month.daysInMonth() })
       .map(Number.call, Number)
