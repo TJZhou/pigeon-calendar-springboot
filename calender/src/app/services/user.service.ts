@@ -31,6 +31,17 @@ export class UserService {
     return this.http.post<UserModel>(this.userUrl, user, httpOptions);
   }
 
+  updateUser(user: UserModel): Observable<UserModel> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'my-auth-token'
+      })
+    };
+    console.log(this.userUrl + user.username)
+    return this.http.patch<UserModel>(this.userUrl + user.username, user, httpOptions)
+  }
+
   deleteUser(username: string): Observable<UserModel> {
     return this.http.delete<UserModel>(this.userUrl + username);
   }

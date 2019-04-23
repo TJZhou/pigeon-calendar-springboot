@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +8,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  username: string = localStorage.getItem("username")
+	isMenuHidden: boolean = true;
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  showMenu(){
+    this.isMenuHidden = !this.isMenuHidden
+  }
+
+  changePassword(){
+    this.isMenuHidden = !this.isMenuHidden
+    this.router.navigateByUrl("/editpassword")
+  }
+
+  changeEmail(){
+    this.isMenuHidden = !this.isMenuHidden
+    this.router.navigateByUrl("/editemail")
+  }
+
+  logOut(){
+    this.isMenuHidden = !this.isMenuHidden
+    this.router.navigateByUrl("login");
   }
 
 }
