@@ -4,4 +4,5 @@ export class EventPost {
     // content: string;
     startTime: string;
     endTime: string;
+    location: string;
 }

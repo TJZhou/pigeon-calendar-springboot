@@ -1,5 +1,5 @@
 .wrapper {
-  position: absolute;
+  position: fixed;
   margin-top: 200px;
   width: 100%;
   padding-left: 30%;
@@ -85,12 +85,24 @@
     background: url(../pic/email.svg);
   }
 
-  .eventStartTime,
-  .eventEndTime,
-  .eventLocation {
-    font-size: 18px;
-  }
+  .timeline {
 
+    display: inline-block;
+    position: relative;
+    top: -7px;
+    left: 12px;
+    width: 360px;
+    height: 30px;
+    background-color: #e7e7e7;
+    border-radius: 5px;
+
+    .eventStartTime,
+    .eventEndTime,
+    .eventLocation {
+      font-size: 18px;
+    }
+  }
+  
   .circle {
     display: inline-block;
     border-radius: 10px;
@@ -120,10 +132,21 @@
       font-weight: 300;
     }
   }
+
+  .timer {
+    display: inline-block;
+    position: relative;
+    top: 3px;
+    width: 20px;
+    height: 20px;
+    background: no-repeat;
+    background-image: url('../pic/timer.svg');
+    margin: 0 10px 0 0;
+  }
 }
 
 .shadow {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   z-index: 10;
