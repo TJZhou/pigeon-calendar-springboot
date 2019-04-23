@@ -156,17 +156,14 @@ export class DailyScheduleComponent implements OnInit {
     } else {
       this.addEventComponent.endTimeTemp = (time + 1).toString() + ':00';
     }
-    console.log(this.curDay.toDate());
     this.addEventComponent.startDateTemp = this.curDay.toDate();
     this.addEventComponent.endDateTemp = this.curDay.toDate();
-    console.log(this.addEventComponent.startTimeTemp);
   }
 
   // show event detail panel
   showEventDetail(id) {
     this.eventDetail = false;
     document.body.style.overflow = 'hidden';
-    console.log(id);
     this.eventService.getEvent(id).subscribe( data => {
       this.event = data[0];
       console.log(this.event);
@@ -184,30 +181,20 @@ export class DailyScheduleComponent implements OnInit {
   }
 
   // close event detail panel
-  onCloseEventDetail(e) {
+  onCloseEventDetail() {
     this.eventDetail = true;
     document.body.style.overflow = 'auto';
-    if (e === true) {
-    let event;
-    this.eventService.getEvent(this.eventDetailComponent.tempId).subscribe( data => {
-      event = data;
-      this.events = this.events.filter(h => h.id !== this.eventDetailComponent.tempId);
-      for (let i = parseInt(event[0].startTime.substr(11, 2), 0); i < parseInt(event[0].endTime.substr(11, 2), 0); i++) {
-        console.log(i);
-        this.haveEvent[i] = false;
-      }
-    });
-    }
   }
 
   // close add event panel
-  onCloseAddEvent(e) {
+  onCloseAddEvent() {
     this.addEvent = true;
     document.body.style.overflow = 'auto';
   }
 
   // save the new event
   onSaveAddEvent() {
+    this.onCloseAddEvent();
     const start = parseInt(this.addEventComponent.startTime.substr(11, 2), 0);
     const end = parseInt(this.addEventComponent.endTime.substr(11, 2), 0);
     for (let i = start; i < end; i++) {
@@ -219,4 +206,18 @@ export class DailyScheduleComponent implements OnInit {
       document.getElementById(start + ':00-2').innerHTML = this.addEventComponent.title;
     }
   }
+
+  // delete the current event
+  onDeleteEvent() {
+      this.onCloseEventDetail();
+      let event;
+      this.eventService.getEvent(this.eventDetailComponent.tempId).subscribe( data => {
+        event = data;
+        this.events = this.events.filter(h => h.id !== this.eventDetailComponent.tempId);
+        for (let i = parseInt(event[0].startTime.substr(11, 2), 0); i < parseInt(event[0].endTime.substr(11, 2), 0); i++) {
+          console.log(i);
+          this.haveEvent[i] = false;
+        }
+      });
+    }
 }

@@ -20,6 +20,7 @@ export class AddEventComponent implements OnInit {
   startTimeTemp = this.currentDate.format('HH:MM');
   endTimeTemp = this.currentDate.add(1, 'h').format('HH:MM');
   endDateTemp = this.startDateTemp;
+  public dayOfWeek;  // store the information of this day of week
 
   displayFlag = false;
   event = Event;
@@ -171,7 +172,7 @@ export class AddEventComponent implements OnInit {
         .subscribe(data => {
           console.log(" This event has been created: " + data[0]);
           this.save.emit();
-          this.close.emit();
+          // this.close.emit();
         });
      // alert('Add successfully.');
     }

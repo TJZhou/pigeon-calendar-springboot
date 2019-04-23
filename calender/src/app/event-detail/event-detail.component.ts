@@ -8,11 +8,13 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class EventDetailComponent implements OnInit {
 
   @Output() public close = new EventEmitter<boolean>();
+  @Output() public delete = new EventEmitter<boolean>();
   public eventTitle: string;
   public eventStartTime: string;
   public eventEndTime: string;
   public eventLocation: string;
   public tempId;
+  public dayOfWeek;
 
   constructor(private eventService: EventService) {
     // initialize all variables
@@ -29,9 +31,10 @@ export class EventDetailComponent implements OnInit {
   closeEventDetail() {
     this.close.emit(false);
   }
+
   deleteEvent() {
     console.log(this.tempId);
-    this.close.emit(true);
+    this.delete.emit();
     this.eventService.deleteEvent(this.tempId).subscribe(data => {
       console.log(data);
     });
