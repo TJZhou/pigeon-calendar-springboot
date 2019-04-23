@@ -2,9 +2,8 @@ import { Component, OnInit,EventEmitter, Output } from '@angular/core';
 // import { Location } from '@angular/common';
 import { Event } from '../models/event.model';
 import { EventService } from '../services/event.service';
-import * as moment from 'moment';
 
-// PATCH method will cause CORS error in the Chrome browser but works fine on Firefox 
+// PATCH method will cause CORS error in the Chrome browser but works fine on Firefox
 
 @Component({
   selector: 'app-edit-event',
@@ -14,7 +13,6 @@ import * as moment from 'moment';
 export class EditEventComponent implements OnInit {
 
   matDatepicker;
-  currentDate = moment();
   @Output() close = new EventEmitter<boolean>();
   @Output() save = new EventEmitter<object>();
 
@@ -108,7 +106,7 @@ export class EditEventComponent implements OnInit {
   }
 
   onUpdate(){
-    
+
     let startTime = this.seperateHourAndMinute(this.startTimeTemp);
     let startHour = parseInt(startTime.hour);
     let startMinute = parseInt(startTime.minute);
@@ -126,7 +124,7 @@ export class EditEventComponent implements OnInit {
     console.log(this.startDateTemp);
     console.log(this.endDateTemp);
 
-    if (this.title == "" || this.title == undefined || 
+    if (this.title == "" || this.title == undefined ||
         this.location == "" || this.location == undefined) {
       alert("Invalid input - Please fill out all the blanks.");
     } else if (this.endDateTemp <= this.startDateTemp ) {
@@ -192,7 +190,7 @@ export class EditEventComponent implements OnInit {
     this.endTimeTemp = time;
   }
 
-  closeAddEvent() {
+  closeEditEvent() {
     this.close.emit(true);
   }
 }
