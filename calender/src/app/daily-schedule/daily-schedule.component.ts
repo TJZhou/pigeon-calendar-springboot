@@ -156,6 +156,9 @@ export class DailyScheduleComponent implements OnInit {
     } else {
       this.addEventComponent.endTimeTemp = (time + 1).toString() + ':00';
     }
+    console.log(this.curDay.toDate());
+    this.addEventComponent.startDateTemp = this.curDay.toDate();
+    this.addEventComponent.endDateTemp = this.curDay.toDate();
     console.log(this.addEventComponent.startTimeTemp);
   }
 

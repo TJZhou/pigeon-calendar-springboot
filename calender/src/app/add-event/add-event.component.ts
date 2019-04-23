@@ -169,7 +169,7 @@ export class AddEventComponent implements OnInit {
       // Use eventService to create new event
       this.eventService.addEvent(this.createNewEvent())
         .subscribe(data => {
-          console.log(" This event has been created: " + data);
+          console.log(" This event has been created: " + data[0]);
           this.save.emit();
           this.close.emit();
         });
