@@ -118,11 +118,12 @@ export class WeeklyScheduleComponent implements OnInit {
             }
           }
           if (start < 10) {
+            // if(e[i].title.length)
             document.getElementById(j + '-0' + start + ':00-2').innerHTML =
-              e[i].title.substr(0, 6) + '...';
+              e[i].title;
           } else {
             document.getElementById(j + '-' + start + ':00-2').innerHTML =
-              e[i].title.substr(0, 6) + '...';
+              e[i].title;
           }
         }
       }
