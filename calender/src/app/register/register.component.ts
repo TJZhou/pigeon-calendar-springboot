@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserModel } from '../models/user.model';
 import { Router} from '@angular/router';
-import { UserService } from '../services/user.service'
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
   isShow: boolean;
   registerForm: FormGroup;
   passwordComfirm: string;
-  isExist: boolean = false;
+  isExist = false;
 
 
   constructor(private formBuilder: FormBuilder, private service: UserService, private router: Router) { }
@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       username: [this.user.username],
-      email:[this.user.email, [
+      email: [this.user.email, [
           Validators.required,
           Validators.email
         ]
@@ -49,19 +49,19 @@ export class RegisterComponent implements OnInit {
 
   onRegisterSubmit() {
     this.service.getUser(this.user.username)
-      .subscribe( user => { 
-        if(user[0] != null && user[0].username === this.user.username)
-          alert("This username is registered!")
-        else{
-          if(this.user.password.valueOf() == this.passwordComfirm.valueOf()){ 
-            alert("Created new user successfully!")
+      .subscribe( user => {
+        if (user[0] != null && user[0].username === this.user.username) {
+          alert ('This username is registered!');
+        } else {
+          if (this.user.password.valueOf() === this.passwordComfirm.valueOf()) {
+            alert('Created new user successfully!');
             this.service.addUser(this.user)
               .subscribe();
-            this.router.navigateByUrl("login");
-          }else alert("Passwords must match!")
+            this.router.navigateByUrl('login');
+          } else { alert('Passwords must match!'); }
         }
-      })
-    
+      });
+
   }
 
 }
