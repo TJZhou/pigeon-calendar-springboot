@@ -271,13 +271,11 @@ export class WeeklyScheduleComponent implements OnInit {
         this.haveEvent[j][i] = true;
       }
       if (start < 10) {
-        document.getElementById(
-          j + '-0' + start + ':00-2'
-        ).innerHTML = this.addEventComponent.title;
+        document.getElementById(j + '-0' + start + ':00-2').innerHTML = this.addEventComponent.title;
+        document.getElementById(j + '-0' + start + ':00-2').setAttribute('name', this.addEventComponent.tempId);
       } else {
-        document.getElementById(
-          j + '-' + start + ':00-2'
-        ).innerHTML = this.addEventComponent.title;
+        document.getElementById(j + '-' + start + ':00-2').innerHTML = this.addEventComponent.title;
+        document.getElementById(j + '-' + start + ':00-2').setAttribute('name', this.addEventComponent.tempId);
       }
     }
   }

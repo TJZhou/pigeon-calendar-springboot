@@ -207,8 +207,10 @@ export class DailyScheduleComponent implements OnInit {
     }
     if (start < 10) {
       document.getElementById('0' + start + ':00-2').innerHTML = this.addEventComponent.title;
+      document.getElementById('0' + start + ':00-2').setAttribute('name',  this.addEventComponent.tempId);
     } else {
       document.getElementById(start + ':00-2').innerHTML = this.addEventComponent.title;
+      document.getElementById(start + ':00-2').setAttribute('name',  this.addEventComponent.tempId);
     }
   }
 

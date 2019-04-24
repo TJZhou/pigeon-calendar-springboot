@@ -4,7 +4,7 @@
       <div class="title">Pigeon Calendar</div>
     </div>
 
-    <div class="signin">Register New User</div>
+    <div class="signin">Register</div>
 
     <form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && onRegisterSubmit()" novalidate>
 
@@ -29,8 +29,11 @@
         [(ngModel)]="passwordComfirm"
         placeholder=" Comfirm your password"
         [type]="isShow ? 'text' : 'password'" />
-
+      
       <div class="checkbox">
+        <div class="others">
+          <a routerLink="/login">Already had an account?</a>
+        </div>
         <input class="checkmark"
           type="checkbox"
           [(ngModel)]="isShow"
