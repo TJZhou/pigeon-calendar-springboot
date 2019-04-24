@@ -20,14 +20,23 @@
 	margin: 10px 5px 0 5px;
 	list-style-type: square;
 	// padding: 0;
-	width: 15em;
+	width: 240px;
 }
 
 .events li{
 	cursor: pointer;
-	position: relateive
+	position: relateive;
+	margin: 10px 5px 0 5px;
+}
+
+.events li:hover {
+	color: rgb(129, 129, 250);;
 }
 
 .finished{
+	color: #d3d3d3;
+}
 
+span {
+	padding-right: 10px;
 }
