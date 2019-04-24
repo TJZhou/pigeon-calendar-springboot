@@ -83,17 +83,19 @@ div {
   top: 45px;
   right: 15px;
   width: 150px;
+  border-radius: 5px;
+  border-width:  solid #e7e7e7 1px;
   z-index: 10000;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.8);
 }
+
 .username{
   position: relative;
   text-align: center;
   padding-top: 20px;
   height: 40px;
   width: 150px;
-  color: white;
-  background-color: #999999;
-  border: solid black 1px;
 }
 
 .cell{
@@ -102,19 +104,10 @@ div {
   padding-top: 20px;
   height: 40px;
   width: 150px;
-  color: white;
-  background-color: #999999;
-  border: solid black 1px;
+  border-radius: 10px;
 }
 
 .cell:hover{
-  position: relative;
-  text-align: center;
-  padding-top: 20px;
-  height: 40px;
-  width: 150px;
-  color: white;
-  background-color: #0099FF;
-  border: solid black 1px;
+  background-color: #e1eeff;
   cursor: pointer;
 }

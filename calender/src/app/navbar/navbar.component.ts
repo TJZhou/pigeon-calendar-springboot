@@ -21,13 +21,6 @@ export class NavbarComponent implements OnInit {
     this.isMenuHidden = !this.isMenuHidden
   }
 
-  // onClickedOutside(event){
-  //   console.log("here" + event.target.id);
-  //   if(event.target.id != 'user-menu'){
-  //     this.isMenuHidden =  true;
-  //   }
-  // }
-
   changePassword(){
     this.isMenuHidden = !this.isMenuHidden
     this.router.navigateByUrl("/editpassword")
