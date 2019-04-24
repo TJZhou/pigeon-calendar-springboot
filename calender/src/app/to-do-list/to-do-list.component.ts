@@ -26,6 +26,7 @@ export class ToDoListComponent implements OnInit {
   	return (today <= compared && compared <= tomorrow) 
   }
 
+  // Initialize the component
   ngOnInit() {
   	if(this.username!=null){
   		console.log(this.username)
@@ -45,6 +46,7 @@ export class ToDoListComponent implements OnInit {
   	}
   }
 
+  // Function when clicking on the event itself
   finished(event: Event){
 		if(this.include(event._id)){
 			this.flag.pop();

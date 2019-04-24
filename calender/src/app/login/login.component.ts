@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private service: UserService, private router: Router) { }
 
+  // Initialize the component
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       username: [this.user.username],
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  // Function when clicking on login button
   onLoginSubmit() {
 
     if (this.user.username === undefined || this.user.password === undefined || this.user.password.length < 6 ) {

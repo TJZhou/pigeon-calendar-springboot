@@ -32,6 +32,7 @@ export class DailyScheduleComponent implements OnInit {
 
   constructor(private eventService: EventService) { }
 
+  // initalize component
   ngOnInit() {
     for (let i = 0; i < 24; i++) {
       this.haveEvent[i] = false;

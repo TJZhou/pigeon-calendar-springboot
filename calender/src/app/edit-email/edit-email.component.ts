@@ -36,6 +36,7 @@ export class EditEmailComponent implements OnInit {
     });
   }
 
+  // close event
   closeEditEmail(){
     this.router.navigateByUrl("/day")
   }
@@ -49,6 +50,7 @@ export class EditEmailComponent implements OnInit {
     return user
   }
 
+  // submit event
   onSubmit(){
     if(this.email === this.comfirmEmail){
       this.service.updateUser(this.creatUser())

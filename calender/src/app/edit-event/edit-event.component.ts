@@ -68,6 +68,7 @@ export class EditEventComponent implements OnInit {
     this.username = localStorage.getItem('username');
   }
 
+  //  Seperate date and time
   seperateDateAndTime(completeDate: string) {
     let words = completeDate.split(' ');
     let date = words[0];
@@ -75,6 +76,7 @@ export class EditEventComponent implements OnInit {
     return {date, time};
   }
 
+ // Seperate hour and minute
   seperateHourAndMinute(completeTime: string) {
     let words = completeTime.split(':');
     let hour = words[0];
@@ -82,6 +84,7 @@ export class EditEventComponent implements OnInit {
     return {hour, minute}
   }
 
+  // Create a new event for using event Service
   createNewEvent(): Event{
     console.log("before creatting ");
     console.log(this.startTime);
@@ -114,6 +117,7 @@ export class EditEventComponent implements OnInit {
     return event;
   }
 
+  // Update event using event service
   onUpdate(){
 
     let startTime = this.seperateHourAndMinute(this.startTimeTemp);
@@ -186,11 +190,13 @@ export class EditEventComponent implements OnInit {
     }
   }
 
+  // Store the variables for controlling time-chooser part
   displayArr = {
     startTimeDisplay: 0,
     endTimeDisplay: 0,
   };
 
+  // Judge if clicking on the outside of both time-chooser
   onClickedOutside(id) {
       if(id == 'endoutside'){
         this.displayArr['endTimeDisplay'] = 0;
@@ -199,11 +205,13 @@ export class EditEventComponent implements OnInit {
       }
   }
 
+  // Control whether display or not
   controlDisplay(event) {
     let id = event.target.id;
     this.setDisplayFlag(id, 1);
   }
 
+  // Assign flag to attribute 
   setDisplayFlag(id: string, flag: number) {
     if(id == 'startTime'){
       this.displayArr['startTimeDisplay'] = flag;
@@ -212,14 +220,17 @@ export class EditEventComponent implements OnInit {
     }
   }
 
+  // Get the selected time from time-chooser
   setStartTime(time) {
     this.startTimeTemp = time;
   }
 
+  // Get the selected time from time-chooser
   setEndTime(time) {  
     this.endTimeTemp = time;
   }
 
+  // Close the edit event
   closeEditEvent() {
     console.log(this.id);
     this.close.emit(true);

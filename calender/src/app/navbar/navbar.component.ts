@@ -17,20 +17,25 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
+  // Control if menu is display
   showMenu(){
     this.isMenuHidden = !this.isMenuHidden
   }
 
+  // Change password
   changePassword(){
     this.isMenuHidden = !this.isMenuHidden
     this.router.navigateByUrl("/editpassword")
   }
 
+  // Change email
   changeEmail(){
     this.isMenuHidden = !this.isMenuHidden
     this.router.navigateByUrl("/editemail")
   }
 
+
+  // Log out 
   logOut(){
     this.isMenuHidden = !this.isMenuHidden
     this.router.navigateByUrl("login");

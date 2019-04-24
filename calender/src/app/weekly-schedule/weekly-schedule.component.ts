@@ -35,6 +35,7 @@ export class WeeklyScheduleComponent implements OnInit {
 
   constructor(private eventService: EventService) {}
 
+  // Initialize the component
   ngOnInit() {
     // initialize current day and schedule array
     this.username = localStorage.getItem('username');
@@ -61,6 +62,7 @@ export class WeeklyScheduleComponent implements OnInit {
       });
   }
 
+  // Create the time
   createTiming(): void {
     for (let i = 0; i < 10; i++) {
       this.timingArr[i] = '0' + i + ':00';
@@ -80,6 +82,7 @@ export class WeeklyScheduleComponent implements OnInit {
     this.weekdayArr[6] = 'SAT';
   }
 
+  // Create the date
   createDate(): void {
     for (let i = 0; i < 7; i++) {
       this.dateArr[i] = moment().subtract(moment().day() - i, 'd');

@@ -24,6 +24,7 @@ export class EditPasswordComponent implements OnInit {
 
   constructor( private formBuilder: FormBuilder, private service: UserService, private router: Router ) { }
 
+  // Initialize the components, add validation of forms
   ngOnInit() {
   	this.editPasswordForm = this.formBuilder.group({
       oldPassword: [this.oldPassword, [
@@ -52,10 +53,12 @@ export class EditPasswordComponent implements OnInit {
   		})
   }
 
+  // Close edit password part
   closeEditPassword(){
     this.router.navigateByUrl("/day")
   }
 
+  // Create a new user 
   createUser(): UserModel{
   	let user = {
   		"username": this.username,
@@ -65,6 +68,7 @@ export class EditPasswordComponent implements OnInit {
   	return user;
   }
 
+  // Function when clicking on submit button
   onSubmit(){
   	if(this.oldPassword === this.password){
   		if(this.newPassword === this.passwordComfirm){

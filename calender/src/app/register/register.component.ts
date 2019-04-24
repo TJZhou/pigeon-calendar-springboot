@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private service: UserService, private router: Router) { }
 
+  // Initialize the component
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       username: [this.user.username],
@@ -50,6 +51,7 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  // Function clicking on register
   onRegisterSubmit() {
     if ( this.user.email === undefined || this.user.password === undefined || this.passwordComfirm === undefined
       || this.user.password.length < 6) {
