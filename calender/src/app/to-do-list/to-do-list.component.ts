@@ -46,7 +46,9 @@ export class ToDoListComponent implements OnInit {
   }
 
   finished(event: Event){
-    this.flag.push(parseInt(event._id))
+		if(this.include(event._id)){
+			this.flag.pop();
+		}else this.flag.push(parseInt(event._id))
   }
 
   include(str: string){
