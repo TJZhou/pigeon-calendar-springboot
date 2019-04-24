@@ -261,4 +261,17 @@ export class DailyScheduleComponent implements OnInit {
         this.listEvent(this.curDay, this.events);
       });
     }
+
+    goToGoogleMap() {
+      const arr = this.eventDetailComponent.eventLocation.split(' ');
+      console.log(arr);
+      let location = 'http://www.google.com/maps/search/';
+      for (let i = 0; i < arr.length; i++) {
+       location += arr[i];
+       if ( i !== arr.length - 1) {
+        location += '+';
+       }
+     }
+      window.open(location);
+  }
 }

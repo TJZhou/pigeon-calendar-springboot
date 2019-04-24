@@ -56,8 +56,9 @@
 [hidden]="eventDetail"
 (close) = "onCloseEventDetail($event)"
 (delete) = "onDeleteEvent()"
-(edit) = "onEditEvent()"></app-event-detail>
+(edit) = "onEditEvent()"
+(map) = "goToGoogleMap()"></app-event-detail>
 <app-edit-event
 [hidden] = "editEvent"
 (close) = "onCloseEditEvent()"
-(save) = onUpdateEvent()></app-edit-event>
+(save) = "onUpdateEvent()"></app-edit-event>

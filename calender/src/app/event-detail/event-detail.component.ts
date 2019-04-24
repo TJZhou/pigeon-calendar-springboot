@@ -10,7 +10,8 @@ export class EventDetailComponent implements OnInit {
   @Output() public close = new EventEmitter<boolean>();
   @Output() public delete = new EventEmitter<boolean>();
   @Output() public edit = new EventEmitter<boolean>();
-  @Output() public send = new EventEmitter<object>();
+  @Output() public send = new EventEmitter<object>(); // send email
+  @Output() public map = new EventEmitter<object>(); // jump to google map
   public eventTitle: string;
   public eventStartTime: string;
   public eventEndTime: string;
@@ -48,5 +49,9 @@ export class EventDetailComponent implements OnInit {
   editEvent() {
     console.log(this.tempId);
     this.edit.emit();
+  }
+
+  jumpToMap() {
+    this.map.emit();
   }
 }
