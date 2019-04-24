@@ -7,8 +7,10 @@
 
 <ng-template #eventlist>
 	<ul class="events">
-		<li *ngFor="let event of events">
-			{{event.title}}
+		<li *ngFor="let event of events;"
+			(click)="finished(event)"
+			[class.finished]="include(event._id)">
+			<span>{{event._id}}</span>{{event.title}}
 		</li>
 	</ul>
 </ng-template>
