@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
+// }
 
 @Component({
   selector: 'app-navbar',
@@ -19,6 +20,13 @@ export class NavbarComponent implements OnInit {
   showMenu(){
     this.isMenuHidden = !this.isMenuHidden
   }
+
+  // onClickedOutside(event){
+  //   console.log("here" + event.target.id);
+  //   if(event.target.id != 'user-menu'){
+  //     this.isMenuHidden =  true;
+  //   }
+  // }
 
   changePassword(){
     this.isMenuHidden = !this.isMenuHidden

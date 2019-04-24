@@ -58,13 +58,15 @@ div {
 }
 
 .user:hover {
-  float:right;
-  margin-right:10px;
-  width:40px;
-  height: 40px;
-  background-repeat: no-repeat;
-  background-image: url(../pic/user.svg);
-  background-color: black;
+  // float:right;
+  // margin-right:10px;
+  // width:40px;
+  // height: 40px;
+  // background-repeat: no-repeat;
+  // background-image: url(../pic/user.svg);
+  // background-color: black;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.8);
   cursor: pointer;
 }
 
@@ -77,12 +79,11 @@ div {
 }
 
 .menu{
-  position: absolute;
+  position: fixed;
   top: 45px;
   right: 15px;
   width: 150px;
-
-  z-index: 10;
+  z-index: 10000;
 }
 .username{
   position: relative;

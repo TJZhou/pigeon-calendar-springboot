@@ -83,6 +83,26 @@ export class EditEventComponent implements OnInit {
   }
 
   createNewEvent(): Event{
+    console.log("before creatting ");
+    console.log(this.startTime);
+    console.log(this.endTime);
+
+    let starts = this.startTime.split(' ');
+    let ends = this.endTime.split(' ');
+    
+    let startsMs = starts[0].split('/');
+    let endsMs = ends[0].split('/');
+
+    if( parseInt(startsMs[0]) < 10) {
+      this.startTime = '0' + this.startTime;
+    }
+    if(parseInt(endsMs[0]) < 10) {
+      this.endTime = '0' + this.endTime;
+    }
+    console.log("after creating ");
+    console.log(this.startTime);
+    console.log(this.endTime);
+
     let event = {
     "_id": this.id,
     "username": this.username,
@@ -126,14 +146,37 @@ export class EditEventComponent implements OnInit {
       let endDate = this.endDateTemp.getDate();
       let endYear = this.endDateTemp.getFullYear();
 
+
+      // let starts = this.startTimeTemp.split(':');
+      // let ends = this.endTimeTemp.split(':');
+
+      // if( parseInt(starts[0]) < 10) {
+      //   this.startTimeTemp = '0' + this.startTimeTemp;
+      // }
+
+      // if( parseInt(ends[0]) < 10) {
+      //   this.endTimeTemp = '0' + this.endTimeTemp;
+      // }
+
       if (startMonth < 10) {
         this.startTime = '0' + startMonth + '/' + startDate + '/' + startYear + ' ' + this.startTimeTemp;
         this.endTime = '0' + endMonth + '/' + endDate + '/' + endYear + ' ' + this.endTimeTemp;
       } else {
         this.startTime = startMonth + '/' + startDate + '/' + startYear + ' ' + this.startTimeTemp;
         this.endTime = endMonth + '/' + endDate + '/' + endYear + ' ' + this.endTimeTemp;
+      } 
+      
+      if( startDate < 10) {
+        this.startTime = startMonth + '/0' + startDate + '/' + startYear + ' ' + this.startTimeTemp;
+        this.endTime = endMonth + '/0' + endDate + '/' + endYear + ' ' + this.endTimeTemp;
+      }else {
+        this.startTime = startMonth + '/' + startDate + '/' + startYear + ' ' + this.startTimeTemp;
+        this.endTime = endMonth + '/' + endDate + '/' + endYear + ' ' + this.endTimeTemp;
       }
-
+      console.log("after day 0 ::: ");
+      console.log(this.startTime);
+      console.log(this.endTime);
+      
       // Use eventService to update event
       this.eventService.updateEvent(this.id, this.createNewEvent()).
       subscribe(data => {
@@ -169,13 +212,11 @@ export class EditEventComponent implements OnInit {
     }
   }
 
-  setStartTime(event) {
-    let time = event.target.id;
+  setStartTime(time) {
     this.startTimeTemp = time;
   }
 
-  setEndTime(event) {
-    let time = event.target.id;
+  setEndTime(time) {  
     this.endTimeTemp = time;
   }
 

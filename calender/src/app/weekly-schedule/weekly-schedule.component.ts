@@ -118,11 +118,12 @@ export class WeeklyScheduleComponent implements OnInit {
             }
           }
           if (start < 10) {
+            // if(e[i].title.length)
             document.getElementById(j + '-0' + start + ':00-2').innerHTML =
-              e[i].title.substr(0, 6) + '...';
+              e[i].title;
           } else {
             document.getElementById(j + '-' + start + ':00-2').innerHTML =
-              e[i].title.substr(0, 6) + '...';
+              e[i].title;
           }
         }
       }
@@ -260,24 +261,15 @@ export class WeeklyScheduleComponent implements OnInit {
   // save event which have been newly created
   onSaveAddEvent() {
     this.onCloseAddEvent();
-    const start = parseInt(this.addEventComponent.startTime.substr(11, 2), 0);
-    const end = parseInt(this.addEventComponent.endTime.substr(11, 2), 0);
-    const dayOfWeek = this.addEventComponent.dayOfWeek.day();
-    const endDayOfWeek = parseInt(this.addEventComponent.endDateTemp.substr(3, 2), 0) -
-    parseInt(this.addEventComponent.startDateTemp.substr(3, 2), 0) + dayOfWeek;
 
-    for (let j = dayOfWeek; j <= endDayOfWeek; j++) {
-      for (let i = start; i < end; i++) {
-        this.haveEvent[j][i] = true;
-      }
-      if (start < 10) {
-        document.getElementById(j + '-0' + start + ':00-2').innerHTML = this.addEventComponent.title;
-        document.getElementById(j + '-0' + start + ':00-2').setAttribute('name', this.addEventComponent.tempId);
-      } else {
-        document.getElementById(j + '-' + start + ':00-2').innerHTML = this.addEventComponent.title;
-        document.getElementById(j + '-' + start + ':00-2').setAttribute('name', this.addEventComponent.tempId);
-      }
-    }
+    this.events = this.eventService
+    .getEventsFromOneUser(this.username)
+    .subscribe(data => {
+      this.events = data;
+      // tslint:disable-next-line:prefer-for-of
+      this.listEvent(this.curDay, this.events);
+      this.curDay = this.curDay.subtract((6 - moment().day()), 'd');
+    });
   }
 
   // close event detail panel
@@ -313,6 +305,8 @@ export class WeeklyScheduleComponent implements OnInit {
         this.events = this.events.filter(
           h => h.id !== this.eventDetailComponent.tempId
         );
+        // this.listEvent(this.curDay, this.events);
+        // this.curDay = this.curDay.subtract((6 - moment().day()), 'd');
         const startDay = moment(event.startTime, 'MM/DD/YYYY');
         const endDay = moment(event.endTime, 'MM/DD/YYYY');
         for (let j = startDay.day(); j <= endDay.day(); j++) {
@@ -321,6 +315,14 @@ export class WeeklyScheduleComponent implements OnInit {
           }
         }
       });
+    // this.events = this.eventService
+    // .getEventsFromOneUser(this.username)
+    // .subscribe(data => {
+    //   this.events = data;
+    //   // tslint:disable-next-line:prefer-for-of
+    //   this.listEvent(this.curDay, this.events);
+    //   this.curDay = this.curDay.subtract((6 - moment().day()), 'd');
+    // });
   }
 
    // edit the current event

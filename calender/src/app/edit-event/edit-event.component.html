@@ -36,7 +36,7 @@
 
       <div *ngIf="displayArr.startTimeDisplay == 1" class="start-time-chooser">
           <div class="scroll">
-              <div *ngFor="let time of startTimeArr" (click)=setStartTime($event) id="{{time}}" class="item" >
+              <div *ngFor="let time of startTimeArr" (click)=setStartTime(time) class="item" >
                 <span>{{time}}</span>
               </div>
           </div>
@@ -44,7 +44,7 @@
 
       <div *ngIf="displayArr.endTimeDisplay == 1" class="end-time-chooser">
           <div class="scroll">
-              <div *ngFor="let time of endTimeArr" (click)=setEndTime($event) id="{{time}}" class="item" >
+              <div *ngFor="let time of endTimeArr" (click)=setEndTime(time) class="item" >
                 <span>{{time}}</span>
               </div>
           </div>
