@@ -16,3 +16,4 @@ Node JS
 3. Run the command 'npm install'
 4. Run command 'npm start' 
 5. Run command 'ng serve -o'
+

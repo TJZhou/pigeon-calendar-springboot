@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="header">
+      <div class="pigeon"></div>
+      <div class="title">Pigeon Calendar</div>
+    </div>
+
+    <div class="signin">Register</div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && onRegisterSubmit()" novalidate>
+
+      <input class="input username" id="username"
+        formControlName="username"
+        [(ngModel)]="user.username"
+        placeholder=" Enter your username" />
+
+      <input class="input email" id="email"
+        formControlName="email"
+        [(ngModel)]="user.email"
+        placeholder=" Enter your email" />
+
+      <input class="input password" id="password"
+        formControlName="password"
+        [(ngModel)]="user.password"
+        placeholder=" Enter your password"
+        [type]="isShow ? 'text' : 'password'" />
+
+      <input class="input passwordComfirm" id="passwordComfirm"
+        formControlName="passwordComfirm"
+        [(ngModel)]="passwordComfirm"
+        placeholder=" Comfirm your password"
+        [type]="isShow ? 'text' : 'password'" />
+      
+      <div class="checkbox">
+        <div class="others">
+          <a routerLink="/login">Already had an account?</a>
+        </div>
+        <input class="checkmark"
+          type="checkbox"
+          [(ngModel)]="isShow"
+          [ngModelOptions]="{standalone: true}">
+        <div class="label">Show my password</div>
+      </div>
+
+
+
+      <button type="submit" class="submit button" [disabled]="!registerForm.valid">submit</button>
+
+    </form>
+  </div>
+

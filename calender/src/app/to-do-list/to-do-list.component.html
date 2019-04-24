@@ -1,0 +1,18 @@
+<div class="container">
+	<div class="title">Today's To-Do-List</div>
+	<div *ngIf="events; then eventlist else noevent">
+		
+	</div>
+</div>
+
+<ng-template #eventlist>
+	<ul class="events">
+		<li *ngFor="let event of events">
+			{{event.title}}
+		</li>
+	</ul>
+</ng-template>
+
+<ng-template #noevent>
+	Yeah! No event today!
+</ng-template>
