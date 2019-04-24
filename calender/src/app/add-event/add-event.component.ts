@@ -209,13 +209,11 @@ export class AddEventComponent implements OnInit {
     }
   }
 
-  setStartTime(event) {
-    let time = event.target.id;
+  setStartTime(time) {
     this.startTimeTemp = time;
   }
 
-  setEndTime(event) {
-    let time = event.target.id;
+  setEndTime(time) {
     this.endTimeTemp = time;
   }
 
