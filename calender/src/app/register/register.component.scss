@@ -74,15 +74,21 @@
 
 .checkbox{
 	position: relative;
-	left: 53%;
-
 	margin-bottom: 30px;
+	left: 20%
+}
+
+.others{
+	font-size: 13px;
+	position: relative;
+	float: left;
+	padding-top: 3px;
+	margin-right: 25px;
 }
 
 .checkmark{
 	height: 15px;
 	width: 15px;
-
 	float: left;
 }
 
@@ -107,11 +113,6 @@
 	background-image: url(../pic/pigeon.svg);
 
 	float: left;
-}
-
-.others{
-	position: relative;
-	left: 15%;
 }
 
 .input{

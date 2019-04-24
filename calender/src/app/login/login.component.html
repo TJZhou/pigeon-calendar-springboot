@@ -20,6 +20,9 @@
         [type]="isShow ? 'text' : 'password'" />
 
       <div class="checkbox">
+        <div class="others">
+          <a routerLink="/register">Create a new account</a>
+        </div>
         <input class="checkmark"
           type="checkbox"
           [(ngModel)]="isShow"
@@ -30,12 +33,6 @@
 
 
       <button type="submit" class="submit button" [disabled]="!loginForm.valid">submit</button>
-
-      <hr>
-
-      <div class="others">
-        <a routerLink="/register">Register a new account</a>
-      </div>
 
     </form>
   </div>

@@ -4,7 +4,7 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 	min-width:500px;
-	min-height: 500px;
+	min-height: 450px;
 	height: 50%;
 	width: 30%;
 	border: 1px solid #DBDBDB;
@@ -60,15 +60,21 @@
 
 .checkbox{
 	position: relative;
-	left: 53%;
-
+	left: 20%;
 	margin-bottom: 30px;
+}
+
+.others{
+	font-size: 13px;
+	position: relative;
+	float: left;
+	padding-top: 3px;
+	margin-right: 40px;
 }
 
 .checkmark{
 	height: 15px;
 	width: 15px;
-
 	float: left;
 }
 
@@ -93,11 +99,6 @@
 	background-image: url(../pic/pigeon.svg);
 
 	float: left;
-}
-
-.others{
-	position: relative;
-	left: 15%;
 }
 
 .input{
