@@ -30,8 +30,12 @@
         <div class="label">Show my password</div>
       </div>
 
-
-
+      <div class = "invalid">
+        <div class = "invalidInfo inline-block font-14"
+        [ngClass] = "{'hidden': isValid2()}"> Invalid Username or Password</div>
+        <div class = "wrongPassword inline-block font-14"
+        [ngClass] = "{'hidden': isValid1()}">The password doesn't match the username</div>
+      </div>
       <button type="submit" class="submit button" [disabled]="!loginForm.valid">submit</button>
 
     </form>

@@ -29,7 +29,7 @@
         [(ngModel)]="passwordComfirm"
         placeholder=" Comfirm your password"
         [type]="isShow ? 'text' : 'password'" />
-      
+
       <div class="checkbox">
         <div class="others">
           <a routerLink="/login">Already had an account?</a>
@@ -42,7 +42,10 @@
       </div>
 
 
-
+      <div class = "invalid">
+        <div class = "invalidInfo inline-block font-14"
+        [ngClass] = "{'hidden': isValid()}"> Please Input Valid Information</div>
+      </div>
       <button type="submit" class="submit button" [disabled]="!registerForm.valid">submit</button>
 
     </form>

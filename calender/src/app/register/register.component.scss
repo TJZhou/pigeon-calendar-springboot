@@ -5,7 +5,7 @@
 	transform: translate(-50%, -50%);
 	min-width:500px;
 	min-height: 550px;
-	height: 50%;
+	height: 600px;
 	width: 30%;
 	border: 1px solid #DBDBDB;
 	border-radius: 25px;
@@ -19,7 +19,7 @@
 	width: 70%;
 	height: 40px;
 
-	// background-color: yellow; 
+	// background-color: yellow;
 }
 
 .pigeon{
@@ -125,4 +125,24 @@
 .button{
 	width: 100px;
 	height: 30px;
+}
+
+.invalid{
+  height:50px;
+  .invalidInfo{
+    padding-left:100px;
+    color:red;
+  }
+
+  .inline-block{
+    display: inline-block;
+  }
+
+  .font-14 {
+    font-size:14px;
+  }
+
+  .hidden{
+    display: none;
+  }
 }
