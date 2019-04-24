@@ -8,6 +8,7 @@ import { AddEventComponent } from './add-event/add-event.component';
 import { EditEventComponent } from './edit-event/edit-event.component';
 import { EditPasswordComponent } from './edit-password/edit-password.component'
 import { EditEmailComponent } from './edit-email/edit-email.component'
+import { ToDoListComponent } from './to-do-list/to-do-list.component'
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'addevent', component: AddEventComponent},
   { path: 'editevent', component: EditEventComponent},
   { path: 'editpassword', component: EditPasswordComponent},
-  { path: 'editemail', component: EditEmailComponent}
+  { path: 'editemail', component: EditEmailComponent},
+  { path: 'todolist', component: ToDoListComponent}
 ];
 
 @NgModule({

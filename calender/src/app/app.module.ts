@@ -29,6 +29,7 @@ import {
 import { EditEventComponent } from './edit-event/edit-event.component';
 import { EditPasswordComponent } from './edit-password/edit-password.component';
 import { EditEmailComponent } from './edit-email/edit-email.component';
+import { ToDoListComponent } from './to-do-list/to-do-list.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { EditEmailComponent } from './edit-email/edit-email.component';
     CheckProfileDetailsComponent,
     EditEventComponent,
     EditPasswordComponent,
-    EditEmailComponent
+    EditEmailComponent,
+    ToDoListComponent
   ],
   imports: [
     BrowserModule,
