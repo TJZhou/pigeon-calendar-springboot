@@ -14,7 +14,7 @@ export class ToDoListComponent implements OnInit {
 	username = localStorage.getItem("username")
 	events: Event[]
 	filtedEvents: Event[]
-
+  flag: number[] = [100]
   constructor( private service: EventService) { }
 
   noLaterThen(comparedDate: Event): boolean{
@@ -36,9 +36,20 @@ export class ToDoListComponent implements OnInit {
           	this.filtedEvents = event.filter(this.noLaterThen);
 						if(this.filtedEvents[0] != null){
 							this.events = this.filtedEvents;
+              console.log(this.events.length)
+              for(let i=0; i<this.events.length; i++){
+                this.events[i]._id = (i+1).toString()
+              }
 						}
   			})
   	}
   }
 
+  finished(event: Event){
+    this.flag.push(parseInt(event._id))
+  }
+
+  include(str: string){
+    return this.flag.includes(parseInt(str))
+  }
 }
