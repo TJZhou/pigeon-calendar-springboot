@@ -126,13 +126,27 @@ export class EditEventComponent implements OnInit {
       let endDate = this.endDateTemp.getDate();
       let endYear = this.endDateTemp.getFullYear();
 
+
+      // let starts = this.startTimeTemp.split(':');
+      // let ends = this.endTimeTemp.split(':');
+
+      // if( parseInt(starts[0]) < 10) {
+      //   this.startTimeTemp = '0' + this.startTimeTemp;
+      // }
+
+      // if( parseInt(ends[0]) < 10) {
+      //   this.endTimeTemp = '0' + this.endTimeTemp;
+      // }
+
       if (startMonth < 10) {
         this.startTime = '0' + startMonth + '/' + startDate + '/' + startYear + ' ' + this.startTimeTemp;
         this.endTime = '0' + endMonth + '/' + endDate + '/' + endYear + ' ' + this.endTimeTemp;
       } else {
         this.startTime = startMonth + '/' + startDate + '/' + startYear + ' ' + this.startTimeTemp;
         this.endTime = endMonth + '/' + endDate + '/' + endYear + ' ' + this.endTimeTemp;
-      }
+      } 
+      
+      
 
       // Use eventService to update event
       this.eventService.updateEvent(this.id, this.createNewEvent()).

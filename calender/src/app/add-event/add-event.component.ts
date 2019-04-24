@@ -140,13 +140,23 @@ export class AddEventComponent implements OnInit {
 
     let startwords = this.startDateTemp.split('/');
     let endwords = this.endDateTemp.split('/');
-
-
+    
     if( parseInt(startwords[0]) < 10 ) {
       this.startDateTemp = '0' + this.startDateTemp;
     }
     if( parseInt(endwords[0]) < 10 ) {
       this.endDateTemp = '0' + this.endDateTemp;
+    }
+  
+    
+    let start1 = this.startDateTemp.split('/');
+    let end1 = this.endDateTemp.split('/');
+
+    if( parseInt(start1[1]) < 10) {
+      this.startDateTemp = start1[0] + '/0' + start1[1] + '/' + start1[2];
+    }
+    if( parseInt(end1[1]) < 10) {
+      this.endDateTemp = start1[0] + '/0' + end1[1] + '/' + end1[2];
     }
 
     let convertStart = this.startDateTemp + " " + this.startTimeTemp;
