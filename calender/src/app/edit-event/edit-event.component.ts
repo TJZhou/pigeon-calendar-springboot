@@ -90,18 +90,18 @@ export class EditEventComponent implements OnInit {
     console.log(this.startTime);
     console.log(this.endTime);
 
-    let starts = this.startTime.split(' ');
-    let ends = this.endTime.split(' ');
-    
-    let startsMs = starts[0].split('/');
-    let endsMs = ends[0].split('/');
+    // let starts = this.startTime.split(' ');
+    // let ends = this.endTime.split(' ');
 
-    if( parseInt(startsMs[0]) < 10) {
-      this.startTime = '0' + this.startTime;
-    }
-    if(parseInt(endsMs[0]) < 10) {
-      this.endTime = '0' + this.endTime;
-    }
+    // let startsMs = starts[0].split('/');
+    // let endsMs = ends[0].split('/');
+
+    // if( parseInt(startsMs[0]) < 10) {
+    //   this.startTime = '0' + this.startTime;
+    // }
+    // if(parseInt(endsMs[0]) < 10) {
+    //   this.endTime = '0' + this.endTime;
+    // }
     console.log("after creating ");
     console.log(this.startTime);
     console.log(this.endTime);
@@ -150,6 +150,10 @@ export class EditEventComponent implements OnInit {
       let endDate = this.endDateTemp.getDate();
       let endYear = this.endDateTemp.getFullYear();
 
+      let startMonthS;
+      let startDateS;
+      let endMonthS;
+      let endDateS;
 
       // let starts = this.startTimeTemp.split(':');
       // let ends = this.endTimeTemp.split(':');
@@ -162,25 +166,52 @@ export class EditEventComponent implements OnInit {
       //   this.endTimeTemp = '0' + this.endTimeTemp;
       // }
 
-      if (startMonth < 10) {
-        this.startTime = '0' + startMonth + '/' + startDate + '/' + startYear + ' ' + this.startTimeTemp;
-        this.endTime = '0' + endMonth + '/' + endDate + '/' + endYear + ' ' + this.endTimeTemp;
+      if(startMonth<10) {
+        startMonthS = '0' + startMonth;
       } else {
-        this.startTime = startMonth + '/' + startDate + '/' + startYear + ' ' + this.startTimeTemp;
-        this.endTime = endMonth + '/' + endDate + '/' + endYear + ' ' + this.endTimeTemp;
-      } 
-      
-      if( startDate < 10) {
-        this.startTime = startMonth + '/0' + startDate + '/' + startYear + ' ' + this.startTimeTemp;
-        this.endTime = endMonth + '/0' + endDate + '/' + endYear + ' ' + this.endTimeTemp;
-      }else {
-        this.startTime = startMonth + '/' + startDate + '/' + startYear + ' ' + this.startTimeTemp;
-        this.endTime = endMonth + '/' + endDate + '/' + endYear + ' ' + this.endTimeTemp;
+        startMonthS = startMonth.toString();
       }
+
+      if(startDate < 10) {
+        startDateS = '0' + startDate;
+      } else {
+        startDateS = startDate;
+      }
+
+      if(endMonth < 10) {
+        endMonthS = '0' + endMonth;
+      } else {
+        endMonthS = endMonth;
+      }
+
+      if(endDate < 10 ) {
+        endDateS = '0' + endDate;
+      } else {
+        endDateS = endDate;
+      }
+
+      // if( startDate < 10) {
+      //   this.startTime = startMonth + '/0' + startDate + '/' + startYear + ' ' + this.startTimeTemp;
+      //   this.endTime = endMonth + '/0' + endDate + '/' + endYear + ' ' + this.endTimeTemp;
+      // }else {
+      //   this.startTime = startMonth + '/' + startDate + '/' + startYear + ' ' + this.startTimeTemp;
+      //   this.endTime = endMonth + '/' + endDate + '/' + endYear + ' ' + this.endTimeTemp;
+      // }
+
+      // if (startMonth < 10) {
+      //   this.startTime = '0' + this.startTime;
+      //   this.endTime = '0' + endMonth + '/' + endDate + '/' + endYear + ' ' + this.endTimeTemp;
+      // } else {
+      //   this.startTime = startMonth + '/' + startDate + '/' + startYear + ' ' + this.startTimeTemp;
+      //   this.endTime = endMonth + '/' + endDate + '/' + endYear + ' ' + this.endTimeTemp;
+      // }
+
+      this.startTime = startMonthS +  '/' + startDateS + '/' + startYear + ' ' + this.startTimeTemp;
+      this.endTime = endMonthS + '/' + endDateS + '/' + endYear + ' ' + this.endTimeTemp;
       console.log("after day 0 ::: ");
       console.log(this.startTime);
       console.log(this.endTime);
-      
+
       // Use eventService to update event
       this.eventService.updateEvent(this.id, this.createNewEvent()).
       subscribe(data => {
@@ -211,11 +242,11 @@ export class EditEventComponent implements OnInit {
     this.setDisplayFlag(id, 1);
   }
 
-  // Assign flag to attribute 
+  // Assign flag to attribute
   setDisplayFlag(id: string, flag: number) {
-    if(id == 'startTime'){
+    if (id === 'startTime') {
       this.displayArr['startTimeDisplay'] = flag;
-    } else if (id == 'endTime'){
+    } else if (id === 'endTime'){
       this.displayArr['endTimeDisplay'] = flag;
     }
   }
@@ -226,7 +257,7 @@ export class EditEventComponent implements OnInit {
   }
 
   // Get the selected time from time-chooser
-  setEndTime(time) {  
+  setEndTime(time) {
     this.endTimeTemp = time;
   }
 
