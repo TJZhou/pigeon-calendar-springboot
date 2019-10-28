@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 
 public class User {
     @Id
+    private String id;
     private String username;
     private String email;
     private String password;
@@ -38,5 +39,15 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
