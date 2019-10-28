@@ -1,43 +1,31 @@
-# compiled output
-/dist
-/tmp
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
 
-# dependencies
-/node_modules
-<<<<<<< HEAD:calender/.gitignore
-# profiling files
-chrome-profiler-events.json
-speed-measure-plugin.json
-=======
-
-# npm related file
-package-lock.json
->>>>>>> backend:backend/.gitignore
-
-# IDEs and editors
-/.idea
-.project
+### STS ###
+.apt_generated
 .classpath
-.c9/
-*.launch
-.settings/
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
 
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
 
-# misc
-/connect.lock
-/coverage/*
-/libpeerconnection.log
-npm-debug.log
-testem.log
-*.log
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
 
-#System Files
-.DS_Store
-Thumbs.db
-
+### VS Code ###
+.vscode/
