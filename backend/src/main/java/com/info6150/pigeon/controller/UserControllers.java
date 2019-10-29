@@ -15,12 +15,12 @@ public class UserControllers {
     @Autowired
     private UserRepository repo;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
     public @ResponseBody List<User> getUserList(){
         return repo.findAll();
     }
 
-    @RequestMapping(value = "/{userName}", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/{userName}", method = RequestMethod.GET)
     public @ResponseBody User getUser(@PathVariable String userName, HttpServletResponse resp){
         User u = repo.findByUsername(userName);
         if(u == null) resp.setStatus(400);
@@ -28,12 +28,12 @@ public class UserControllers {
         return u;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
     public @ResponseBody void addUser(@RequestBody User u){
         repo.save(u);
     }
 
-    @RequestMapping(value = "/{userName}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/user/{userName}", method = RequestMethod.DELETE)
     public @ResponseBody void deleteUser(@PathVariable String userName, HttpServletResponse resp){
         User u = repo.findByUsername(userName);
         if(u == null) {

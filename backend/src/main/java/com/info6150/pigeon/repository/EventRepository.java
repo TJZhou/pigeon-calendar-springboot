@@ -6,5 +6,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface EventRepository extends MongoRepository<Event, String> {
-    public List<Event> findNyUsername(String userName);
+    public List<Event> findByUsername(String userName);
 }

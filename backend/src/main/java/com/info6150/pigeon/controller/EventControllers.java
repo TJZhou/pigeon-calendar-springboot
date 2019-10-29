@@ -18,19 +18,19 @@ public class EventControllers {
     private EventRepository repo;
 
     // list all events
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/event", method = RequestMethod.GET)
     public @ResponseBody List<Event> getEventList(){
         return repo.findAll();
     }
 
     // list all events belongs to a certain user
-    @RequestMapping(value = "/list/{userName}", method = RequestMethod.GET)
+    @RequestMapping(value = "/event/{userName}", method = RequestMethod.GET)
     public @ResponseBody List<Event> getEventList(@PathVariable String userName){
-        return repo.findNyUsername(userName);
+        return repo.findByUsername(userName);
     }
 
     // get the event by event id
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/event/{id}", method = RequestMethod.GET)
     public @ResponseBody Event getEventById(@PathVariable String id, HttpServletResponse resp){
         Optional<Event> e = repo.findById(id);
         if(e.isPresent()) {
@@ -44,13 +44,13 @@ public class EventControllers {
     }
 
     // save event
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/event", method = RequestMethod.POST)
     public @ResponseBody void addEvent(@RequestBody Event e){
         repo.save(e);
     }
 
     // delete event
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/event/{id}", method = RequestMethod.DELETE)
     public @ResponseBody void deleteEvent(@PathVariable String id){
         repo.deleteById(id);
     }

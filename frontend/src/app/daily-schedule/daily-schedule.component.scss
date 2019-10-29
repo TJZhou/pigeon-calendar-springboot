@@ -1,0 +1,125 @@
+.wrapper {
+  margin-top: 150px;
+  margin-left: 330px;
+  position: absolute;
+  width: calc(100% - 350px);
+  min-width: 450px;
+
+  .btn {
+    position: absolute;
+    top: -50px;
+    left: -5px;
+  }
+
+  .prev {
+    font-size: 30px;
+    font-weight: 300;
+  }
+
+  .prev:hover {
+    border-radius: 5px;
+    cursor: pointer;
+    background: lightgray;
+  }
+
+  .today {
+    padding: 5px 0 0 0px;
+    width: 100px;
+    font-size: 22px;
+    color: gray;
+  }
+
+  .space {
+    width: 30px;
+  }
+
+  .next {
+    font-size: 30px;
+    font-weight: 300;
+  }
+
+  .next:hover {
+    border-radius: 5px;
+    cursor: pointer;
+    background: lightgray;
+  }
+
+  .inline-block {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .container{
+    width:100%;
+  }
+  .timing {
+    width:50px;
+    float:left;
+    border-right: 1px solid lightgray;
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+      li {
+        line-height: 40px;
+        width: 100%;
+      }
+    }
+  }
+
+  .schedule {
+    padding-top:36px;
+    width:calc(100% - 60px);
+    margin:0;
+    float:left;
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin: 0;
+      li {
+        float: left;
+        cursor: pointer;
+        line-height: 39px;
+        width: 100%;
+        .addEvent {
+          display: inline-block;
+          width: 100%;
+          border-top: 1px solid lightgray;
+        }
+        .detailEvent{
+          width:100%;
+          text-align: center;
+          color:white;
+          //border-radius: 5px;
+          background-color: rgba(36, 118, 225, 0.6);
+        }
+        .haveEvent{
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.wrapperBtn {
+  height: 107%;
+  width: calc(100% - 350px);
+  border-left: solid 1px lightgray;
+  margin-top: 100px;
+  margin-left: 300px;
+  padding-left: 20px;
+  position: absolute;
+  min-width: 500px;
+
+  .selected{
+    background-color: rgba(36, 118, 225, 0.7);
+    color: white;
+  }
+
+  .rightBtn {
+    float: right;
+  }
+}

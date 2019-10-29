@@ -1,0 +1,42 @@
+.container{
+	position: fixed;
+	// box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+	left: 20px;
+	bottom: 200px;
+	width: 250px;
+	border-radius: 5px;
+}
+
+.title {
+	background-color: rgb(235, 235, 255);
+	padding: 10px 5px 10px 5px;
+	border-radius: 10px;
+	letter-spacing: 0.1em;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.events{
+	margin: 10px 5px 0 5px;
+	list-style-type: square;
+	// padding: 0;
+	width: 240px;
+}
+
+.events li{
+	cursor: pointer;
+	position: relateive;
+	margin: 10px 5px 0 5px;
+}
+
+.events li:hover {
+	color: rgb(129, 129, 250);;
+}
+
+.finished{
+	color: #d3d3d3;
+}
+
+span {
+	padding-right: 10px;
+}
