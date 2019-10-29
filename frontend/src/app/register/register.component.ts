@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserModel } from '../models/user.model';
 import { Router} from '@angular/router';
-// import { UserService } from '../services/user.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +12,6 @@ import { Router} from '@angular/router';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-
 
   user: UserModel = new UserModel();
   isShow: boolean;

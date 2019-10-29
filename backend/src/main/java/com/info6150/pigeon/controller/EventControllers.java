@@ -24,7 +24,7 @@ public class EventControllers {
     }
 
     // list all events belongs to a certain user
-    @RequestMapping(value = "/event/{userName}", method = RequestMethod.GET)
+    @RequestMapping(value = "/eventByUser/{userName}", method = RequestMethod.GET)
     public @ResponseBody List<Event> getEventList(@PathVariable String userName){
         return repo.findByUsername(userName);
     }
