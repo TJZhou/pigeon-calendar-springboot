@@ -1,47 +1,37 @@
 package com.info6150.pigeon.controller;
 
 import com.info6150.pigeon.model.User;
-import com.info6150.pigeon.repository.UserRepository;
+import com.info6150.pigeon.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
+import java.util.Collection;
 
-@Controller
+@RestController
 public class UserControllers {
 
     @Autowired
-    private UserRepository repo;
+    private UserServiceImpl userService;
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public @ResponseBody List<User> getUserList(){
-        return repo.findAll();
+    public Collection<User> getUserList() {
+        return userService.getUsers();
     }
 
-    @RequestMapping(value = "/user/{userName}", method = RequestMethod.GET)
-    public @ResponseBody User getUser(@PathVariable String userName, HttpServletResponse resp){
-        User u = repo.findByUsername(userName);
-        if(u == null) resp.setStatus(400);
-        else resp.setStatus(200);
+    @RequestMapping(value = "/user/" + "{userName}", method = RequestMethod.GET)
+    public User getUser(@PathVariable String userName, HttpServletResponse resp) {
+        User u = userService.findUserByUsername(userName);
         return u;
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public @ResponseBody void addUser(@RequestBody User u){
-        repo.save(u);
+    public void addUser(@RequestBody User u) {
+        userService.createUser(u);
     }
 
     @RequestMapping(value = "/user/{userName}", method = RequestMethod.DELETE)
-    public @ResponseBody void deleteUser(@PathVariable String userName, HttpServletResponse resp){
-        User u = repo.findByUsername(userName);
-        if(u == null) {
-            resp.setStatus(400);
-        }
-        else {
-            resp.setStatus(200);
-            repo.deleteByUsername(userName);
-        }
+    public void deleteUser(@PathVariable String userName, HttpServletResponse resp) {
+        userService.deleteUserById(userName);
     }
 }
