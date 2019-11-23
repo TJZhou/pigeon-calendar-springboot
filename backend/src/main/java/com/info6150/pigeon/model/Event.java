@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Event {
 
     @Id
-    private String id;
+    private String _id;
     private String username;
     private String title;
     private String location;
@@ -23,6 +23,14 @@ public class Event {
         this.location = location;
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getUsername() {
@@ -68,7 +76,7 @@ public class Event {
     @Override
     public String toString() {
         return "Event{" +
-                "id='" + id + '\'' +
+                "id='" + _id + '\'' +
                 ", username='" + username + '\'' +
                 ", title='" + title + '\'' +
                 ", location='" + location + '\'' +

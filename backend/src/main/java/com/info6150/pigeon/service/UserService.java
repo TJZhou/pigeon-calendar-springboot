@@ -3,6 +3,7 @@ package com.info6150.pigeon.service;
 import com.info6150.pigeon.model.User;
 
 import java.util.Collection;
+import java.util.Optional;
 
 public interface UserService {
     void createUser(User user);
@@ -17,7 +18,7 @@ public interface UserService {
 
     User findUserByUsername(String userName);
 
-    User findUserById(String id);
+    Optional<User> findUserById(String id);
 
     Collection<User> getUsers();
 }

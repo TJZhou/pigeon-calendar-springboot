@@ -1,72 +1,50 @@
 package com.info6150.pigeon.service;
 
-//import com.info6150.pigeon.model.User;
-//import org.springframework.data.mongodb.repository.MongoRepository;
-//import org.springframework.stereotype.Service;
-//
-//@Service("userRepo")
-//public interface UserServiceImpl extends MongoRepository<User, String> {
-//    public User findByUsername(String username);
-//    public void deleteByUsername(String username);
-//}
-
 import com.info6150.pigeon.model.User;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
+import com.info6150.pigeon.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.Collection;
+import java.util.Optional;
 
 @Service("userService")
 public class UserServiceImpl implements UserService{
 
-    @Resource
-    MongoTemplate mongoTemplate;
+    @Autowired
+    private UserRepository userRepository;
 
-    @Override
     public void createUser(User user) {
-        mongoTemplate.insert(user);
+        userRepository.save(user);
     }
 
-    @Override
     public void updateUserById(String id, User user) {
         deleteUserById(id);
         createUser(user);
     }
 
-    @Override
     public void deleteUserById(String id) {
-        Query query = new Query(Criteria.where("_id").is(id));
-        mongoTemplate.remove(query, User.class);
+        userRepository.deleteById(id);
     }
 
-    @Override
-    public void updateUserByUsername(String userName, User user) {
-        deleteUserByUsername(userName);
+    public void updateUserByUsername(String username, User user) {
+        deleteUserByUsername(username);
         createUser(user);
     }
 
-    @Override
-    public void deleteUserByUsername(String userName) {
-        Query query = new Query(Criteria.where("username").is(userName));
-        mongoTemplate.remove(query, User.class);
+    public void deleteUserByUsername(String username) {
+        userRepository.deleteByUsername(username);
     }
 
-    @Override
-    public User findUserByUsername(String userName) {
-        Query query = new Query(Criteria.where("username").is(userName));
-        return mongoTemplate.findOne(query, User.class);
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
-    @Override
-    public User findUserById(String id) {
-        return mongoTemplate.findById(id, User.class);
+    public Optional<User> findUserById(String id) {
+        return userRepository.findById(id);
     }
 
-    @Override
     public Collection<User> getUsers() {
-        return mongoTemplate.findAll(User.class);
+        return userRepository.findAll();
     }
 }

@@ -3,6 +3,7 @@ package com.info6150.pigeon.service;
 import com.info6150.pigeon.model.Event;
 
 import java.util.Collection;
+import java.util.Optional;
 
 public interface EventService {
      void createEvent(Event event);
@@ -13,7 +14,7 @@ public interface EventService {
 
      Collection<Event> getEventsByUsername(String username);
 
-     Event getEventById(String id);
+     Optional<Event> getEventById(String id);
 
      Collection<Event> getEvents();
 }

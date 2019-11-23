@@ -1,49 +1,47 @@
 package com.info6150.pigeon.service;
 
 import com.info6150.pigeon.model.Event;
+import com.info6150.pigeon.repository.EventRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.Collection;
+import java.util.Optional;
 
 @Service("eventService")
 public class EventServiceImpl implements EventService {
-    @Resource
-    private MongoTemplate mongoTemplate;
 
-    @Override
-    public void createEvent(Event event) {
-        mongoTemplate.insert(event);
+    private EventRepository eventRepository;
+
+    @Autowired
+    EventServiceImpl(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
     }
 
-    @Override
+    public void createEvent(Event event) {
+        eventRepository.save(event);
+    }
+
     public void updateEvent(String id, Event event) {
         deleteEvent(id);
         createEvent(event);
     }
 
-    @Override
     public void deleteEvent(String id) {
-        Query query = new Query(Criteria.where("_id").is(id));
-        mongoTemplate.remove(query, Event.class);
+        eventRepository.deleteById(id);
     }
 
-    @Override
-    public Event getEventById(String id) {
-        return mongoTemplate.findById(id, Event.class);
+    public Optional<Event> getEventById(String id) {
+        return eventRepository.findById(id);
     }
 
-    @Override
     public Collection<Event> getEventsByUsername(String username) {
-        Query query = new Query(Criteria.where("username").is(username));
-        return mongoTemplate.find(query, Event.class);
+        return eventRepository.findAllByUsername(username);
     }
 
-    @Override
     public Collection<Event> getEvents() {
-        return mongoTemplate.findAll(Event.class);
+        return eventRepository.findAll();
     }
 }
