@@ -38,7 +38,6 @@ export class DailyScheduleComponent implements OnInit {
       this.haveEvent[i] = false;
     }
     // initialize current day, timing array and add all exsited events
-    console.log(localStorage.getItem('username'));
     this.username = localStorage.getItem('username');
 
     this.curDay = moment();
@@ -80,7 +79,6 @@ export class DailyScheduleComponent implements OnInit {
         if (start < 10) {
           document.getElementById('0' + start + ':00-2').innerHTML = e[i].title;
         } else if (start >= 10) {
-          console.log(document.getElementById(start + ':00-2'));
           document.getElementById(start + ':00-2').innerHTML = e[i].title;
         }
       }
@@ -164,7 +162,6 @@ export class DailyScheduleComponent implements OnInit {
       this.addEventComponent.endTimeTemp = (time + 1).toString() + ':00';
     }
     this.addEventComponent.startDateTemp = this.curDay.toDate();
-    console.log(this.addEventComponent.startDateTemp);
     this.addEventComponent.endDateTemp = this.curDay.toDate();
   }
 
@@ -173,7 +170,7 @@ export class DailyScheduleComponent implements OnInit {
     this.eventDetail = false;
     document.body.style.overflow = 'hidden';
     this.eventService.getEvent(id).subscribe( data => {
-      this.event = data[0];
+      this.event = data;
       this.eventDetailComponent.eventTitle = this.event.title;
       this.eventDetailComponent.eventLocation = this.event.location;
       this.eventDetailComponent.eventStartTime = this.event.startTime;
@@ -219,7 +216,7 @@ export class DailyScheduleComponent implements OnInit {
       this.eventService.getEvent(this.eventDetailComponent.tempId).subscribe( data => {
         event = data;
         this.events = this.events.filter(h => h.id !== this.eventDetailComponent.tempId);
-        for (let i = parseInt(event[0].startTime.substr(11, 2), 0); i < parseInt(event[0].endTime.substr(11, 2), 0); i++) {
+        for (let i = parseInt(event.startTime.substr(11, 2), 0); i < parseInt(event.endTime.substr(11, 2), 0); i++) {
           this.haveEvent[i] = false;
         }
       });
@@ -237,11 +234,6 @@ export class DailyScheduleComponent implements OnInit {
       this.editEventComponent.endDateTemp = this.curDay.toDate();
       this.editEvent = false;
       document.body.style.overflow = 'hidden';
-      console.log(this.event.startTime);
-      console.log(this.editEventComponent.startDateTemp);
-      console.log(this.editEventComponent.endDateTemp);
-      console.log(this.editEventComponent.startTimeTemp);
-      console.log(this.editEventComponent.endTimeTemp);
     }
 
     // close edit event panel
@@ -265,7 +257,6 @@ export class DailyScheduleComponent implements OnInit {
 
     goToGoogleMap() {
       const arr = this.eventDetailComponent.eventLocation.split(' ');
-      console.log(arr);
       let location = 'http://www.google.com/maps/search/';
       for (let i = 0; i < arr.length; i++) {
        location += arr[i];

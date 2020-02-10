@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserModel } from '../models/user.model';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -52,23 +52,30 @@ export class RegisterComponent implements OnInit {
 
   // Function clicking on register
   onRegisterSubmit() {
-    if ( this.user.email === undefined || this.user.password === undefined || this.passwordComfirm === undefined
+    if (this.user.email === undefined || this.user.password === undefined || this.passwordComfirm === undefined
       || this.user.password.length < 6) {
       this.valid = false;
     } else {
       this.service.getUser(this.user.username)
-      .subscribe( user => {
-        if (user[0] != null && user[0].username === this.user.username) {
-          alert ('This username is registered!');
-        } else {
-          if (this.user.password.valueOf() === this.passwordComfirm.valueOf()) {
+        .subscribe(user => {
+          if (user === null) {
             alert('Created new user successfully!');
             this.service.addUser(this.user)
               .subscribe();
             this.router.navigateByUrl('login');
-          } else { this.valid = false; }
-        }
-      });
+            return;
+          }
+          if ((user[0] != null && user[0].username === this.user.username)) {
+            alert('This username is registered!');
+          } else {
+            if (this.user.password.valueOf() === this.passwordComfirm.valueOf()) {
+              alert('Created new user successfully!');
+              this.service.addUser(this.user)
+                .subscribe();
+              this.router.navigateByUrl('login');
+            } else { this.valid = false; }
+          }
+        });
     }
   }
 

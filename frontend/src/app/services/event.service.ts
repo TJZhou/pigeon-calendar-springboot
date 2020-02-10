@@ -10,7 +10,7 @@ import { EventPost } from '../models/eventPost.model';
 export class EventService {
 
   // Set the url of Event
-  private eventUrl: string = "http://localhost:3000/event";
+  private eventUrl: string = "http://localhost:8080/event/";
 
   constructor(private http: HttpClient) { }
 
@@ -18,7 +18,7 @@ export class EventService {
    * Get all the events.
    */
   getEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>(this.eventUrl + 'list');
+    return this.http.get<Event[]>(this.eventUrl);
   }
 
   /**
@@ -26,7 +26,7 @@ export class EventService {
    * @param username Get events under one user by username.
    */
   getEventsFromOneUser(username: string): Observable<Event[]>{
-    return this.http.get<Event[]>(this.eventUrl + 'list/' + username);
+    return this.http.get<Event[]>(this.eventUrl + 'user/' + username);
   }
 
   /**
@@ -34,7 +34,6 @@ export class EventService {
    * @param eventId Get specific event by eventId.
    */
   getEvent(eventId: string): Observable<Event> {
-    console.log(this.eventUrl + eventId);
     return this.http.get<Event>(this.eventUrl  + eventId);
   }
 
@@ -64,7 +63,7 @@ export class EventService {
         'Authorization': 'my-auth-token'
       })
     };
-    return this.http.patch<Event>(this.eventUrl + eventId, event, httpOptions);
+    return this.http.put<Event>(this.eventUrl + eventId, event, httpOptions);
   }
 
   /**

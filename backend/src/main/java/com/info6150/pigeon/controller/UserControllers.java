@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/user")
+@CrossOrigin(origins = "*")
 public class UserControllers {
 
     @Autowired
@@ -37,5 +38,10 @@ public class UserControllers {
     @RequestMapping(value = "/{username}", method = RequestMethod.DELETE)
     public void deleteUser(@PathVariable String username) {
         userService.deleteUserById(username);
+    }
+
+    @RequestMapping(value = "/{username}", method = RequestMethod.PUT)
+    public void updateUser(@PathVariable String username, @RequestBody User u) {
+        userService.updateUserByUsername(username, u);
     }
 }

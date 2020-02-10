@@ -39,7 +39,7 @@ export class UserService {
       })
     };
     console.log(this.userUrl + user.username)
-    return this.http.patch<UserModel>(this.userUrl + user.username, user, httpOptions)
+    return this.http.put<UserModel>(this.userUrl + user.username, user, httpOptions)
   }
 
   deleteUser(username: string): Observable<UserModel> {

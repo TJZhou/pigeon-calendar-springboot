@@ -45,12 +45,16 @@ export class LoginComponent implements OnInit {
       let currentUser = new UserModel();
       this.service.getUser(this.user.username)
         .subscribe(user => {
+          if(user === null) {
+            alert("invalid user");
+            return;
+          }
           // console.log(user)
           // console.log(user[0])
-          localStorage.setItem("username", user[0].username);
-          localStorage.setItem("password", user[0].password);
-          localStorage.setItem("email", user[0].email);
-          if(this.user.password === user[0].password){
+          localStorage.setItem("username", user.username);
+          localStorage.setItem("password", user.password);
+          localStorage.setItem("email", user.email);
+          if(this.user.password === user.password){
             this.router.navigateByUrl("day");
             this.valid1 = true;
             this.valid2 = true;

@@ -207,9 +207,7 @@ export class WeeklyScheduleComponent implements OnInit {
     const numOfDay = moment().dayOfYear() - Day.dayOfYear();
     this.curDay = moment().subtract(numOfDay, 'd');
     const tempDate = this.curDay.day();
-    console.log(this.curDay);
     let loop = (this.curDay.dayOfYear() - this.curDay.day() - this.dateArr[0].dayOfYear()) / 7;
-    console.log(loop);
     if (loop < 0) {
       loop = -loop;
       for (let j = 0; j < loop; j++) {
@@ -288,7 +286,6 @@ export class WeeklyScheduleComponent implements OnInit {
     this.eventDetailComponent.dayOfWeek = parseInt(dayOfWeek.substr(0, 1), 0);
     this.eventService.getEvent(id).subscribe(data => {
       this.event = data[0];
-      console.log(this.event);
       this.eventDetailComponent.eventTitle = this.event.title;
       this.eventDetailComponent.eventLocation = this.event.location;
       this.eventDetailComponent.eventStartTime = this.event.startTime;
@@ -304,7 +301,6 @@ export class WeeklyScheduleComponent implements OnInit {
       .getEvent(this.eventDetailComponent.tempId)
       .subscribe(data => {
         const event = data[0];
-        console.log(this.eventDetailComponent.tempId);
         this.events = this.events.filter(
           h => h.id !== this.eventDetailComponent.tempId
         );
@@ -341,7 +337,6 @@ export class WeeklyScheduleComponent implements OnInit {
     this.editEventComponent.endDateTemp = this.curDay.add(6, 'd').toDate();
     this.editEvent = false;
     document.body.style.overflow = 'hidden';
-    console.log(this.curDay);
   }
   onCloseEditEvent() {
       this.editEvent = true;

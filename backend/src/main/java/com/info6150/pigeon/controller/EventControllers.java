@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/event")
+@CrossOrigin(origins = "*")
 public class EventControllers {
 
     @Autowired
@@ -30,12 +31,18 @@ public class EventControllers {
     }
 
     @RequestMapping( method = RequestMethod.POST)
-    public void addEvent(@RequestBody Event e) {
+    public Event addEvent(@RequestBody Event e) {
         eventService.createEvent(e);
+        return e;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteEvent(@PathVariable String id) {
         eventService.deleteEvent(id);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public void updateEvent(@PathVariable String id, @RequestBody Event e) {
+        eventService.updateEvent(id, e);
     }
 }

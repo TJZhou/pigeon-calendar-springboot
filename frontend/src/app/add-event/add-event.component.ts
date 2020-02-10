@@ -176,18 +176,13 @@ export class AddEventComponent implements OnInit {
       this.startTime = convertStart;
       this.endTime = convertEnd;
 
-      console.log(this.startTime);
-      console.log(this.endTime);
+      let createEvent = this.createNewEvent();
       // Use eventService to create new event
-      this.eventService.addEvent(this.createNewEvent())
+      this.eventService.addEvent(createEvent)
         .subscribe(data => {
-          console.log(" This event has been created: " + data[0]);
-          console.log("The id of this event is: " + data["_id"]);
-          this.tempId = data['_id'];
+          this.tempId = createEvent['_id'];
           this.save.emit();
-          // this.close.emit();
         });
-     // alert('Add successfully.');
     }
   }
 
