@@ -50,11 +50,11 @@
 </div>
 <app-add-event
 [hidden]="addEvent"
-(close) = "onCloseAddEvent($event)"
+(close) = "onCloseAddEvent()"
 (save) = "onSaveAddEvent()"></app-add-event>
 <app-event-detail
 [hidden]="eventDetail"
-(close) = "onCloseEventDetail($event)"
+(close) = "onCloseEventDetail()"
 (delete) = "onDeleteEvent()"
 (edit) = "onEditEvent()"
 (map) = "goToGoogleMap()"></app-event-detail>
