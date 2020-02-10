@@ -27,24 +27,10 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       username: [this.user.username],
       email: [this.user.email,
-        // [
-        //   Validators.required,
-        //   Validators.email
-        // ]
       ],
       password: [this.user.password,
-        // [
-        //   Validators.required,
-        //   Validators.minLength(6),
-        //   Validators.maxLength(30)
-        // ]
       ],
       passwordComfirm: [this.passwordComfirm,
-        // [
-        //   Validators.required,
-        //   Validators.minLength(6),
-        //   Validators.maxLength(30)
-        // ]
       ]
 
     });
@@ -64,8 +50,7 @@ export class RegisterComponent implements OnInit {
               .subscribe();
             this.router.navigateByUrl('login');
             return;
-          }
-          if ((user[0] != null && user[0].username === this.user.username)) {
+          } else if ((user != null && user.username === this.user.username)) {
             alert('This username is registered!');
           } else {
             if (this.user.password.valueOf() === this.passwordComfirm.valueOf()) {

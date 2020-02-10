@@ -26,11 +26,6 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       username: [this.user.username],
       password: [this.user.password,
-      //    [
-      //   // Validators.required,
-      //   // Validators.minLength(6),
-      //   // Validators.maxLength(30)
-      // ]
     ]
     });
   }
@@ -49,8 +44,6 @@ export class LoginComponent implements OnInit {
             alert("invalid user");
             return;
           }
-          // console.log(user)
-          // console.log(user[0])
           localStorage.setItem("username", user.username);
           localStorage.setItem("password", user.password);
           localStorage.setItem("email", user.email);

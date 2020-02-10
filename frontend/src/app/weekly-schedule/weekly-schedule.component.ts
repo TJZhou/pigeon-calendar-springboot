@@ -285,7 +285,7 @@ export class WeeklyScheduleComponent implements OnInit {
     document.body.style.overflow = 'hidden';
     this.eventDetailComponent.dayOfWeek = parseInt(dayOfWeek.substr(0, 1), 0);
     this.eventService.getEvent(id).subscribe(data => {
-      this.event = data[0];
+      this.event = data;
       this.eventDetailComponent.eventTitle = this.event.title;
       this.eventDetailComponent.eventLocation = this.event.location;
       this.eventDetailComponent.eventStartTime = this.event.startTime;
@@ -300,12 +300,10 @@ export class WeeklyScheduleComponent implements OnInit {
     this.eventService
       .getEvent(this.eventDetailComponent.tempId)
       .subscribe(data => {
-        const event = data[0];
+        const event = data;
         this.events = this.events.filter(
           h => h.id !== this.eventDetailComponent.tempId
         );
-        // this.listEvent(this.curDay, this.events);
-        // this.curDay = this.curDay.subtract((6 - moment().day()), 'd');
         const startDay = moment(event.startTime, 'MM/DD/YYYY');
         const endDay = moment(event.endTime, 'MM/DD/YYYY');
         for (let j = startDay.day(); j <= endDay.day(); j++) {
@@ -314,14 +312,6 @@ export class WeeklyScheduleComponent implements OnInit {
           }
         }
       });
-    // this.events = this.eventService
-    // .getEventsFromOneUser(this.username)
-    // .subscribe(data => {
-    //   this.events = data;
-    //   // tslint:disable-next-line:prefer-for-of
-    //   this.listEvent(this.curDay, this.events);
-    //   this.curDay = this.curDay.subtract((6 - moment().day()), 'd');
-    // });
   }
 
    // edit the current event

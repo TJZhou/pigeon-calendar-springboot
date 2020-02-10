@@ -44,8 +44,8 @@ export class EditPasswordComponent implements OnInit {
       ]
     });
     this.service.getUser(this.username).subscribe(user => {
-      this.password = user[0].password;
-      this.email = user[0].email;
+      this.password = user.password;
+      this.email = user.email;
     });
   }
 

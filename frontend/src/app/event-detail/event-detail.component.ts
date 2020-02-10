@@ -40,9 +40,6 @@ export class EventDetailComponent implements OnInit {
     this.eventService.deleteEvent(this.tempId).subscribe();
   }
 
-  // sendEmial(){
-
-  // }
   editEvent() {
     this.edit.emit();
   }
