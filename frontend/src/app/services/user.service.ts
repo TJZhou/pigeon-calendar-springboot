@@ -9,7 +9,7 @@ import { UserModel } from '../models/user.model';
 export class UserService {
 
   // Set the url of user
-  private userUrl: string = 'http://localhost:8080/user/';
+  private userUrl: string = 'http://13.58.225.69:8080/user/';
 
   constructor(private http: HttpClient) { }
 

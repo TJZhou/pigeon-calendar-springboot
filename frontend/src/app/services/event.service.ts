@@ -10,7 +10,7 @@ import { EventPost } from '../models/eventPost.model';
 export class EventService {
 
   // Set the url of Event
-  private eventUrl: string = "http://localhost:8080/event/";
+  private eventUrl: string = "http://13.58.225.69:8080/event/";
 
   constructor(private http: HttpClient) { }
 
