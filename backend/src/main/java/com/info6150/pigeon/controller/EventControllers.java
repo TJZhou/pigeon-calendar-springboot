@@ -9,7 +9,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/event")
-@CrossOrigin(origins = "*")
 public class EventControllers {
 
     @Autowired

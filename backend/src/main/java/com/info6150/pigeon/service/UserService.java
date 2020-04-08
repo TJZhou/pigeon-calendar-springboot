@@ -6,13 +6,13 @@ import java.util.Collection;
 import java.util.Optional;
 
 public interface UserService {
-    void createUser(User user);
+    User createUser(User user);
 
-    void updateUserById(String id, User user);
+    User updateUserById(String id, User user);
 
     void deleteUserById(String id);
 
-    void updateUserByUsername(String userName, User user);
+    User updateUserByUsername(String userName, User user);
 
     void deleteUserByUsername(String userName);
 
@@ -20,5 +20,5 @@ public interface UserService {
 
     Optional<User> findUserById(String id);
 
-    Collection<User> getUsers();
+    // Collection<User> getUsers();
 }

@@ -25,7 +25,7 @@
    if [ $? -eq "0" ]; then
      echo "${APP_NAME} is already running. pid=${pid} ."
    else
-     nohup java -jar /var/backend/calendar/$APP_NAME > /var/backend/calendar/pigeon_log.txt 2>&1 &
+     nohup java -jar /var/backend/calendar/pigeon-0.0.1-SNAPSHOT.jar > /var/backend/calendar/pigeon_log.txt 2>&1 &
      echo "${APP_NAME} start success"
    fi
  }
