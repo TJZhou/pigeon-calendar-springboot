@@ -2,9 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UserModel } from '../models/user.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router} from '@angular/router';
-
 import { UserService } from '../services/user.service';
-import { validateConfig } from '@angular/router/src/config';
+import { AuthService } from '../services/auth.service'; 
 
 @Component({
   selector: 'app-login',
@@ -19,7 +18,7 @@ export class LoginComponent implements OnInit {
   public valid1 = true;
   public valid2 = true;
 
-  constructor(private formBuilder: FormBuilder, private service: UserService, private router: Router) { }
+  constructor(private auth:AuthService, private formBuilder: FormBuilder, private service: UserService, private router: Router) { }
 
   // Initialize the component
   ngOnInit() {
@@ -37,24 +36,17 @@ export class LoginComponent implements OnInit {
       this.valid2 = false;
       this.valid1 = true;
     } else {
-      let currentUser = new UserModel();
-      this.service.getUser(this.user.username)
-        .subscribe(user => {
-          if(user === null) {
-            alert("invalid user");
-            return;
-          }
-          localStorage.setItem("username", user.username);
-          localStorage.setItem("password", user.password);
-          localStorage.setItem("email", user.email);
-          if(this.user.password === user.password){
-            this.router.navigateByUrl("day");
-            this.valid1 = true;
-            this.valid2 = true;
-          } else {
-            this.valid1 = false;
-            this.valid2 = true;
-          }
+      this.service.getToken(this.user)
+        .subscribe(token => {
+          this.auth.setToken(token.access_token);
+          localStorage.setItem("username", this.user.username);
+          localStorage.setItem("password", this.user.password);
+          localStorage.setItem("email", this.user.email);
+          this.router.navigateByUrl("day");
+        }, 
+        err => {
+          console.log(err);
+          alert(err.error.errors)
         });
     }
   }

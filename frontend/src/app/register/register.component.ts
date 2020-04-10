@@ -39,27 +39,17 @@ export class RegisterComponent implements OnInit {
   // Function clicking on register
   onRegisterSubmit() {
     if (this.user.email === undefined || this.user.password === undefined || this.passwordComfirm === undefined
-      || this.user.password.length < 6) {
+      || this.user.password.length < 6 || this.user.password != this.passwordComfirm) {
       this.valid = false;
     } else {
-      this.service.getUser(this.user.username)
+      this.service.addUser(this.user)
         .subscribe(user => {
-          if (user === null) {
-            alert('Created new user successfully!');
-            this.service.addUser(this.user)
-              .subscribe();
+            alert('Successfully created user.');
             this.router.navigateByUrl('login');
-            return;
-          } else if ((user != null && user.username === this.user.username)) {
-            alert('This username is registered!');
-          } else {
-            if (this.user.password.valueOf() === this.passwordComfirm.valueOf()) {
-              alert('Created new user successfully!');
-              this.service.addUser(this.user)
-                .subscribe();
-              this.router.navigateByUrl('login');
-            } else { this.valid = false; }
-          }
+        },
+        err => {
+          console.log(err);
+          alert(err.error.errors);
         });
     }
   }

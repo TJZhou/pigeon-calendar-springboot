@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Event } from '../models/event.model';
 import { EventPost } from '../models/eventPost.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { EventPost } from '../models/eventPost.model';
 export class EventService {
 
   // Set the url of Event
-  private eventUrl: string = "http://13.58.225.69:8081/event/";
+  private eventUrl: string = environment.apiUrl + '/event/';
 
   constructor(private http: HttpClient) { }
 

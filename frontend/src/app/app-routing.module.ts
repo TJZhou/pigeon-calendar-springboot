@@ -1,26 +1,22 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, CanActivate } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { DailyScheduleComponent } from './daily-schedule/daily-schedule.component';
 import { WeeklyScheduleComponent } from './weekly-schedule/weekly-schedule.component';
-import { AddEventComponent } from './add-event/add-event.component';
-import { EditEventComponent } from './edit-event/edit-event.component';
+import {  AuthGuardService as AuthGuard } from './services/auth-guard.service';
 import { EditPasswordComponent } from './edit-password/edit-password.component'
 import { EditEmailComponent } from './edit-email/edit-email.component'
-import { ToDoListComponent } from './to-do-list/to-do-list.component'
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'day', component: DailyScheduleComponent },
-  { path: 'week', component: WeeklyScheduleComponent },
+  { path: 'day', component: DailyScheduleComponent, canActivate: [AuthGuard]},
+  { path: 'week', component: WeeklyScheduleComponent, canActivate: [AuthGuard]},
   { path: 'register', component: RegisterComponent},
   { path: 'login', component: LoginComponent},
-  { path: 'addevent', component: AddEventComponent},
-  { path: 'editevent', component: EditEventComponent},
-  { path: 'editpassword', component: EditPasswordComponent},
-  { path: 'editemail', component: EditEmailComponent},
-  { path: 'todolist', component: ToDoListComponent}
+  { path: 'editpassword', component: EditPasswordComponent, canActivate: [AuthGuard]},
+  { path: 'editemail', component: EditEmailComponent, canActivate: [AuthGuard]},
+  { path: '**', component: LoginComponent }
 ];
 
 @NgModule({

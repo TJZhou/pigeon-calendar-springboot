@@ -69,7 +69,6 @@ export class EditPasswordComponent implements OnInit {
     if (this.oldPassword === this.password) {
       if (this.newPassword === this.passwordComfirm) {
         this.service.updateUser(this.createUser()).subscribe(user => {
-          console.log(user);
           localStorage.setItem("password", this.newPassword);
           alert("Password changed succcessfully!");
           this.router.navigateByUrl("/day");
