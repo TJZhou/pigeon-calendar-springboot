@@ -31,7 +31,7 @@ import { EditEventComponent } from './edit-event/edit-event.component';
 import { EditPasswordComponent } from './edit-password/edit-password.component';
 import { EditEmailComponent } from './edit-email/edit-email.component';
 import { ToDoListComponent } from './to-do-list/to-do-list.component';
-
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -70,6 +70,9 @@ import { ToDoListComponent } from './to-do-list/to-do-list.component';
     provide: HTTP_INTERCEPTORS,
     useClass: RequestInterceptor,
     multi: true
+  }, {
+    provide: LocationStrategy,
+    useClass: HashLocationStrategy,
   }],
   bootstrap: [AppComponent]
 })
