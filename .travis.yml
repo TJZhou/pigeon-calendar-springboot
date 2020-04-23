@@ -1,24 +1,19 @@
+---
 matrix:
   include:
 
     - language: node_js
-    node_js:
-      - "10"
-    dist: trusty
-    sudo: required
-    before_script:
-      - npm install -g @angular/cli
-    script:
-      - ng build --prod --base-href https://github.com/TJZhou/pigeon-calendar-springboot/tree/master/frontend/
+      node_js:
+        - "10"
+      dist: trusty
+      sudo: required
+      script:
+        - cd frontend
+        - npm install -g @angular/cli
+        - ng build --prod --base-href https://github.com/TJZhou/pigeon-calendar-springboot/tree/master/frontend/
 
     - language: java
       dist: trusty
-      before_script:
-        - cd backend
       script:
+        - cd backend
         - mvn package
-
-
-notifications:
-  email:
-    - zhou.tianj@husky.neu.edu
