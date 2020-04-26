@@ -1,0 +1,19 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/calendar
+hooks:
+  BeforeInstall:
+    - location: scripts/before-start-server.sh
+      timeout: 300
+      runas: root
+  ApplicationStart:
+    - location: scripts/start-server.sh
+      timeout: 300
+      runas: root
+  ApplicationStop:
+    - location: scripts/stop-server.sh
+      timeout: 300
+      runas: root
+

@@ -10,19 +10,21 @@ matrix:
     - '10'
     dist: trusty
     sudo: required
-    script: bash ./deploy-frontend.sh
+    script: bash ./scripts/deploy-frontend.sh
     deploy:
-    - provider: s3
-      bucket: tj-calendar-deploy
-      region: us-east-2
-      skip_cleanup: true
-      local_dir: deploy_folder
-      access_key_id: AKIAIFYMBOY7VKLUKXRA
-      secret_access_key:
-        secure: gYpq0XJwvbbT0vHso7u+lIVDaAmq5O52yd+5mzEtpl3uCsw7kWpwuaLmGhTFQt0HL0m0uTlAnouEui1wSZXiMBsuYGTbKYKPiyVhocOHpB5pDYB/td3hxMGMmtvQj91eurVWIZ63T8+UGFCWci0r5CKWYBvCRA4ZGprc0e/noo8zq/I+DrFWVTDHW1xv2b6+0NGVB2HwMT7q659//ou+TgZWLsGyI+lPm9TlmJH9eCBuVAwtyZZ2arHkg0OMQwGU5+L8JUn4dxKrEPAzR8zKqtQmCtR+5neGx47S+lIGpYx+A/tQCDb0+0dLawCES9EaXIJZ15hiKfFzzHYDuGSl3pzZPtqY7DVFMH5Vb8rJdDDIHM73B/N+NYnfzMVrTeyrn7UxlfUkDWcS+66ct5rir2pr5jaXPoZXCRl9Cd70oV66B1l45wGr7saqcPBpa6y+ZKahawSuDLtijBaLGHwJe6rWB9SEF6Q3PUHOGC8OZ6CKgaqEJGxFaxBoNrp0CFTwmVyhsbxuF6eFC/ybWxZCjyhHTotP7qvVFjtatHGLyvyOCNxreBr6Twf7vAfUhzG1V+AAInJZZKXwYzdwxanQCUk5EPTWjbRY/3rkVnEtSCxw+uXwJXDwAiv9+Oh8XJTDcbewq5hUFRKUy+VoiR6gHm57DgdzfEi4F3P4ZyFWj2w=
-
+   
   - language: ruby
     services:
     - docker
     sudo: required
-    script: bash ./deploy-backend.sh
+    script: bash ./scripts/deploy-backend.sh
+
+deploy:
+  - provider: s3
+    bucket: tj-calendar-deploy
+    region: us-east-2
+    skip_cleanup: true
+    local_dir: deploy_folder
+    access_key_id: AKIAIFYMBOY7VKLUKXRA
+    secret_access_key:
+      secure: gYpq0XJwvbbT0vHso7u+lIVDaAmq5O52yd+5mzEtpl3uCsw7kWpwuaLmGhTFQt0HL0m0uTlAnouEui1wSZXiMBsuYGTbKYKPiyVhocOHpB5pDYB/td3hxMGMmtvQj91eurVWIZ63T8+UGFCWci0r5CKWYBvCRA4ZGprc0e/noo8zq/I+DrFWVTDHW1xv2b6+0NGVB2HwMT7q659//ou+TgZWLsGyI+lPm9TlmJH9eCBuVAwtyZZ2arHkg0OMQwGU5+L8JUn4dxKrEPAzR8zKqtQmCtR+5neGx47S+lIGpYx+A/tQCDb0+0dLawCES9EaXIJZ15hiKfFzzHYDuGSl3pzZPtqY7DVFMH5Vb8rJdDDIHM73B/N+NYnfzMVrTeyrn7UxlfUkDWcS+66ct5rir2pr5jaXPoZXCRl9Cd70oV66B1l45wGr7saqcPBpa6y+ZKahawSuDLtijBaLGHwJe6rWB9SEF6Q3PUHOGC8OZ6CKgaqEJGxFaxBoNrp0CFTwmVyhsbxuF6eFC/ybWxZCjyhHTotP7qvVFjtatHGLyvyOCNxreBr6Twf7vAfUhzG1V+AAInJZZKXwYzdwxanQCUk5EPTWjbRY/3rkVnEtSCxw+uXwJXDwAiv9+Oh8XJTDcbewq5hUFRKUy+VoiR6gHm57DgdzfEi4F3P4ZyFWj2w=
