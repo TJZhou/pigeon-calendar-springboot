@@ -1,1 +1,3 @@
 backend/pg-calendar.log
+*.zip
+/deploy_folder
