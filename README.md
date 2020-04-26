@@ -10,7 +10,7 @@
     Spring Boot, MongoDB, JWT, RESTFul API, Docker
 
 ### CI/CD:
-    AWS EC2, AWS S3, Travis CI
+    AWS EC2, AWS S3, Travis CI, AWS CodeDeploy, AWS CodePipeline
 
 ## How to run:
 ### 0. Clone the repository
