@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RequestInterceptor } from './services/request.interceptor';
+// import { RequestInterceptor } from './services/request.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CalendarComponent } from './calendar/calendar.component';
@@ -66,11 +66,13 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     MatRippleModule,
     MatIconModule,
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: RequestInterceptor,
-    multi: true
-  }, {
+  providers: [
+  //   {
+  //   provide: HTTP_INTERCEPTORS,
+  //   useClass: RequestInterceptor,
+  //   multi: true
+  // },
+  {
     provide: LocationStrategy,
     useClass: HashLocationStrategy,
   }],

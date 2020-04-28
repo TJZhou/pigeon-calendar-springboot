@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { AuthService } from '../services/auth.service';
+import { Auth0Service } from '../services/auth0.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +13,7 @@ export class NavbarComponent implements OnInit {
   username: string = localStorage.getItem("username")
 	isMenuHidden: boolean = true;
 
-  constructor(private auth:AuthService, private router: Router) { }
+  constructor(private auth:AuthService, private router: Router, private auth0: Auth0Service) { }
 
   ngOnInit() {
   }
@@ -35,9 +36,10 @@ export class NavbarComponent implements OnInit {
   }
 
 
-  // Log out 
-  logOut(){
-    this.isMenuHidden = !this.isMenuHidden
-    this.auth.invalidate();
+  // Log out
+  logOut() {
+    this.isMenuHidden = !this.isMenuHidden;
+    // this.auth.invalidate();
+    this.auth0.logout();
   }
 }

@@ -6,6 +6,8 @@ import { EventService } from './../services/event.service';
 import { Component, OnInit, Input, Output, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import { EventDetailComponent } from '../event-detail/event-detail.component';
+import { Auth0Service } from '../services/auth0.service';
+
 @Component({
   selector: 'app-daily-schedule',
   templateUrl: './daily-schedule.component.html',
@@ -30,7 +32,7 @@ export class DailyScheduleComponent implements OnInit {
   public haveEvent = new Array(24);
   public username;
 
-  constructor(private eventService: EventService) { }
+  constructor(private auth0: Auth0Service, private eventService: EventService) { }
 
   // initalize component
   ngOnInit() {

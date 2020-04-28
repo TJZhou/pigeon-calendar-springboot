@@ -4,9 +4,9 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { DailyScheduleComponent } from './daily-schedule/daily-schedule.component';
 import { WeeklyScheduleComponent } from './weekly-schedule/weekly-schedule.component';
-import {  AuthGuardService as AuthGuard } from './services/auth-guard.service';
-import { EditPasswordComponent } from './edit-password/edit-password.component'
-import { EditEmailComponent } from './edit-email/edit-email.component'
+import { AuthGuardService as AuthGuard } from './services/auth-guard.service';
+import { EditPasswordComponent } from './edit-password/edit-password.component';
+import { EditEmailComponent } from './edit-email/edit-email.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },

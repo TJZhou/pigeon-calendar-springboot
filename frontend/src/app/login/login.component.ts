@@ -3,7 +3,8 @@ import { UserModel } from '../models/user.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router} from '@angular/router';
 import { UserService } from '../services/user.service';
-import { AuthService } from '../services/auth.service'; 
+import { AuthService } from '../services/auth.service';
+import { Auth0Service } from '../services/auth0.service';
 
 @Component({
   selector: 'app-login',
@@ -18,10 +19,15 @@ export class LoginComponent implements OnInit {
   public valid1 = true;
   public valid2 = true;
 
-  constructor(private auth:AuthService, private formBuilder: FormBuilder, private service: UserService, private router: Router) { }
+  constructor(private auth: AuthService,
+              public  auth0: Auth0Service,
+              private formBuilder: FormBuilder,
+              private service: UserService,
+              private router: Router) { }
 
   // Initialize the component
   ngOnInit() {
+    this.auth0.login();
     this.loginForm = this.formBuilder.group({
       username: [this.user.username],
       password: [this.user.password,
@@ -43,7 +49,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem("password", this.user.password);
           localStorage.setItem("email", this.user.email);
           this.router.navigateByUrl("day");
-        }, 
+        },
         err => {
           console.log(err);
           alert(err.error.errors)
