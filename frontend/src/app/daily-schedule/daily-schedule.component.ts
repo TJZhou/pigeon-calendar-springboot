@@ -39,25 +39,32 @@ export class DailyScheduleComponent implements OnInit {
 
   // initalize component
   ngOnInit() {
-    setTimeout(
-      () => {this.auth0.getUser$().subscribe((res) => {
-        console.log(res);
-        localStorage.setItem("username", res.name);
-        // initialize current day, timing array and add all exsited events
-        this.username = localStorage.getItem("username");
-        this.curDay = moment();
-        this.curDayFormat = this.curDay.format("MM/DD");
-        this.createTiming();
-        this.eventService
-          .getEventsFromOneUser(this.username)
-          .subscribe((data) => {
-            this.events = data;
-            // tslint:disable-next-line:prefer-for-of
-            this.listEvent(this.curDay, this.events);
+    this.auth0.getTokenSilently$().subscribe(accessToken => {
+      const myHeaders = new Headers();
+      myHeaders.append('Authorization', `Bearer ${accessToken}`);
+      const requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+      };
+      fetch('https://tj-z.auth0.com/userinfo', requestOptions)
+        .then(response => response.text())
+        .then(result => {
+          console.log(JSON.parse(result));
+          localStorage.setItem('username', JSON.parse(result).name);
+          this.username = localStorage.getItem("username");
+          this.curDay = moment();
+          this.curDayFormat = this.curDay.format("MM/DD");
+          this.createTiming();
+          this.eventService
+            .getEventsFromOneUser(this.username)
+            .subscribe((data) => {
+              this.events = data;
+              // tslint:disable-next-line:prefer-for-of
+              this.listEvent(this.curDay, this.events);
           });
-      })},
-      1000
-    );
+        })
+        .catch(error => console.log('error', error));
+      });
     for (let i = 0; i < 24; i++) {
       this.haveEvent[i] = false;
     }
