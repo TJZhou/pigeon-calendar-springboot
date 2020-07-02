@@ -2,13 +2,13 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /var/backend/memeo
+    destination: /var/backend/calendar
 hooks:
   BeforeInstall:
     - location: before-start.sh
       timeout: 300
       runas: root
-  ApplicationStart:
-    - location: start-app.sh
+  AfterInstall:
+    - location: after-start.sh
       timeout: 300
       runas: root
