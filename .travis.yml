@@ -4,29 +4,77 @@ branches:
 
 jobs:
   stages:
+    - build
+    - test
+    - package
     - deploy
-
-  include:
-    - stage: deploy
-      language: node_js
-      node_js:
-      - '10'
-      dist: trusty
-      sudo: required
-      script: bash ./scripts/deploy-frontend.sh
-      deploy:
-        provider: s3
-        bucket: tj-calendar-deploy
-        region: us-east-2
-        skip_cleanup: true
-        local_dir: deploy_folder
-        access_key_id: AKIAIFYMBOY7VKLUKXRA
-        secret_access_key:
-          secure: gYpq0XJwvbbT0vHso7u+lIVDaAmq5O52yd+5mzEtpl3uCsw7kWpwuaLmGhTFQt0HL0m0uTlAnouEui1wSZXiMBsuYGTbKYKPiyVhocOHpB5pDYB/td3hxMGMmtvQj91eurVWIZ63T8+UGFCWci0r5CKWYBvCRA4ZGprc0e/noo8zq/I+DrFWVTDHW1xv2b6+0NGVB2HwMT7q659//ou+TgZWLsGyI+lPm9TlmJH9eCBuVAwtyZZ2arHkg0OMQwGU5+L8JUn4dxKrEPAzR8zKqtQmCtR+5neGx47S+lIGpYx+A/tQCDb0+0dLawCES9EaXIJZ15hiKfFzzHYDuGSl3pzZPtqY7DVFMH5Vb8rJdDDIHM73B/N+NYnfzMVrTeyrn7UxlfUkDWcS+66ct5rir2pr5jaXPoZXCRl9Cd70oV66B1l45wGr7saqcPBpa6y+ZKahawSuDLtijBaLGHwJe6rWB9SEF6Q3PUHOGC8OZ6CKgaqEJGxFaxBoNrp0CFTwmVyhsbxuF6eFC/ybWxZCjyhHTotP7qvVFjtatHGLyvyOCNxreBr6Twf7vAfUhzG1V+AAInJZZKXwYzdwxanQCUk5EPTWjbRY/3rkVnEtSCxw+uXwJXDwAiv9+Oh8XJTDcbewq5hUFRKUy+VoiR6gHm57DgdzfEi4F3P4ZyFWj2w=
     
-    - # stage name not required, will continue to use `complie`
-      language: ruby
-      services:
-      - docker
-      sudo: required
-      script: bash ./scripts/deploy-backend.sh
+  include:
+    - stage: build
+      name: build-frontend
+      language: node_js
+      node_js: '10'
+      skip_cleanup: true
+      script: bash ./scripts/app.sh bf
+      cache:
+        directories:
+          - frontend/node_modules
+      
+    - stage: build
+      name: build-backend
+      language: java
+      jdk: openjdk8
+      skip_cleanup: true
+      script: bash ./scripts/app.sh bb $MONGODB_PASSWORD
+      cache: backend/target/pigeon-0.0.1-SNAPSHOT.jar
+
+    - stage: test
+      name: test-frontend
+      language: node_js
+      node_js: '10'
+      script: bash ./scripts/app.sh tf
+
+    - stage: test
+      name: test-backend
+      language: java
+      jdk: openjdk8
+      script: 
+      - bash ./scripts/app.sh tb $MONGODB_PASSWORD
+
+    - stage: package
+      name: package-frontend
+      language: node_js
+      node_js: '10'
+      skip_cleanup: true
+      script: bash ./scripts/app.sh pf
+      cache: frontend/calendar-frontend.zip
+
+    - stage: package
+      name: package-frontend
+      language: java
+      node_js: openjdk8
+      skip_cleanup: true
+      script: bash ./scripts/app.sh pb
+      cache: backend/calendar-backend.zip
+      
+    - stage: deploy
+      name: deploy-frontend
+      provider: s3
+      bucket: tj-calendar-frontend
+      region: us-east-2
+      skip_cleanup: true
+      local_dir: frontend/calendar-frontend.zip
+      access_key_id: $AWS_KEY_ID
+      secret_access_key:
+        secure: $AWS_KEY
+
+    - stage: deploy
+      name: deploy-backend
+      provider: s3
+      bucket: tj-calendar-backend
+      region: us-east-2
+      skip_cleanup: true
+      local_dir: backend/calendar-backend.zip
+      access_key_id: $AWS_KEY_ID
+      secret_access_key:
+        secure: $AWS_KEY
