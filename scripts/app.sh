@@ -68,7 +68,7 @@ elif [[ $COMMAND == "pf" || $COMMAND == "package-frontend" ]]; then
   cd ..
   zip -r -j ./frontend/calendar-frontend.zip ./scripts/s3-deploy-frontend
   mkdir deploy-folder-frontend
-  mv ./frontend/calendar-backend.zip deploy-folder-frontend
+  mv ./frontend/calendar-frontend.zip deploy-folder-frontend
 
 elif [[ $COMMAND == "pb" || $COMMAND == "package-backend" ]]; then
   echo "packaging backend..."

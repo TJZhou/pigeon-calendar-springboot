@@ -50,8 +50,7 @@ jobs:
         skip_cleanup: true
         local_dir: deploy-folder-frontend
         access_key_id: $AWS_KEY_ID
-        secret_access_key:
-          secure: $AWS_KEY
+        secret_access_key: $AWS_KEY
 
     - stage: deploy
       name: deploy-backend
@@ -65,5 +64,5 @@ jobs:
         skip_cleanup: true
         local_dir: deploy-folder-backend
         access_key_id: $AWS_KEY_ID
-        secret_access_key:
-          secure: $AWS_KEY
+        secret_access_key: $AWS_KEY
+        
