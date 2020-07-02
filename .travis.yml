@@ -4,29 +4,11 @@ branches:
 
 jobs:
   stages:
-    - build
     - test
-    - package
+    - build
     - deploy
     
   include:
-    - stage: build
-      name: build-frontend
-      language: node_js
-      node_js: '10'
-      skip_cleanup: true
-      script: bash ./scripts/app.sh bf
-      cache:
-        directories:
-          - frontend/node_modules
-      
-    - stage: build
-      name: build-backend
-      language: java
-      jdk: openjdk8
-      skip_cleanup: true
-      script: bash ./scripts/app.sh bb $MONGODB_PASSWORD
-      cache: backend/target/pigeon-0.0.1-SNAPSHOT.jar
 
     - stage: test
       name: test-frontend
@@ -41,40 +23,47 @@ jobs:
       script: 
       - bash ./scripts/app.sh tb $MONGODB_PASSWORD
 
-    - stage: package
-      name: package-frontend
+    - stage: build
+      name: build-frontend
       language: node_js
       node_js: '10'
       skip_cleanup: true
-      script: bash ./scripts/app.sh pf
-      cache: frontend/calendar-frontend.zip
-
-    - stage: package
-      name: package-frontend
+      script: 
+      - bash ./scripts/app.sh bf
+      
+    - stage: build
+      name: build-backend
       language: java
-      node_js: openjdk8
+      jdk: openjdk8
       skip_cleanup: true
-      script: bash ./scripts/app.sh pb
-      cache: backend/calendar-backend.zip
+      script: bash ./scripts/app.sh bb $MONGODB_PASSWORD
       
     - stage: deploy
       name: deploy-frontend
-      provider: s3
-      bucket: tj-calendar-frontend
-      region: us-east-2
-      skip_cleanup: true
-      local_dir: frontend/calendar-frontend.zip
-      access_key_id: $AWS_KEY_ID
-      secret_access_key:
-        secure: $AWS_KEY
+      script:
+      - bash ./scripts/app.sh bf
+      - bash ./scripts/app.sh pf
+      deploy:
+        provider: s3
+        bucket: tj-calendar-frontend
+        region: us-east-2
+        skip_cleanup: true
+        local_dir: frontend/calendar-frontend.zip
+        access_key_id: $AWS_KEY_ID
+        secret_access_key:
+          secure: $AWS_KEY
 
     - stage: deploy
       name: deploy-backend
-      provider: s3
-      bucket: tj-calendar-backend
-      region: us-east-2
-      skip_cleanup: true
-      local_dir: backend/calendar-backend.zip
-      access_key_id: $AWS_KEY_ID
-      secret_access_key:
-        secure: $AWS_KEY
+      script: 
+      - bash ./scripts/app.sh bb $MONGODB_PASSWORD
+      - bash ./scripts/app.sh pb
+      deploy:
+        provider: s3
+        bucket: tj-calendar-backend
+        region: us-east-2
+        skip_cleanup: true
+        local_dir: backend/calendar-backend.zip
+        access_key_id: $AWS_KEY_ID
+        secret_access_key:
+          secure: $AWS_KEY
