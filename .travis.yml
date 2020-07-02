@@ -48,7 +48,7 @@ jobs:
         bucket: tj-calendar-frontend
         region: us-east-2
         skip_cleanup: true
-        local_dir: frontend/calendar-frontend.zip
+        local_dir: deploy-folder-frontend
         access_key_id: $AWS_KEY_ID
         secret_access_key:
           secure: $AWS_KEY
@@ -63,7 +63,7 @@ jobs:
         bucket: tj-calendar-backend
         region: us-east-2
         skip_cleanup: true
-        local_dir: backend/calendar-backend.zip
+        local_dir: deploy-folder-backend
         access_key_id: $AWS_KEY_ID
         secret_access_key:
           secure: $AWS_KEY

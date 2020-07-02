@@ -67,6 +67,8 @@ elif [[ $COMMAND == "pf" || $COMMAND == "package-frontend" ]]; then
   zip -r -j calendar-frontend.zip ./dist/calendar
   cd ..
   zip -r -j ./frontend/calendar-frontend.zip ./scripts/s3-deploy-frontend
+  mkdir deploy-folder-frontend
+  mv ./frontend/calendar-backend.zip deploy-folder-frontend
 
 elif [[ $COMMAND == "pb" || $COMMAND == "package-backend" ]]; then
   echo "packaging backend..."
@@ -74,7 +76,8 @@ elif [[ $COMMAND == "pb" || $COMMAND == "package-backend" ]]; then
   zip -j calendar-backend.zip ./target/pigeon-0.0.1-SNAPSHOT.jar
   cd ..
   zip -r -j ./backend/calendar-backend.zip ./scripts/s3-deploy-backend
-  
+  mkdir deploy-folder-backend
+  mv ./backend/calendar-backend.zip deploy-folder-backend
 else
   echo "Unknown command: $COMMAND"
   printhelp
